@@ -43,6 +43,10 @@ if (!isProduction) {
 
 app.use(routes); // Connect all the routes
 
+app.get("/", (req, res) => {
+  res.send("Welcome to my Api Server")
+});
+
 // Catch unhandled requests and forward to error handler.
 app.use((_req, _res, next) => {
     const err = new Error("The requested resource couldn't be found.");
@@ -72,6 +76,8 @@ app.use((err, _req, res, _next) => {
       stack: isProduction ? null : err.stack
     });
 });
+
+
 
 
 module.exports = app;

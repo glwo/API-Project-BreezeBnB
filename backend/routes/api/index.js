@@ -17,4 +17,8 @@ router.post('/test', (req, res) => {
   res.json({ requestBody: req.body });
 });
 
+router.get("/", (req, res) => {
+  res.send("Welcome to my Api Server")
+});
+
 module.exports = router;

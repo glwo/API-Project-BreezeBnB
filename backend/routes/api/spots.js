@@ -8,6 +8,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
+// GET SPOT BY ID
 router.get("/:spotId", async (req, res) => {
     const spot = await Spot.findByPk(req.params.spotId, {
         include: [
@@ -27,11 +28,14 @@ router.get("/:spotId", async (req, res) => {
 
     if(spot){
         let foundSpot = spot.toJSON();
-        
+
     }
 })
 
+// CREATE A SPOT
+router.post("/", )
 
+// GET ALL SPOTS
 router.get("/", async (req, res) => {
     const spots = await Spot.findAll({ raw: true})
 
@@ -42,6 +46,7 @@ router.get("/", async (req, res) => {
             },
             attributes: {
                 include: [
+
                     [
                         sequelize.fn("AVG", sequelize.col("stars")), "avgRating"
                     ]

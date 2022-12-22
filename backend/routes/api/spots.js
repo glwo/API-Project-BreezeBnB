@@ -57,26 +57,54 @@ router.get("/current", requireAuth, async (req, res) => {
     res.json({Spots})
 })
 
-// GET SPOT BY ID
+// GET DETAILS OF A SPOT FROM AN ID
 router.get("/:spotId", async (req, res) => {
     const spot = await Spot.findByPk(req.params.spotId, {
         include: [
-            {
-                model: SpotImage,
-                attributes: ['id', 'url', 'preview']
-            },
             {
                 model: User,
                 attributes: ['id', 'firstName', 'lastName']
             },
             {
                 model: Review
+            },
+            {
+                model: SpotImage,
+                attributes: ['id', 'url', 'preview']
             }
         ]
     })
 
     if(spot){
         let foundSpot = spot.toJSON();
+        let total = 0;
+        let reviewCount = 0;
+
+        let foundSpotImages = foundSpot.SpotImages
+        delete foundSpot.SpotImages
+
+        foundSpot.Reviews.forEach(review => {
+            reviewCount++;
+            total += review.stars
+        })
+        foundSpot.numReviews = reviewCount
+        foundSpot.avgStarRating = total/reviewCount
+
+        foundSpot.SpotImages = foundSpotImages
+
+        delete foundSpot.Reviews
+
+        foundSpot.Owner = foundSpot.User
+        delete foundSpot.User
+
+        res.status(200);
+        res.json(foundSpot)
+    } else {
+        res.status(404);
+        res.json({
+            message: "Spot couldn't be found",
+            statusCode: 404
+        })
     }
 })
 

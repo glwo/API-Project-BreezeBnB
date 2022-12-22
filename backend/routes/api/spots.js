@@ -8,6 +8,29 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
+router.get("/:spotId", async (req, res) => {
+    const spot = await Spot.findByPk(req.params.spotId, {
+        include: [
+            {
+                model: SpotImage,
+                attributes: ['id', 'url', 'preview']
+            },
+            {
+                model: User,
+                attributes: ['id', 'firstName', 'lastName']
+            },
+            {
+                model: Review
+            }
+        ]
+    })
+
+    if(spot){
+        let foundSpot = spot.toJSON();
+        
+    }
+})
+
 
 router.get("/", async (req, res) => {
     const spots = await Spot.findAll({ raw: true})
@@ -43,8 +66,6 @@ router.get("/", async (req, res) => {
 })
 
 
-router.get("/current", async (req, res) => {
 
-})
 
 module.exports = router

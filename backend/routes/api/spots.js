@@ -170,6 +170,35 @@ router.put("/:spotId", spotValidator, requireAuth, async(req, res) => {
 }
 })
 
+// DELETE A SPOT
+router.delete("/:spotId", requireAuth, async (req, res) => {
+    const spotToDelete = await Spot.findByPk(req.params.spotId)
+
+    if(spotToDelete){
+        if(req.user.id === spotToDelete.ownerId){
+        await spotToDelete.destroy()
+
+        res.status(200);
+        res.json({
+            message: "Successfully deleted",
+            statusCode: 200
+        })
+    } else {
+        res.status(404)
+        res.json({
+            message: "Invalid authorization",
+            statusCode: 404
+        })
+    }
+    } else {
+        res.status(404);
+        res.json({
+            message: "Spot couldn't be found",
+            statusCode: 404
+        })
+    }
+})
+
 // CREATE A SPOT
 router.post("/", spotValidator, requireAuth, async(req, res) => {
     const { address, city, state, country, lat, lng, name, description, price} = req.body

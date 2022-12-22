@@ -140,6 +140,36 @@ router.get("/:spotId", async (req, res) => {
     }
 })
 
+// EDIT A SPOT
+router.put("/:spotId", spotValidator, requireAuth, async(req, res) => {
+    const { address, city, state, country, lat, lng, name, description, price} = req.body
+
+    const spotToUpdate = await Spot.findByPk(req.params.spotId)
+
+    if(spotToUpdate){
+    const updatedSpot = await spotToUpdate.update({
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price
+    })
+
+    res.status(200);
+    res.json(updatedSpot)
+} else {
+    res.status(404);
+    res.json({
+        message: "Spot couldn't be found",
+        statusCode: 404
+    })
+}
+})
+
 // CREATE A SPOT
 router.post("/", spotValidator, requireAuth, async(req, res) => {
     const { address, city, state, country, lat, lng, name, description, price} = req.body

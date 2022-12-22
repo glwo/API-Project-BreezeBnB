@@ -10,6 +10,53 @@ const spot = require('../../db/models/spot');
 
 const router = express.Router();
 
+// GET ALL SPOTS OWNED BY THE CURRENT USER
+router.get("/current", requireAuth, async (req, res) => {
+    const spots = await Spot.findAll({
+        where: { ownerId: req.user.id},
+        include: [
+            {
+                model: Review
+            },
+            {
+                model: SpotImage
+            }
+        ]
+    })
+
+    let spotList = [];
+
+    spots.forEach(spot => {
+        spotList.push(spot.toJSON())
+    })
+
+    spotList.forEach(spot => {
+        let total = 0;
+        let reviewCount = 0;
+        spot.Reviews.forEach(review => {
+            reviewCount ++;
+            total += review.stars
+        })
+        spot.avgRating = total/reviewCount
+
+        delete spot.Reviews
+    })
+
+    spotList.forEach(spot => {
+        spot.SpotImages.forEach(img => {
+            if(img.preview === true){
+                spot.previewImage = img.url
+            }
+        })
+        delete spot.SpotImages
+    })
+
+    let Spots = spotList
+
+    res.status(200);
+    res.json({Spots})
+})
+
 // GET SPOT BY ID
 router.get("/:spotId", async (req, res) => {
     const spot = await Spot.findByPk(req.params.spotId, {
@@ -30,7 +77,6 @@ router.get("/:spotId", async (req, res) => {
 
     if(spot){
         let foundSpot = spot.toJSON();
-
     }
 })
 
@@ -57,13 +103,13 @@ router.get("/", async (req, res) => {
     })
 
     spotList.forEach(spot => {
-        let sum = 0;
-        let count = 0;
+        let total = 0;
+        let reviewCount = 0;
         spot.Reviews.forEach(review => {
-            count++;
-            sum += review.stars
+            reviewCount++;
+            total += review.stars
         })
-        spot.avgRating = sum/count
+        spot.avgRating = total/reviewCount
 
         delete spot.Reviews
     })
@@ -77,8 +123,10 @@ router.get("/", async (req, res) => {
         delete spot.SpotImages
     })
 
+    let Spots = spotList
+
     res.status(200);
-    res.json({spotList})
+    res.json({Spots})
 })
 
 

@@ -21,6 +21,11 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
         hooks: true
       })
+      Spot.hasMany(models.Booking, {
+        foreignKey: "spotId",
+        onDelete: "CASCADE",
+        hooks: true
+      })
       Spot.belongsTo(models.User, { foreignKey: "ownerId"})
     }
   }

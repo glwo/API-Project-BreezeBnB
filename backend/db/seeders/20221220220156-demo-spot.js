@@ -45,7 +45,7 @@ module.exports = {
         description: "Warmth, sunshine, and fresh air",
         price: 75
       }
-    ])
+    ], {})
   },
 
   down: async (queryInterface, Sequelize) => {

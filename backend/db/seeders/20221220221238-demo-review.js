@@ -27,7 +27,7 @@ module.exports = {
       review: "Had a very negative experience here!",
       stars: 1
     }
-   ])
+   ], {})
   },
 
   async down (queryInterface, Sequelize) {

@@ -24,7 +24,7 @@ router.get("/", async (req, res) => {
                     ]
                 ]
             },
-            groupBy: "stars",
+            group: ["stars"],
             raw: true
         })
         const previewImage = await SpotImage.findAll({
@@ -44,7 +44,7 @@ router.get("/", async (req, res) => {
 
 
 router.get("/current", async (req, res) => {
-    
+
 })
 
 module.exports = router

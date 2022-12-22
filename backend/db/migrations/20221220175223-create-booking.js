@@ -16,19 +16,19 @@ module.exports = {
       },
       spotId: {
         type: Sequelize.INTEGER,
-        // references: {
-        //   model: "Spots",
-        //   key: "id"
-        // },
-        // onDelete: "CASCADE"
+        references: {
+          model: "Spots",
+          key: "id"
+        },
+        onDelete: "CASCADE"
       },
       userId: {
         type: Sequelize.INTEGER,
-        // references: {
-        //   model: "Users",
-        //   key: "id"
-        // },
-        // onDelete: "CASCADE"
+        references: {
+          model: "Users",
+          key: "id"
+        },
+        onDelete: "CASCADE"
       },
       startDate: {
         type: Sequelize.DATE
@@ -50,6 +50,6 @@ module.exports = {
   },
   down: async (queryInterface, Sequelize) => {
     options.tableName = "Bookings";
-    return queryInterface.dropTable('Bookings');
+    return queryInterface.dropTable(options);
   }
 };

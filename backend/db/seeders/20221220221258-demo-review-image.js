@@ -21,7 +21,7 @@ module.exports = {
         reviewId: 3,
         url: "https://www.images.com/published/spot3/reviewimage3"
       }
-    ])
+    ], {})
   },
 
   down: async (queryInterface, Sequelize) => {

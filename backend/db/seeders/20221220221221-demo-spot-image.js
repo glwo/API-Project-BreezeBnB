@@ -24,7 +24,7 @@ module.exports = {
         url: "https://www.images.com/new-content/spot3/image3",
         preview: true
       }
-    ])
+    ], {})
   },
 
   down: async(queryInterface, Sequelize) => {

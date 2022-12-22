@@ -10,6 +10,38 @@ const spot = require('../../db/models/spot');
 
 const router = express.Router();
 
+const spotValidator = [
+    check('address')
+        .exists({checkFalsy: true})
+        .withMessage("Street address is required"),
+    check("city")
+        .exists({checkFalsy: true})
+        .withMessage("City is required"),
+    check("state")
+        .exists({checkFalsy: true})
+        .withMessage("State is required"),
+    check("country")
+        .exists({checkFalsy: true})
+        .withMessage("Country is required"),
+    check("lat")
+        .exists({checkFalsy: true})
+        .withMessage("Latitude is not valid"),
+    check("lng")
+        .exists({checkFalsy: true})
+        .withMessage("Longitude is not valid"),
+    check("name")
+        .exists({checkFalsy: true})
+        .isLength({max: 50})
+        .withMessage("Name must be less than 50 characters"),
+    check("description")
+        .exists({checkFalsy: true})
+        .withMessage("Description is required"),
+    check("price")
+        .exists({checkFalsy: true})
+        .withMessage("Price per day is required"),
+    handleValidationErrors
+]
+
 // GET ALL SPOTS OWNED BY THE CURRENT USER
 router.get("/current", requireAuth, async (req, res) => {
     const spots = await Spot.findAll({
@@ -109,7 +141,25 @@ router.get("/:spotId", async (req, res) => {
 })
 
 // CREATE A SPOT
-router.post("/", )
+router.post("/", spotValidator, requireAuth, async(req, res) => {
+    const { address, city, state, country, lat, lng, name, description, price} = req.body
+
+    const newSpot = await Spot.create({
+        ownerId: req.user.id,
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price
+    })
+
+    res.status(201);
+    res.json(newSpot)
+})
 
 // GET ALL SPOTS
 router.get("/", async (req, res) => {

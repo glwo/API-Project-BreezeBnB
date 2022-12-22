@@ -10,7 +10,7 @@ const { Op } = require('sequelize')
 const router = express.Router();
 
 // GET ALL REVIEWS OF THE CURRENT USER
-router.get("/current", async (req, res) => {
+router.get("/current", requireAuth, async (req, res) => {
     const reviews = await Review.findAll({
         where: { userId: req.user.id },
         include: [

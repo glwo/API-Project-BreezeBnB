@@ -1,7 +1,7 @@
 const express = require('express');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Spot, Review, SpotImage, sequelize } = require('../../db/models');
+const { User, Spot, Review, SpotImage, ReviewImage, sequelize } = require('../../db/models');
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -39,6 +39,44 @@ const spotValidator = [
         .withMessage("Price per day is required"),
     handleValidationErrors
 ]
+
+// GET ALL REVIEWS BY A SPOT'S ID
+router.get("/:spotId/reviews", async (req, res) => {
+    const spot = await Spot.findByPk(req.params.spotId)
+    const reviews = await Review.findAll({
+        where: { spotId: req.params.spotId },
+        include : [
+            {
+                model: User,
+                attributes: ['id', 'firstName', 'lastName']
+            },
+            {
+                model: ReviewImage,
+                attributes: ['id', 'url']
+            }
+        ]
+    })
+
+
+    if(spot){
+    let reviewList = [];
+    reviews.forEach(review => {
+        reviewList.push(review.toJSON())
+    });
+
+    res.status(200)
+    res.json({
+        Reviews: reviewList
+    })
+  } else {
+    res.status(404)
+    res.json({
+        message: "Spot couldn't be found",
+        statusCode: 404
+    })
+  }
+})
+
 
 // GET ALL SPOTS OWNED BY THE CURRENT USER
 router.get("/current", requireAuth, async (req, res) => {

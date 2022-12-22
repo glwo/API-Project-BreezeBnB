@@ -5,6 +5,8 @@ const { User, Spot, Review, SpotImage, sequelize } = require('../../db/models');
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const review = require('../../db/models/review');
+const spot = require('../../db/models/spot');
 
 const router = express.Router();
 
@@ -37,37 +39,46 @@ router.post("/", )
 
 // GET ALL SPOTS
 router.get("/", async (req, res) => {
-    const spots = await Spot.findAll({ raw: true})
-
-    for(let spot of spots){
-        const avgRate = await Review.findAll({
-            where: {
-                spotId: spot.id
+    const spots = await Spot.findAll({
+        include: [
+            {
+                model: Review
             },
-            attributes: {
-                include: [
-
-                    [
-                        sequelize.fn("AVG", sequelize.col("stars")), "avgRating"
-                    ]
-                ]
-            },
-            group: ["stars"],
-            raw: true
-        })
-        const previewImage = await SpotImage.findAll({
-            where: {
-                spotId: spot.id
-            },
-            attributes: ['url']
-        })
-        spot.avgRating = avgRate[0].avgRating;
-        spot.previewImage = previewImage[0].url
-    }
-
-    return res.json({
-        Spots: spots
+            {
+                model: SpotImage
+            }
+        ]
     })
+
+    let spotList = [];
+
+    spots.forEach(spot => {
+        spotList.push(spot.toJSON())
+    })
+
+    spotList.forEach(spot => {
+        let sum = 0;
+        let count = 0;
+        spot.Reviews.forEach(review => {
+            count++;
+            sum += review.stars
+        })
+        spot.avgRating = sum/count
+
+        delete spot.Reviews
+    })
+
+    spotList.forEach(spot => {
+        spot.SpotImages.forEach(img => {
+            if(img.preview === true){
+                spot.previewImage = img.url
+            }
+        })
+        delete spot.SpotImages
+    })
+
+    res.status(200);
+    res.json({spotList})
 })
 
 

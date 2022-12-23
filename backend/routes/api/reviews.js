@@ -68,7 +68,7 @@ router.post("/:reviewId/images", requireAuth, async (req, res) => {
     //     }
     // }
 
-    if(imgCount >= 10){
+    if(imgCount.length >= 10){
         res.status(403);
         res.json({
             "message": "Maximum number of images for this resource was reached",
@@ -100,7 +100,7 @@ router.put("/:reviewId", reviewValidator, requireAuth, async (req, res) => {
     }
 
     if(editReview){
-        editReview.update({
+       await editReview.update({
             review,
             stars
         })
@@ -108,6 +108,37 @@ router.put("/:reviewId", reviewValidator, requireAuth, async (req, res) => {
         res.json(editReview)
     }
 
+})
+
+// DELETE A REVIEW
+router.delete("/:reviewId", requireAuth, async (req, res) => {
+    const deleteReview = await Review.findByPk(req.params.reviewId)
+
+    if(!deleteReview){
+        res.status(404)
+        res.json({
+            message: "Review couldn't be found",
+            statusCode: 404
+        })
+    }
+
+    if(deleteReview.userId !== req.user.id){
+        res.status(403)
+        res.json({
+            message: "User does not own review",
+            statusCode: 403
+        })
+    }
+
+    if(deleteReview){
+       await deleteReview.destroy()
+
+       res.status(200)
+       res.json({
+        message: "Successfully deleted",
+        statusCode: 200
+       })
+    }
 })
 
 // GET ALL REVIEWS OF THE CURRENT USER

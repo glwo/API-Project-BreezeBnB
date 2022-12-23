@@ -5,6 +5,7 @@ const { User, Spot, Review, SpotImage, ReviewImage, sequelize } = require('../..
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { Op } = require('sequelize')
 
 const router = express.Router();
 
@@ -37,6 +38,17 @@ const spotValidator = [
     check("price")
         .exists({checkFalsy: true})
         .withMessage("Price per day is required"),
+    handleValidationErrors
+]
+
+const reviewValidator = [
+    check("review")
+        .exists({checkFalsy: true})
+        .withMessage("Review text is required"),
+    check("stars")
+        .exists({checkFalsy: true})
+        .isIn([1,2,3,4,5])
+        .withMessage("Stars must be an integer from 1 to 5"),
     handleValidationErrors
 ]
 
@@ -77,6 +89,47 @@ router.get("/:spotId/reviews", async (req, res) => {
   }
 })
 
+// CREATE A REVIEW FOR A SPOT BASED ON THE SPOT'S ID
+router.post("/:spotId/reviews", reviewValidator, requireAuth, async (req, res) => {
+    const spot = await Spot.findByPk(req.params.spotId)
+
+    const oldReview = await Review.findOne({
+        where: {
+            [Op.and]: [
+                {spotId: req.params.spotId},
+                {userId: req.user.id}
+            ]
+        }
+    })
+
+    if(spot && !oldReview){
+    const { review, stars} = req.body
+
+    const newReview = await Review.create({
+        userId: req.user.id,
+        spotId: req.params.spotId,
+        review,
+        stars
+   })
+
+   res.status(201);
+   res.json(newReview)
+}
+if(spot && oldReview){
+    res.status(403);
+    res.json({
+        message: "User already has a review for this spot",
+        statusCode: 403
+    })
+}
+if(!spot){
+    res.status(404);
+    res.json({
+        message: "Spot couldn't be found",
+        statusCode: 404
+    })
+}
+})
 
 // GET ALL SPOTS OWNED BY THE CURRENT USER
 router.get("/current", requireAuth, async (req, res) => {

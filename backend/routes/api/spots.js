@@ -134,7 +134,7 @@ if(!spot){
 // GET ALL SPOTS OWNED BY THE CURRENT USER
 router.get("/current", requireAuth, async (req, res) => {
     const spots = await Spot.findAll({
-        where: { ownerId: req.user.id},
+        where: { ownerId: req.user.id },
         include: [
             {
                 model: Review

@@ -178,6 +178,54 @@ router.get("/current", requireAuth, async (req, res) => {
     res.json({Spots})
 })
 
+// ADD AN IMAGE TO A SPOT BASED ON THE SPOT'S ID
+router.post("/:spotId/images", requireAuth, async (req, res) => {
+    const { url, preview } = req.body
+
+    const spot = await Spot.findByPk(req.params.spotId)
+
+
+
+    if(!spot){
+        res.status(404)
+        res.json({
+            message: "Spot couldn't be found",
+            statusCode: 404
+        })
+    }
+
+    if(spot.ownerId !== req.user.id){
+        res.status(403)
+        res.json({
+            message: "Forbidden",
+            statusCode: 403
+        })
+    }
+    
+    if(spot){
+    const spotJson = spot.toJSON()
+    delete spotJson.ownerId
+    delete spotJson.address
+    delete spotJson.city
+    delete spotJson.state
+    delete spotJson.country
+    delete spotJson.lat
+    delete spotJson.lng
+    delete spotJson.name
+    delete spotJson.description
+    delete spotJson.price
+    delete spotJson.createdAt
+    delete spotJson.updatedAt
+
+
+    spotJson.url = url
+    spotJson.preview = preview
+
+    res.status(200)
+    res.json(spotJson)
+    }
+})
+
 // CREATE A BOOKING FROM A SPOT BASED ON THE SPOT'S ID
 router.post("/:spotId/bookings", requireAuth, async (req, res) => {
     const spot = await Spot.findByPk(req.params.spotId)

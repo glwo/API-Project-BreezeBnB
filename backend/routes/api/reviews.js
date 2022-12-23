@@ -49,7 +49,7 @@ router.post("/:reviewId/images", requireAuth, async (req, res) => {
     if(review.userId !== req.user.id){
         res.status(403)
         res.json({
-            message: "User does not own review",
+            message: "Forbidden",
             statusCode: 403
         })
     }

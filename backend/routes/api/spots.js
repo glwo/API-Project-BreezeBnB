@@ -201,7 +201,7 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
             statusCode: 403
         })
     }
-    
+
     if(spot){
     const spotJson = spot.toJSON()
     delete spotJson.ownerId
@@ -464,10 +464,10 @@ router.delete("/:spotId", requireAuth, async (req, res) => {
             statusCode: 200
         })
     } else {
-        res.status(404)
+        res.status(403)
         res.json({
-            message: "Invalid authorization",
-            statusCode: 404
+            message: "Forbidden",
+            statusCode: 403
         })
     }
     } else {

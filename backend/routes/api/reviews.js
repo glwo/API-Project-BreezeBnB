@@ -94,7 +94,7 @@ router.put("/:reviewId", reviewValidator, requireAuth, async (req, res) => {
     if(editReview.userId !== req.user.id){
         res.status(403)
         res.json({
-            message: "User does not own review",
+            message: "Forbidden",
             statusCode: 403
         })
     }
@@ -125,7 +125,7 @@ router.delete("/:reviewId", requireAuth, async (req, res) => {
     if(deleteReview.userId !== req.user.id){
         res.status(403)
         res.json({
-            message: "User does not own review",
+            message: "Forbidden",
             statusCode: 403
         })
     }

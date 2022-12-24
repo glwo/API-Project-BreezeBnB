@@ -9,6 +9,35 @@ const { Op } = require('sequelize')
 
 const router = express.Router();
 
+// DELETE A BOOKING
+router.delete("/:bookingId", requireAuth, async (req, res) => {
+    const bookingToDelete = await Booking.findByPk(req.params.bookingId)
+
+    if(bookingToDelete){
+        if(req.user.id === bookingToDelete.userId){
+        await bookingToDelete.destroy()
+
+        res.status(200);
+        res.json({
+            message: "Successfully deleted",
+            statusCode: 200
+        })
+    } else {
+        res.status(403)
+        res.json({
+            message: "Forbidden",
+            statusCode: 403
+        })
+    }
+    } else {
+        res.status(404);
+        res.json({
+            message: "Booking couldn't be found",
+            statusCode: 404
+        })
+    }
+})
+
 // EDIT A BOOKING
 router.put("/:bookingId", requireAuth, async (req, res) => {
     const editBooking = await Booking.findByPk(req.params.bookingId)
@@ -24,7 +53,7 @@ router.put("/:bookingId", requireAuth, async (req, res) => {
     if(editBooking.userId !== req.user.id){
         res.status(403)
         res.json({
-            message: "User does not own booking",
+            message: "Forbidden",
             statusCode: 403
         })
     }

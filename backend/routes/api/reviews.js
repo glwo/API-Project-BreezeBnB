@@ -99,7 +99,7 @@ router.put("/:reviewId", reviewValidator, requireAuth, async (req, res) => {
         })
     }
 
-    if(editReview){
+    if(editReview && editReview.userId === req.user.id){
        await editReview.update({
             review,
             stars
@@ -130,7 +130,7 @@ router.delete("/:reviewId", requireAuth, async (req, res) => {
         })
     }
 
-    if(deleteReview){
+    if(deleteReview && deleteReview.userId === req.user.id){
        await deleteReview.destroy()
 
        res.status(200)
@@ -169,7 +169,7 @@ router.get("/current", requireAuth, async (req, res) => {
     for(let review of reviewList){
         // console.log(review)
         const spotImage = await SpotImage.findOne({
-            where: { [Op.and]: [{preview: true}, {spotId: review.Spot.id}] }
+            where: { [Op.and]: [{ preview: true }, { spotId: review.Spot.id }] }
         })
         // console.log(spotImage)
         review.Spot.previewImage = spotImage.url

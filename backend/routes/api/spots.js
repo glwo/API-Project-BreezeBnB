@@ -52,6 +52,42 @@ const reviewValidator = [
     handleValidationErrors
 ]
 
+const spotQueryValidator = [
+    check("page")
+        .default(1)
+        .isInt({ min: 1})
+        .withMessage("Page must be greater than or equal to 1"),
+    check("size")
+        .default(20)
+        .isInt({ min: 1})
+        .withMessage("Size must be greater than or equal to 1"),
+    check("maxLat")
+        .optional()
+        .isDecimal({checkFalsy: true})
+        .withMessage("Maximum latitude is invalid"),
+    check("minLat")
+        .optional()
+        .isDecimal({checkFalsy: true})
+        .withMessage("Minimum latitude is invalid"),
+    check("minLng")
+        .optional()
+        .isDecimal({checkFalsy: true})
+        .withMessage("Minimum longitude is invalid"),
+    check("maxLng")
+        .optional()
+        .isDecimal({checkFalsy: true})
+        .withMessage("Maximum longitude is invalid"),
+    check("minPrice")
+        .optional()
+        .isDecimal({ min: 0})
+        .withMessage("Minimum price must be greater than or equal to 0"),
+    check("maxPrice")
+        .optional()
+        .isDecimal({checkFalsy: true, min: 0})
+        .withMessage("Maximum price must be greater than or equal to 0"),
+    handleValidationErrors
+]
+
 // GET ALL REVIEWS BY A SPOT'S ID
 router.get("/:spotId/reviews", async (req, res) => {
     const spot = await Spot.findByPk(req.params.spotId)
@@ -501,7 +537,18 @@ router.post("/", spotValidator, requireAuth, async(req, res) => {
 })
 
 // GET ALL SPOTS
-router.get("/", async (req, res) => {
+router.get("/", spotQueryValidator, async (req, res) => {
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query
+
+    page = parseInt(page)
+    size = parseInt(size)
+
+    if(Number.isNaN(page)) page = 1
+    if(Number.isNaN(size)) size = 20
+
+    if(page > 10) page = 10
+    if(size > 20) size = 20
+
     const spots = await Spot.findAll({
         include: [
             {
@@ -510,7 +557,9 @@ router.get("/", async (req, res) => {
             {
                 model: SpotImage
             }
-        ]
+        ],
+        limit: size,
+        offset: (page - 1) * size
     })
 
     let spotList = [];
@@ -543,7 +592,11 @@ router.get("/", async (req, res) => {
     let Spots = spotList
 
     res.status(200);
-    res.json({Spots})
+    res.json({
+        Spots,
+        page,
+        size
+    })
 })
 
 

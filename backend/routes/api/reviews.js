@@ -71,8 +71,8 @@ router.post("/:reviewId/images", requireAuth, async (req, res) => {
     if(imgCount.length >= 10){
         res.status(403);
         res.json({
-            "message": "Maximum number of images for this resource was reached",
-            "statusCode": 403
+            message: "Maximum number of images for this resource was reached",
+            statusCode: 403
           })
     }
 })

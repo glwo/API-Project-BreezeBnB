@@ -5,7 +5,8 @@ const { User, Spot, Review, SpotImage, ReviewImage, Booking, sequelize } = requi
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-const { Op } = require('sequelize')
+const { Op } = require('sequelize');
+const e = require('express');
 
 const router = express.Router();
 
@@ -13,22 +14,37 @@ const router = express.Router();
 router.delete("/:bookingId", requireAuth, async (req, res) => {
     const bookingToDelete = await Booking.findByPk(req.params.bookingId)
 
+
     if(bookingToDelete){
         if(req.user.id === bookingToDelete.userId){
-        await bookingToDelete.destroy()
+            const  startDate  = bookingToDelete.startDate
+            const startDatetime = new Date(startDate).getTime();
+            const now = new Date().getTime();
+            // console.log(now)
+            // console.log(startDatetime)
+            if(now >= startDatetime){
+                res.status(403)
+                res.json({
+                    message: "Bookings that have been started can't be deleted",
+                    statusCode: 403
+                })
+            } else {
 
-        res.status(200);
-        res.json({
-            message: "Successfully deleted",
-            statusCode: 200
-        })
-    } else {
-        res.status(403)
-        res.json({
-            message: "Forbidden",
-            statusCode: 403
-        })
-    }
+            await bookingToDelete.destroy()
+
+            res.status(200);
+            res.json({
+                message: "Successfully deleted",
+                statusCode: 200
+            })
+         }
+        } else {
+            res.status(403)
+            res.json({
+                message: "Forbidden",
+                statusCode: 403
+            })
+        }
     } else {
         res.status(404);
         res.json({
@@ -137,11 +153,16 @@ router.get("/current", requireAuth, async (req, res) => {
     })
 
     let Bookings = [];
+    let allBookingsJSON = []
+
+    allBookings.forEach(booking => {
+        allBookingsJSON.push(booking.toJSON())
+    });
+    console.log(allBookingsJSON)
     // console.log(allBookings)
-    for(let booking of allBookings){
+    for(let booking of allBookingsJSON){
 
-        let imgPreview = await Spot.findByPk(booking.spotId, {
-
+        const imgPreview = await Spot.findByPk(booking.spotId, {
             include: [
                 {
                     model: SpotImage,
@@ -152,6 +173,7 @@ router.get("/current", requireAuth, async (req, res) => {
                 }
             ]
         })
+        console.log(imgPreview)
 
         let getUrl = imgPreview.toJSON();
         // console.log(getUrl)

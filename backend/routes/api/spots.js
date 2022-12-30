@@ -79,11 +79,11 @@ const spotQueryValidator = [
         .withMessage("Maximum longitude is invalid"),
     check("minPrice")
         .optional()
-        .isDecimal({ min: 0})
+        .isInt({ min: 0})
         .withMessage("Minimum price must be greater than or equal to 0"),
     check("maxPrice")
         .optional()
-        .isDecimal({checkFalsy: true, min: 0})
+        .isInt({ min: 0})
         .withMessage("Maximum price must be greater than or equal to 0"),
     handleValidationErrors
 ]
@@ -301,7 +301,7 @@ router.post("/:spotId/bookings", requireAuth, async (req, res) => {
 
         const Bookings = await Booking.findAll({
             where: {
-                spotid: spotId
+                spotId: spotId
             }
         })
 
@@ -463,6 +463,7 @@ router.put("/:spotId", spotValidator, requireAuth, async(req, res) => {
     const spotToUpdate = await Spot.findByPk(req.params.spotId)
 
     if(spotToUpdate){
+        if(req.user.id === spotToUpdate.ownerId){
     const updatedSpot = await spotToUpdate.update({
         address,
         city,
@@ -477,6 +478,16 @@ router.put("/:spotId", spotValidator, requireAuth, async(req, res) => {
 
     res.status(200);
     res.json(updatedSpot)
+}
+
+if(req.user.id !== spotToUpdate.ownerId){
+    res.status(403)
+        res.json({
+            message: "Forbidden",
+            statusCode: 403
+        })
+}
+
 } else {
     res.status(404);
     res.json({

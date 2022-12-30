@@ -5,6 +5,7 @@ const { User } = require('../../db/models');
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { urlencoded } = require('express');
 
 const router = express.Router();
 
@@ -71,9 +72,16 @@ router.post(
 
     await setTokenCookie(res, user);
 
-    return res.json({
-      user: user.toSafeObject()
-    });
+    const userJson = user.toJSON()
+
+    userJson.token = "";
+
+    // console.log(userJson)
+
+    delete userJson.createdAt
+    delete userJson.updatedAt
+
+    return res.json(userJson);
   }
 }
 );

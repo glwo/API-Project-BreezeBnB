@@ -100,7 +100,7 @@ router.put("/:bookingId", requireAuth, async (req, res) => {
 
         const Bookings = await Booking.findAll({
             where: {
-                spotid: spotId
+                spotId: spotId
             }
         })
 

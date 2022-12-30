@@ -127,6 +127,28 @@ router.put("/:bookingId", requireAuth, async (req, res) => {
                 }
             })
            }
+
+        //    else if(startDatetime >= oldstartDatetime){
+        //     res.status(403);
+        //     res.json({
+        //         message: "Sorry, this spot is already booked for the specified dates",
+        //         statusCode: 403,
+        //         errors: {
+        //             startDate: "Start date conflicts with an existing booking"
+        //         }
+        //     })
+        //    }
+
+        //    else if(endDatetime <= oldendDatetime){
+        //     res.status(403);
+        //     res.json({
+        //         message: "Sorry, this spot is already booked for the specified dates",
+        //         statusCode: 403,
+        //         errors: {
+        //             endDate: "End date conflicts with an existing booking"
+        //         }
+        //     })
+        //    }
         }
 
 

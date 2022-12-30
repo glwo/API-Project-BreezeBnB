@@ -301,7 +301,7 @@ router.post("/:spotId/bookings", requireAuth, async (req, res) => {
 
         const Bookings = await Booking.findAll({
             where: {
-                spotid: spotId
+                spotId: spotId
             }
         })
 

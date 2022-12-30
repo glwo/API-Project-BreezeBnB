@@ -463,6 +463,7 @@ router.put("/:spotId", spotValidator, requireAuth, async(req, res) => {
     const spotToUpdate = await Spot.findByPk(req.params.spotId)
 
     if(spotToUpdate){
+        if(req.user.id === spotToUpdate.ownerId){
     const updatedSpot = await spotToUpdate.update({
         address,
         city,
@@ -477,6 +478,16 @@ router.put("/:spotId", spotValidator, requireAuth, async(req, res) => {
 
     res.status(200);
     res.json(updatedSpot)
+}
+
+if(req.user.id !== spotToUpdate.ownerId){
+    res.status(403)
+        res.json({
+            message: "Forbidden",
+            statusCode: 403
+        })
+}
+
 } else {
     res.status(404);
     res.json({

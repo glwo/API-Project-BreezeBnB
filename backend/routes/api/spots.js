@@ -79,11 +79,11 @@ const spotQueryValidator = [
         .withMessage("Maximum longitude is invalid"),
     check("minPrice")
         .optional()
-        .isInt({ min: 0})
+        .isFloat({checkFalsy:true, min: 0})
         .withMessage("Minimum price must be greater than or equal to 0"),
     check("maxPrice")
         .optional()
-        .isInt({ min: 0})
+        .isFloat({checkFalsy: true, min: 0})
         .withMessage("Maximum price must be greater than or equal to 0"),
     handleValidationErrors
 ]
@@ -560,7 +560,31 @@ router.get("/", spotQueryValidator, async (req, res) => {
     if(page > 10) page = 10
     if(size > 20) size = 20
 
+    if(!minLat) minLat = -90
+    if(!maxLat) maxLat = 90
+
+    // console.log(minLat)
+    // console.log(maxLat)
+
+    if(!minLng) minLng = -180
+    if(!maxLng) maxLng = 180
+
+    if(!minPrice) minPrice = 0
+    if(!maxPrice) maxPrice = Number.MAX_SAFE_INTEGER
+
     const spots = await Spot.findAll({
+        where: {
+            lat: {
+                // [Op.gte]:  minLat,
+                [Op.between]: [minLat, maxLat]
+            },
+            lng: {
+                [Op.between]: [minLng, maxLng]
+            },
+            price: {
+                [Op.between]: [minPrice, maxPrice]
+            }
+        },
         include: [
             {
                 model: Review

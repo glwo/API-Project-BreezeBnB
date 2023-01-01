@@ -194,20 +194,28 @@ router.get("/current", requireAuth, async (req, res) => {
             reviewCount ++;
             total += review.stars
         })
-        spot.avgRating = total/reviewCount
+        // spot.avgRating = Number(total/reviewCount).toFixed(1)
+
+        if(total/reviewCount){
+            spot.avgRating = Number(total/reviewCount).toFixed(1)
+        } else {
+            spot.avgRating = null
+        }
 
         delete spot.Reviews
     })
 
     spotList.forEach(spot => {
+        if(!spot.SpotImages[0]){
+            spot.previewImage = null
+        } else {
         spot.SpotImages.forEach(img => {
-            console.log(img.preview)
+            // console.log(img.preview)
             if(img.preview === true){
                 spot.previewImage = img.url
-            } if(!img.preview) {
-                spot.previewImage = null
             }
         })
+    }
         delete spot.SpotImages
     })
 
@@ -606,19 +614,32 @@ router.get("/", spotQueryValidator, async (req, res) => {
             reviewCount++;
             total += review.stars
         })
-        spot.avgRating = total/reviewCount
+        // spot.avgRating = Number(total/reviewCount).toFixed(1)
+
+        if(total/reviewCount){
+            spot.avgRating = Number(total/reviewCount).toFixed(1)
+        } else {
+            spot.avgRating = null
+        }
 
         delete spot.Reviews
     })
 
     spotList.forEach(spot => {
+        // console.log(spot)
+        if(!spot.SpotImages[0]){
+            spot.previewImage = null
+        } else {
         spot.SpotImages.forEach(img => {
+            // console.log(img.preview)
             if(img.preview === true){
                 spot.previewImage = img.url
-            } else {
-                spot.previewImage = null
             }
+            // else {
+            //     spot.previewImage = null
+            // }
         })
+    }
         delete spot.SpotImages
     })
 

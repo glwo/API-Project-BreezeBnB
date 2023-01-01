@@ -58,7 +58,7 @@ router.post("/:reviewId/images", requireAuth, async (req, res) => {
 
     if(imgCount.length >= 10){
         res.status(403);
-        res.json({
+       return res.json({
             message: "Maximum number of images for this resource was reached",
             statusCode: 403
           })
@@ -77,7 +77,7 @@ router.post("/:reviewId/images", requireAuth, async (req, res) => {
             delete newReviewImageJson.reviewId
             delete newReviewImageJson.updatedAt
             delete newReviewImageJson.createdAt
-            
+
             res.status(200)
             res.json(newReviewImageJson)
         }

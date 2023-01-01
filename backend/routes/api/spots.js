@@ -201,8 +201,11 @@ router.get("/current", requireAuth, async (req, res) => {
 
     spotList.forEach(spot => {
         spot.SpotImages.forEach(img => {
+            console.log(img.preview)
             if(img.preview === true){
                 spot.previewImage = img.url
+            } if(!img.preview) {
+                spot.previewImage = null
             }
         })
         delete spot.SpotImages
@@ -239,26 +242,19 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
     }
 
     if(spot){
-    const spotJson = spot.toJSON()
-    delete spotJson.ownerId
-    delete spotJson.address
-    delete spotJson.city
-    delete spotJson.state
-    delete spotJson.country
-    delete spotJson.lat
-    delete spotJson.lng
-    delete spotJson.name
-    delete spotJson.description
-    delete spotJson.price
-    delete spotJson.createdAt
-    delete spotJson.updatedAt
+        const newImage = await SpotImage.create({
+            spotId: req.params.spotId,
+            url: url,
+            preview: preview
+        })
+        res.status(200)
+        const newImageJson = newImage.toJSON()
 
+        delete newImageJson.spotId
+        delete newImageJson.updatedAt
+        delete newImageJson.createdAt
 
-    spotJson.url = url
-    spotJson.preview = preview
-
-    res.status(200)
-    res.json(spotJson)
+        res.json(newImageJson)
     }
 })
 
@@ -619,6 +615,8 @@ router.get("/", spotQueryValidator, async (req, res) => {
         spot.SpotImages.forEach(img => {
             if(img.preview === true){
                 spot.previewImage = img.url
+            } else {
+                spot.previewImage = null
             }
         })
         delete spot.SpotImages

@@ -24,19 +24,7 @@ const reviewValidator = [
 router.post("/:reviewId/images", requireAuth, async (req, res) => {
     const review = await Review.findByPk(req.params.reviewId)
 
-    // console.log(review)
-    if(review){
-    const reviewObj = review.toJSON();
-    if(review.userId === req.user.id){
-        reviewObj.url = req.body.url
-
-        res.status(200)
-        res.json({
-            id: review.id,
-            url: reviewObj.url
-        })
-    }
-}
+    const { url } = req.body
 
     if(!review){
         res.status(404)
@@ -74,6 +62,25 @@ router.post("/:reviewId/images", requireAuth, async (req, res) => {
             message: "Maximum number of images for this resource was reached",
             statusCode: 403
           })
+    }
+
+    // console.log(review)
+    if(review){
+        // const reviewObj = review.toJSON();
+        if(review.userId === req.user.id){
+            const newReviewImage = await ReviewImage.create({
+                reviewId: req.params.reviewId,
+                url: url
+            })
+            const newReviewImageJson = newReviewImage.toJSON()
+
+            delete newReviewImageJson.reviewId
+            delete newReviewImageJson.updatedAt
+            delete newReviewImageJson.createdAt
+            
+            res.status(200)
+            res.json(newReviewImageJson)
+        }
     }
 })
 

@@ -5,7 +5,8 @@ const { User, Spot, Review, SpotImage, ReviewImage, sequelize } = require('../..
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-const { Op } = require('sequelize')
+const { Op } = require('sequelize');
+const e = require('express');
 
 const router = express.Router();
 
@@ -179,7 +180,11 @@ router.get("/current", requireAuth, async (req, res) => {
             where: { [Op.and]: [{ preview: true }, { spotId: review.Spot.id }] }
         })
         // console.log(spotImage)
+        if(!spotImage){
+            review.Spot.previewImage = null
+        } else {
         review.Spot.previewImage = spotImage.url
+        }
         delete review.Spot.description
         delete review.Spot.createdAt
         delete review.Spot.updatedAt

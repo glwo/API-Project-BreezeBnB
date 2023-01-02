@@ -214,10 +214,18 @@ router.get("/current", requireAuth, async (req, res) => {
             if(img.preview === true){
                 spot.previewImage = img.url
                 // return
-            } else {
+            } else if(img.preview === false && !spot.previewImage) {
                 spot.previewImage = null
             }
         })
+        // for(let img of spot.SpotImages){
+        //     if(img.preview === true){
+        //                 spot.previewImage = img.url
+        //                 return
+        //             } else {
+        //                 spot.previewImage = null
+        //             }
+        // }
     }
         delete spot.SpotImages
     })
@@ -638,7 +646,7 @@ router.get("/", spotQueryValidator, async (req, res) => {
             if(img.preview === true){
                 spot.previewImage = img.url
             }
-            else {
+            else if(img.preview === false && !spot.previewImage) {
                 spot.previewImage = null
             }
         })

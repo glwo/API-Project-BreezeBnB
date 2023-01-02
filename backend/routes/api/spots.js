@@ -213,6 +213,9 @@ router.get("/current", requireAuth, async (req, res) => {
             // console.log(img.preview)
             if(img.preview === true){
                 spot.previewImage = img.url
+                // return
+            } else {
+                spot.previewImage = null
             }
         })
     }
@@ -635,9 +638,9 @@ router.get("/", spotQueryValidator, async (req, res) => {
             if(img.preview === true){
                 spot.previewImage = img.url
             }
-            // else {
-            //     spot.previewImage = null
-            // }
+            else {
+                spot.previewImage = null
+            }
         })
     }
         delete spot.SpotImages

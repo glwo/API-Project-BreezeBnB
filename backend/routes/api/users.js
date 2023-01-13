@@ -81,7 +81,9 @@ router.post(
     delete userJson.createdAt
     delete userJson.updatedAt
 
-    return res.json(userJson);
+    return res.json({
+      user: userJson
+    });
   }
 }
 );

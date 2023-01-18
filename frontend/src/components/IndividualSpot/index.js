@@ -21,6 +21,8 @@ const IndividualSpot = () => {
         dispatch(getIndivSpot(id))
     }, [dispatch])
 
+    if(!spotObj) return null
+
     return (
         <div>
             {spotObj &&

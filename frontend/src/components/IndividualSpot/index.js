@@ -32,11 +32,11 @@ const IndividualSpot = () => {
                 </div>
                 <div className="spotImgBox">
                     <div>
-                        <img src={spotObj.SpotImages[0].url} alt="No image available for this spot!"></img>
+                        <img src={spotObj.url} alt="No image available for this spot!"></img>
                     </div>
                 </div>
                 <div className="spotOwnerDesc">
-                    <h3>Property hosted By {spotObj.Owner.firstName} {spotObj.Owner.lastName}</h3>
+                    <h3>Property hosted By {spotObj.firstName} {spotObj.lastName}</h3>
                     <h4>The Space</h4>
                     <p>{spotObj.address}</p>
                     <p>{spotObj.description}</p>
@@ -50,7 +50,7 @@ const IndividualSpot = () => {
                         </div>
                         <div className="ratingandreviews">
                             <p>
-                                {spotObj.avgRating} · {spotObj.numReviews}
+                                {spotObj.avgStarRating} · {spotObj.numReviews} reviews
                             </p>
                         </div>
                     </fieldset>

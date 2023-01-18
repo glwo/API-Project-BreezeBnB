@@ -33,11 +33,12 @@ const HomePage = () => {
                                 </div>
                                 <div>
                                     <h4 className="spotDetails">
-                                        {spot.name}
+                                        {spot.name} {spot.avgRating}
+
                                     </h4>
-                                    <h4>
-                                        {spot.avgRating}
-                                    </h4>
+                                    {/* <h4 className="spotDetails">
+
+                                    </h4> */}
                                 </div>
                                 <p>
                                     {spot.city}, {spot.state}

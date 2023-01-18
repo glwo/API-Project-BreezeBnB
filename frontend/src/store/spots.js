@@ -69,7 +69,7 @@ export const SpotsReducer = (state = initialState, action) => {
         case GET_INDIVIDUAL_SPOT:
             newState = { ...state}
             indiv = { ...action.spot}
-            // console.log(indiv)
+            console.log(indiv)
 
             newState.indiv = indiv
             return newState

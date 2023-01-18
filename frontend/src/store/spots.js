@@ -70,6 +70,13 @@ export const SpotsReducer = (state = initialState, action) => {
             newState = { ...state}
             indiv = { ...action.spot}
             // console.log(indiv)
+            let lastName = indiv.Owner.lastName
+            let firstName = indiv.Owner.firstName
+            let url = indiv.SpotImages[0].url || null
+
+            indiv["firstName"] = firstName
+            indiv["lastName"] =lastName
+            indiv["url"] = url
 
             newState.indiv = indiv
             return newState

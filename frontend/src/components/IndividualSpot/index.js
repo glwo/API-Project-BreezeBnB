@@ -50,7 +50,7 @@ const IndividualSpot = () => {
                         </div>
                         <div className="ratingandreviews">
                             <p>
-                                {spotObj.avgStarRating} · {spotObj.numReviews}
+                                {spotObj.avgRating} · {spotObj.numReviews}
                             </p>
                         </div>
                     </fieldset>

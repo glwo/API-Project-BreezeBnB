@@ -3,6 +3,8 @@ import { csrfFetch } from "./csrf";
 // TYPE
 const GET_ALL_SPOTS = 'spots/getSpots'
 const GET_INDIVIDUAL_SPOT = 'spots/getSpot'
+// const UPDATE_SPOT = 'spots/updateSpot'
+const DELETE_SPOT = 'spots/deleteSpot'
 
 // ACTION
 const getSpots = (spotsData) => {
@@ -19,7 +21,26 @@ const getSpot = (spot) => {
     }
 }
 
+// const updateSpot = (spot) => {
+//     return {
+//         type: UPDATE_SPOT,
+//         spot
+//     }
+// }
+
+const deleteSpot = (spot) => {
+    return {
+        type: DELETE_SPOT,
+        spot
+    }
+}
+
 // THUNK
+
+// CREATE A SPOT
+export const createSpot = (payload) => async (dispatch) => {
+
+}
 
 // GET ALL SPOTS
 export const getAllSpots = () => async (dispatch) => {
@@ -38,13 +59,60 @@ export const getIndivSpot = (spotId) => async (dispatch) => {
     const res =  await csrfFetch(`/api/spots/${spotId}`)
 
     if(res.ok) {
-        const data = await res.json()
+        const spot = await res.json()
 
-        dispatch(getSpot(data))
+        dispatch(getSpot(spot))
         return res
     }
 }
 
+// UPDATE A SPOT
+export const updateIndivSpot = (spotToUpdate) => async (dispatch) => {
+    const {
+        id,
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price
+        } = spotToUpdate
+    const updatedSpot = await csrfFetch(`/api/spots/${id}`, {
+        method: "PUT",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            address,
+            city,
+            state,
+            country,
+            lat,
+            lng,
+            name,
+            description,
+            price
+        })
+    })
+    return updatedSpot
+}
+
+// DELETE A SPOT
+export const deleteIndivSpot = (spotId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/spots/${spotId}`, {
+        method: "DELETE"
+    })
+
+    if(res.ok){
+        const newSpots = await csrfFetch('/api/spots')
+        if(newSpots.ok){
+            const remainingSpots = await newSpots.json()
+            dispatch(deleteSpot(remainingSpots))
+        }
+        return res.json()
+    }
+}
 
 
 
@@ -56,6 +124,7 @@ export const SpotsReducer = (state = initialState, action) => {
     let all;
     let indiv;
     switch (action.type) {
+
         case GET_ALL_SPOTS:
             const allSpots = { ...state}
             all = {}
@@ -80,6 +149,16 @@ export const SpotsReducer = (state = initialState, action) => {
 
             newState.indiv = indiv
             return newState
+
+        case DELETE_SPOT:
+            newState = { ...state}
+            all = {}
+            action.spotsData.Spots.forEach(spot => {
+                all[spot.id] = spot
+            });
+            newState.all = all
+            return newState
+            
         default:
             return state
     }

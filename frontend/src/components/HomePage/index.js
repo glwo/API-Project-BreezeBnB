@@ -4,10 +4,17 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import './homePage.css'
 import CreateSpotButton from "./CreateSpotButton";
+import CreateSpotModal from "../CreateSpotModal";
+import { useModal, Modal } from "../../context/Modal";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 
 
 const HomePage = () => {
     const spotsObj = useSelector(state => state.spots.all)
+
+    // const [modalToggle, setModalToggle] = useState(false)
+    const { closeModal } = useModal();
+
 
     let spots = [];
     if(spotsObj){
@@ -25,9 +32,21 @@ const HomePage = () => {
 
     return (
         <div>
-            <button onClick={CreateSpotButton}>
+            {/* <button onClick={() => setModalToggle(true)}>
                 Create a Spot
-            </button>
+            </button> */}
+            {/* {modalToggle && ( <Modal modalContent={<CreateSpotModal></CreateSpotModal>}>
+            <CreateSpotModal setModalToggle={setModalToggle}/>
+            </Modal>
+            )} */}
+        <div>
+         <OpenModalMenuItem
+              itemText="Create a New Spot"
+            //   onItemClick={closeMenu}
+              modalComponent={<CreateSpotModal />}
+            //   modalContent={}
+         />
+         </div>
         <div className="spots-Box">
             {spots.map(spot => {
                 return (

@@ -38,8 +38,69 @@ const deleteSpot = (spot) => {
 // THUNK
 
 // CREATE A SPOT
-export const createSpot = (payload) => async (dispatch) => {
+export const createSpot = (spotToCreate) => async (dispatch) => {
+    const {
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price,
+        imageUrl
+        } = spotToCreate
+    const newSpot = await csrfFetch('/api/spots', {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            address,
+            city,
+            state,
+            country,
+            lat: 37.62,
+            lng: 42.53,
+            name,
+            description,
+            price
+        })
+    })
+    if(newSpot.ok){
+        const newSpotJSON = await newSpot.json();
 
+        // console.log(newSpotJSON)
+
+        const imgData = {
+            id: newSpotJSON.id,
+            url: imageUrl
+        }
+        await dispatch(createSpotImage(imgData))
+    }
+    return newSpot
+}
+
+// CREATE A SPOT IMAGE
+export const createSpotImage = (spotImage) => async (dispatch) => {
+    const {
+        id,
+        url
+        } = spotImage
+
+        // console.log(imageUrl)
+
+        const postImage = await csrfFetch(`/api/spots/${id}/images`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                url,
+                preview: true
+            })
+        })
+
+        if (postImage.ok){
+            await dispatch(getIndivSpot(id))
+        }
 }
 
 // GET ALL SPOTS
@@ -158,7 +219,7 @@ export const SpotsReducer = (state = initialState, action) => {
             });
             newState.all = all
             return newState
-            
+
         default:
             return state
     }

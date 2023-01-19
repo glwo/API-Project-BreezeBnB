@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import './homePage.css'
+import CreateSpotButton from "./CreateSpotButton";
+
 
 const HomePage = () => {
     const spotsObj = useSelector(state => state.spots.all)
@@ -22,6 +24,10 @@ const HomePage = () => {
     if(!spotsObj) return null
 
     return (
+        <div>
+            <button onClick={CreateSpotButton}>
+                Create a Spot
+            </button>
         <div className="spots-Box">
             {spots.map(spot => {
                 return (
@@ -51,6 +57,7 @@ const HomePage = () => {
                     </div>
                 )
             })}
+        </div>
         </div>
     )
 }

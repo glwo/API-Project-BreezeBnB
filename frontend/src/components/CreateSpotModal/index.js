@@ -3,9 +3,11 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./CreateSpotModal.css";
 import { createSpot } from "../../store/spots";
+import { useHistory } from "react-router-dom";
 
 function CreateSpotModal() {
   const dispatch = useDispatch();
+  const history = useHistory()
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -15,14 +17,15 @@ function CreateSpotModal() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
+  const [imageUrl, setImageUrl] = useState("")
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
-    return dispatch(createSpot({
+    const newSpot = await dispatch(createSpot({
         address,
         city,
         state,
@@ -31,15 +34,24 @@ function CreateSpotModal() {
         lng,
         name,
         description,
-        price
+        price,
+        imageUrl
     }))
-      .then(closeModal)
+      .then(closeModal())
+      // .then(history.push(`/Spots/${newSpot.id}`))
       .catch(
         async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
         }
       );
+      if(newSpot){
+        history.push(`/Spots/${newSpot.id}`)
+      }
+
+      // const newSpotJSON = newSpot.json()
+      // history.push(`/Spots/${newSpotJSON.id}`)
+        // return newSpot
   };
 
   return (
@@ -129,6 +141,15 @@ function CreateSpotModal() {
             type="number"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
+            required
+          />
+        </label>
+        <label>
+          Image Url
+          <input
+            type="text"
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
             required
           />
         </label>

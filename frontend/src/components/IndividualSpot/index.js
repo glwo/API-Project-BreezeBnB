@@ -5,6 +5,7 @@ import './IndividualSpot.css'
 import { useParams, useHistory } from "react-router-dom";
 import { deleteIndivSpot } from "../../store/spots";
 
+
 const IndividualSpot = () => {
     const spotObj = useSelector(state => state.spots.indiv)
     const { id } = useParams()

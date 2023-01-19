@@ -1,14 +1,14 @@
-import { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { useHistory, useParams } from "react-router-dom"
-import { updateIndivSpot } from "../../store/spots"
-import './CreateSpotModal.css'
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useParams } from "react-router-dom";
+import { updateIndivSpot } from "../../store/spots";
+import './UpdateSpotForm.css';
 
 const UpdateSpotForm = () => {
-    const spotObj = useSelector(state => state.spots.indiv)
-    const { id } = useParams()
-    const history = useHistory()
-    const loggedInUser = useSelector(state => state.session.user)
+    const spotObj = useSelector(state => state.spots.indiv);
+    const { id } = useParams();
+    const history = useHistory();
+    const loggedInUser = useSelector(state => state.session.user);
 
     // console.log(spotObj)
 

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./CreateSpotModal.css";
 import { createSpot } from "../../store/spots";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 
 function CreateSpotModal() {
   const dispatch = useDispatch();
@@ -21,11 +21,17 @@ function CreateSpotModal() {
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
+  const user = useSelector((state) => state.session.user)
+
+  if(!user) {
+    return <Redirect to={'/'}/>
+  }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
-    const newSpot = await dispatch(createSpot({
+    return dispatch(createSpot({
         address,
         city,
         state,
@@ -38,16 +44,17 @@ function CreateSpotModal() {
         imageUrl
     }))
       .then(closeModal())
-      // .then(history.push(`/Spots/${newSpot.id}`))
+      // .then(history.push(`/`))
       .catch(
         async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
         }
       );
-      if(newSpot){
-        history.push(`/Spots/${newSpot.id}`)
-      }
+      // if(newSpot){
+      //   const newSpotJSON = await
+      //   history.push(`/Spots/${newSpot.id}`)
+      // }
 
       // const newSpotJSON = newSpot.json()
       // history.push(`/Spots/${newSpotJSON.id}`)

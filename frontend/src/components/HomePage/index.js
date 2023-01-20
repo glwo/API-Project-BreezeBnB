@@ -1,4 +1,4 @@
-import { getAllSpots } from "../../store/spots";
+import { getAllSpots, deleteIndivSpot, createSpot } from "../../store/spots";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -26,7 +26,16 @@ const HomePage = () => {
 
     useEffect(() => {
         dispatch(getAllSpots())
+        dispatch(createSpot())
     }, [dispatch])
+
+    // useEffect(() => {
+    //     dispatch(deleteIndivSpot())
+    // }, [dispatch])
+
+    // useEffect(() => {
+    //     dispatch(createSpot())
+    // }, [dispatch])
 
     if(!spotsObj) return null
 

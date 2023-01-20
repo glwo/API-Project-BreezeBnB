@@ -2,8 +2,11 @@ import { csrfFetch } from "./csrf";
 import { getIndivSpot } from "./spots";
 
 // TYPE
-const GET_REVIEWS = 'reviews/spot'
-const REFRESH_REVIEWS = 'reviews/refreshReviews'
+const CREATE_REVIEW = 'reviews/createReview'
+const GET_REVIEWS = 'reviews/getReviews'
+const DELETE_REVIEW = 'reviews/deleteReview'
+const GET_REVIEWS_BY_USER = 'reviews/getReviewsByUser'
+
 
 // ACTION
 const getReviews = (data) => {
@@ -13,12 +16,26 @@ const getReviews = (data) => {
     }
 }
 
-export const refreshReviews = () => {
+const buildReview = (newReview) => {
     return {
-        type: REFRESH_REVIEWS,
-        data: {}
+        type: CREATE_REVIEW,
+        newReview
     }
 }
+
+const removeReview = (review) => {
+    return {
+        type: DELETE_REVIEW,
+        review
+    }
+}
+
+// const getReviewsByUser = (reviews) => {
+//     return {
+//         type: GET_REVIEWS_BY_USER,
+//         reviews
+//     }
+// }
 
 
 // THUNK
@@ -57,12 +74,19 @@ export const createReview = (payload) => async (dispatch) => {
 }
 
 export const deleteReview = (id) => async (dispatch) => {
-
+ const res = await csrfFetch (`/api/reviews/${id}`, {
+    method: 'DELETE'
+ })
+ if(res.ok){
+    const remainingReviews = await res.json()
+    dispatch(removeReview(id))
+    return remainingReviews
+ }
 }
 
 // REDUCER
 
-const initialState = { spotReviews: {}, userReviews: {} }
+const initialState = { spotReviews: {}, userReviews: {}}
 
 export const ReviewsReducer = (state = initialState, action) => {
     let newState;
@@ -84,11 +108,13 @@ export const ReviewsReducer = (state = initialState, action) => {
             newState.spotReviews = spotReviews
             return newState
 
-        case REFRESH_REVIEWS:
+        case DELETE_REVIEW:
             newState = { ...state}
-            spotReviews = { ...action.data}
-            newState.spotReviews = spotReviews
+
+            delete newState[action.review]
+
             return newState
+            
         default:
             return state
     }

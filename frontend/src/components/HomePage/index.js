@@ -58,8 +58,11 @@ const HomePage = () => {
                                 </div>
                                 <div>
                                     <h4 className="spotDetails">
-                                        {spot.name} {spot.avgRating}
-
+                                        {spot.name}
+                                    </h4>
+                                    <h4>
+                                    <i class="fa-sharp fa-solid fa-star"></i>
+                                    {spot.avgRating}
                                     </h4>
                                     {/* <h4 className="spotDetails">
 

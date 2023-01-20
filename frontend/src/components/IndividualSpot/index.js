@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import './IndividualSpot.css'
 import { useParams, useHistory } from "react-router-dom";
 import { deleteIndivSpot } from "../../store/spots";
+import { getAllReviews, refreshReviews } from "../../store/reviews";
 
 
 const IndividualSpot = () => {
@@ -11,6 +12,8 @@ const IndividualSpot = () => {
     const { id } = useParams()
     const history = useHistory()
     const loggedInUser = useSelector(state => state.session.user)
+    // const spotReviews = useSelector(state => state.reviews.spotReviews)
+    // console.log(spotReviews)
 
     // console.log(spotObj)
     // console.log(loggedInUser)
@@ -23,8 +26,19 @@ const IndividualSpot = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getIndivSpot(id))
+        dispatch(getIndivSpot(+id))
     }, [dispatch, id])
+
+    useEffect(() => {
+        dispatch(getAllReviews(+id))
+        // return (
+        //     () => dispatch(refreshReviews())
+        // )
+    }, [dispatch, id])
+
+
+
+
 
     const deleteSpot = async (e) => {
         e.preventDefault()
@@ -61,8 +75,12 @@ const IndividualSpot = () => {
                 <div className="spotOwnerDesc">
                     <h3>Property hosted By {spotObj.firstName} {spotObj.lastName}</h3>
                     <h4>The Space</h4>
-                    <p>{spotObj.address}</p>
-                    <p>{spotObj.description}</p>
+                        <p>{spotObj.address}</p>
+                        <p>{spotObj.description}</p>
+                </div>
+                <div>
+                    <h2>Reviews</h2>
+
                 </div>
                 <div>
                     <fieldset>

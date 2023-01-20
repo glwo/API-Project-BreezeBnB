@@ -4,35 +4,35 @@
 
 .navButtonHome {
     display: flex;
-    /* flex-direction: column;
-    align-items: flex-start; */
-    /* justify-content: space-between; */
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
     height: 50px;
     width: 50px;
 }
 
-.navButtonProfile {
-    display: flex;
+/* .navButtonProfile {
+    display: block;
     height: 30px;
     width: 70px;
     border-radius: 5px;
-    /* flex-direction: column;
-    align-items: flex-end; */
-    /* justify-content: space-between; */
-}
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+} */
 
 #permanentNavBar {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
     justify-content: space-between;
     border-bottom: solid grey 1px;
     /* position: relative; */
     /* background-color: aliceblue; */
 }
 
-ul {
+/* ul {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-evenly;
-}
+} */

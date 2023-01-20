@@ -2,34 +2,27 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./reviewModal.css";
-import { Redirect, useHistory } from "react-router-dom";
-import { createReview } from "../../store/reviews";
+import { Redirect, useHistory, useParams } from "react-router-dom";
+import { createReview, getAllReviews } from "../../store/reviews";
 
-function CreateReviewModal() {
+function CreateReviewForm() {
     const dispatch = useDispatch();
+    const { id } = useParams()
     const history = useHistory()
     const [review, setReview] = useState("");
-    const [stars, setStars] = useState("");
+    const [stars, setStars] = useState(1);
     const [validationErrors, setValidationErrors] = useState("")
     const [errors, setErrors] = useState([]);
-    const { closeModal } = useModal();
-
-    const user = useSelector((state) => state.session.user)
-
-    if(!user) {
-      return <Redirect to={'/'}/>
-    }
 
 
     const handleSubmit = async (e) => {
       e.preventDefault();
       setErrors([]);
-      return dispatch(createReview({
+      const newReview = await dispatch(createReview({
         review,
         stars
       }))
-        .then(closeModal())
-        // .then(history.push(`/`))
+        .then(dispatch(getAllReviews(+id)))
         .catch(
           async (res) => {
             const data = await res.json();
@@ -44,6 +37,8 @@ function CreateReviewModal() {
         // const newSpotJSON = newSpot.json()
         // history.push(`/Spots/${newSpotJSON.id}`)
           // return newSpot
+          history.push(`/Spots/${id}`)
+          return newReview
     };
 
     return (
@@ -65,13 +60,24 @@ function CreateReviewModal() {
             />
           </label>
           <label>
-            City
-            <input
-              type="text"
+            Rating
+            {/* <input
+              type="number"
               value={stars}
               onChange={(e) => setStars(e.target.value)}
               required
-            />
+            /> */}
+            <select
+              value={stars}
+              onChange={(e) => setStars(e.target.value)}
+              required
+              >
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
           </label>
           <button type="submit">Create Review</button>
         </form>
@@ -79,4 +85,4 @@ function CreateReviewModal() {
     );
   }
 
-  export default CreateReviewModal;
+  export default CreateReviewForm;

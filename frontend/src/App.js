@@ -6,6 +6,7 @@ import Navigation from "./components/Navigation";
 import HomePage from "./components/HomePage";
 import IndividualSpot from "./components/IndividualSpot";
 import UpdateSpotForm from "./components/UpdateSpotForm";
+import CreateReviewForm from "./components/CreateReviewForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,9 +23,13 @@ function App() {
           <Route path={'/Spots/:id/update'}>
             <UpdateSpotForm />
           </Route>
+          <Route exact path={'/Spots/:id/createReview'}>
+            <CreateReviewForm />
+          </Route>
           <Route path={'/Spots/:id'}>
             <IndividualSpot />
           </Route>
+
           <Route exact path={'/'}>
             <HomePage />
           </Route>

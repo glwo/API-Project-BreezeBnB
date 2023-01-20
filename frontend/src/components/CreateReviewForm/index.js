@@ -19,8 +19,9 @@ function CreateReviewForm() {
       e.preventDefault();
       setErrors([]);
       const newReview = await dispatch(createReview({
-        review,
-        stars
+        id,
+        stars,
+        review
       }))
         .then(dispatch(getAllReviews(+id)))
         .catch(

@@ -107,12 +107,12 @@ const IndividualSpot = () => {
                                 <div key={review.id} className='indiv-review'>
                                     <div className="review-name">
                                     <i></i>
-                                    <h5>{review.User.firstName}</h5>
+                                    <h5>{review.User?.firstName}</h5>
                                     </div>
                                     {review.review}
                                     <button className="delReviewButton"
                                     onClick={() => dispatch(deleteReview(review.id)).then(dispatch(getAllReviews(id)))}
-                                    hidden={(loggedInUser && loggedInUser.id === review.User.id ? false : true)}>
+                                    hidden={(loggedInUser && loggedInUser?.id === review.User?.id ? false : true)}>
                                         Delete Your Review
                                     </button>
                                 </div>

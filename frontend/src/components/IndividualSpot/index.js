@@ -131,10 +131,10 @@ const IndividualSpot = () => {
                         <div className="ratingandreviews">
                             <p>
                             <i class="fa-sharp fa-solid fa-star"></i>
-                                {spotObj.avgStarRating} · {spotObj.numReviews} reviews
+                                {(+(spotObj.avgStarRating)).toFixed(2)} · {spotObj.numReviews} reviews
                             </p>
                         </div>
-                        <button className="spotButtons" onClick={createReview}>
+                        <button className="spotButtons" onClick={createReview} hidden={(loggedInUser && loggedInUser.id !== spotObj.ownerId ? false : true)}>
                             Add A Review
                         </button>
                         <button className="spotButtons" onClick={updateSpot} hidden={(loggedInUser && loggedInUser.id === spotObj.ownerId ? false : true)}>

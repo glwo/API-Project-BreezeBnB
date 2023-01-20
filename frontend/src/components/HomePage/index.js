@@ -66,18 +66,21 @@ const HomePage = () => {
                                     <img className="spotImgDiv" src={`${spot.previewImage}`} alt={spot.name}></img>
                                 </div>
                                 <div>
-                                    <h4 className="spotDetails">
-                                        {spot.name}
+                                    <h4 className="spotName">
+                                        {spot.name} <i id="starIcon" class="fa-sharp fa-solid fa-star"></i>
+                                    {(+spot.avgRating).toFixed(2)}
                                     </h4>
-                                    <h4>
-                                    <i class="fa-sharp fa-solid fa-star"></i>
-                                    {spot.avgRating}
+                                    <div className="spotRating">
+                                    <h4 >
+                                    {/* <i class="fa-sharp fa-solid fa-star"></i>
+                                    {(+spot.avgRating).toFixed(2)} */}
                                     </h4>
                                     {/* <h4 className="spotDetails">
 
                                     </h4> */}
+                                    </div>
                                 </div>
-                                <p>
+                                <p className="spotLocation">
                                     {spot.city}, {spot.state}
                                 </p>
                                 <h4>

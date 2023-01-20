@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import './IndividualSpot.css'
 import { useParams, useHistory } from "react-router-dom";
 import { deleteIndivSpot } from "../../store/spots";
+import { getAllReviews, refreshReviews } from "../../store/reviews";
 
 
 const IndividualSpot = () => {
@@ -11,6 +12,9 @@ const IndividualSpot = () => {
     const { id } = useParams()
     const history = useHistory()
     const loggedInUser = useSelector(state => state.session.user)
+    const spotReviews = useSelector(state => state.reviews.spotReviews)
+    const spotReviewsArr = Object.values(spotReviews)
+    // console.log(spotReviews)
 
     // console.log(spotObj)
     // console.log(loggedInUser)
@@ -23,8 +27,22 @@ const IndividualSpot = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getIndivSpot(id))
+        dispatch(getIndivSpot(+id))
+        dispatch(getAllReviews(+id))
     }, [dispatch, id])
+
+
+    // useEffect(() => {
+    //     dispatch(getAllReviews(+id))
+    //     dispatch(getIndivSpot(+id))
+    //     // return (
+    //     //     () => dispatch(refreshReviews())
+    //     // )
+    // }, [dispatch, id])
+
+
+
+
 
     const deleteSpot = async (e) => {
         e.preventDefault()
@@ -61,8 +79,28 @@ const IndividualSpot = () => {
                 <div className="spotOwnerDesc">
                     <h3>Property hosted By {spotObj.firstName} {spotObj.lastName}</h3>
                     <h4>The Space</h4>
-                    <p>{spotObj.address}</p>
-                    <p>{spotObj.description}</p>
+                        <p>{spotObj.address}</p>
+                        <p>{spotObj.description}</p>
+                </div>
+                <div>
+                    <h2>Reviews</h2>
+                    {spotReviewsArr.length && (<div className="review-container">
+                        {spotReviewsArr.map(review => {
+                            return (
+                                <div key={review.id} className='indiv-review'>
+                                    <div className="review-name">
+                                    <i></i>
+                                    <h5>{review.User.firstName}</h5>
+                                    </div>
+                                    {review.review}
+                                    <button className="delReviewButton"  hidden={(loggedInUser && loggedInUser.id === review.User.id ? false : true)}>
+                                        Delete Your Review
+                                    </button>
+                                </div>
+                            )
+                        })}
+                    </div>)}
+                    {!spotReviewsArr.length && (<p> There are currently no reviews for this location </p>)}
                 </div>
                 <div>
                     <fieldset>
@@ -76,6 +114,9 @@ const IndividualSpot = () => {
                                 {spotObj.avgStarRating} · {spotObj.numReviews} reviews
                             </p>
                         </div>
+                        <button>
+                            Add A Review
+                        </button>
                         <button className="spotButtons" onClick={updateSpot} hidden={(loggedInUser && loggedInUser.id === spotObj.ownerId ? false : true)}>
                             Update Spot
                         </button>

@@ -12,7 +12,7 @@ function Navigation({ isLoaded }){
     <ul>
       <li className='navButtonHome'>
         <NavLink exact to="/">
-        <i class="fa-solid fa-house"></i>
+        <i class="fa-solid fa-house">BreezeBnB</i>
         </NavLink>
       </li>
       {isLoaded && (

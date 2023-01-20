@@ -1,10 +1,10 @@
-import { getIndivSpot } from "../../store/spots";
+import { getAllSpots, getIndivSpot } from "../../store/spots";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import './IndividualSpot.css'
 import { useParams, useHistory } from "react-router-dom";
 import { deleteIndivSpot } from "../../store/spots";
-import { getAllReviews, refreshReviews } from "../../store/reviews";
+import { getAllReviews, deleteReview } from "../../store/reviews";
 
 
 const IndividualSpot = () => {
@@ -40,6 +40,10 @@ const IndividualSpot = () => {
     //     // )
     // }, [dispatch, id])
 
+    // useEffect(() => {
+    //     dispatch(deleteReview())
+    // }, [dispatch, id])
+
 
 
 
@@ -61,6 +65,12 @@ const IndividualSpot = () => {
         e.preventDefault()
         history.push(`/spots/${spotObj.id}/update`)
     }
+
+    // const triggerReviewDelete = async (e) => {
+    //     e.preventDefault()
+
+    //     const deleteSuccess = dispatch(deleteReview())
+    // }
 
     if(!spotObj) return null
 
@@ -93,7 +103,9 @@ const IndividualSpot = () => {
                                     <h5>{review.User.firstName}</h5>
                                     </div>
                                     {review.review}
-                                    <button className="delReviewButton"  hidden={(loggedInUser && loggedInUser.id === review.User.id ? false : true)}>
+                                    <button className="delReviewButton"
+                                    onClick={() => dispatch(deleteReview(review.id)).then(dispatch(getAllReviews(id)))}
+                                    hidden={(loggedInUser && loggedInUser.id === review.User.id ? false : true)}>
                                         Delete Your Review
                                     </button>
                                 </div>
@@ -120,7 +132,9 @@ const IndividualSpot = () => {
                         <button className="spotButtons" onClick={updateSpot} hidden={(loggedInUser && loggedInUser.id === spotObj.ownerId ? false : true)}>
                             Update Spot
                         </button>
-                        <button className="spotButtons" onClick={deleteSpot} hidden={(loggedInUser && loggedInUser.id === spotObj.ownerId ? false : true)}>
+                        <button className="spotButtons"
+                        onClick={() => dispatch(deleteIndivSpot(id)).then(dispatch(getAllSpots())).then(history.push("/"))}
+                        hidden={(loggedInUser && loggedInUser.id === spotObj.ownerId ? false : true)}>
                             Delete Spot
                         </button>
                     </fieldset>

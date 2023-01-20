@@ -28,7 +28,7 @@ function CreateSpotModal() {
   }
 
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
     return dispatch(createSpot({
@@ -44,7 +44,7 @@ function CreateSpotModal() {
         imageUrl
     }))
       .then(closeModal())
-      // .then(history.push(`/`))
+      .then(history.push('/'))
       .catch(
         async (res) => {
           const data = await res.json();

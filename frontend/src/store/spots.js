@@ -118,7 +118,7 @@ export const createSpot = (spotToCreate) => async (dispatch) => {
 
 // GET ALL SPOTS
 export const getAllSpots = () => async (dispatch) => {
-    const res = await csrfFetch('api/spots')
+    const res = await csrfFetch('/api/spots')
 
     if(res.ok) {
         const spots = await res.json()
@@ -233,7 +233,7 @@ export const SpotsReducer = (state = initialState, action) => {
         case DELETE_SPOT:
             newState = { ...state}
 
-            delete newState[action.spot]
+            delete newState.all[action.spot]
 
             return newState
 

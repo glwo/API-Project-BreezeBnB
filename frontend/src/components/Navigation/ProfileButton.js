@@ -4,6 +4,7 @@ import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import './ProfileButton.css'
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -41,17 +42,17 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu}>
+      <button className="openMenuButton" onClick={openMenu}>
         <i className="fas fa-user-circle" />
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>{user.username}</li>
-            <li>{user.firstName} {user.lastName}</li>
-            <li>{user.email}</li>
+            <li>User: {user.username}</li>
+            <li>Name: {user.firstName} {user.lastName}</li>
+            <li>Email: {user.email}</li>
             <li>
-              <button onClick={logout}>Log Out</button>
+              <button className="logOutButton" onClick={logout}>Log Out</button>
             </li>
           </>
         ) : (

@@ -20,13 +20,14 @@
     border-radius: 5%;
 }
 
-.spotDetails {
+.spotName {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
     height: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 /* .spot-Card {
@@ -38,8 +39,29 @@
     cursor: pointer;
     align-items: center;
     list-style: none;
-    text-align: center;
+    /* text-align: center; */
     font-family: Arial, Helvetica, sans-serif;
     color: grey;
     padding: 15px;
+    display: inline-block;
+    border: 1px solid;
+    border-radius: 4px;
+    margin-left: 45%;
+    margin-right: 35%;
+}
+
+.spotRating {
+    /* align-items: flex-end; */
+    flex-direction: row;
+    margin-left: 75%;
+    margin-top: 10%;
+    
+}
+
+#starIcon {
+    margin-left: 48%;
+}
+
+.spotLocation {
+    color: grey;
 }

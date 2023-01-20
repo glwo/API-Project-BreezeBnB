@@ -48,7 +48,7 @@ const HomePage = () => {
             <CreateSpotModal setModalToggle={setModalToggle}/>
             </Modal>
             )} */}
-        <div>
+        <div className="create-spot">
          <OpenModalMenuItem
               itemText="Create a New Spot"
             //   onItemClick={closeMenu}

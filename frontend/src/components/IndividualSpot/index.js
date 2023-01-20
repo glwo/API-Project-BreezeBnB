@@ -5,6 +5,7 @@ import './IndividualSpot.css'
 import { useParams, useHistory } from "react-router-dom";
 import { deleteIndivSpot } from "../../store/spots";
 import { getAllReviews, deleteReview } from "../../store/reviews";
+import CreateReviewModal from "../CreateReviewModal";
 
 
 const IndividualSpot = () => {
@@ -14,6 +15,7 @@ const IndividualSpot = () => {
     const loggedInUser = useSelector(state => state.session.user)
     const spotReviews = useSelector(state => state.reviews.spotReviews)
     const spotReviewsArr = Object.values(spotReviews)
+    
     // console.log(spotReviews)
 
     // console.log(spotObj)
@@ -123,10 +125,11 @@ const IndividualSpot = () => {
                         </div>
                         <div className="ratingandreviews">
                             <p>
+                            <i class="fa-sharp fa-solid fa-star"></i>
                                 {spotObj.avgStarRating} · {spotObj.numReviews} reviews
                             </p>
                         </div>
-                        <button>
+                        <button className="spotButtons" onClick={CreateReviewModal}>
                             Add A Review
                         </button>
                         <button className="spotButtons" onClick={updateSpot} hidden={(loggedInUser && loggedInUser.id === spotObj.ownerId ? false : true)}>

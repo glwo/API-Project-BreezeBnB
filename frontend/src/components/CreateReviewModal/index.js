@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./reviewModal.css";
-import { createSpot } from "../../store/spots";
 import { Redirect, useHistory } from "react-router-dom";
+import { createReview } from "../../store/reviews";
 
 function CreateReviewModal() {
     const dispatch = useDispatch();
@@ -24,20 +24,12 @@ function CreateReviewModal() {
     const handleSubmit = async (e) => {
       e.preventDefault();
       setErrors([]);
-      return dispatch(createSpot({
-          address,
-          city,
-          state,
-          country,
-          lat,
-          lng,
-          name,
-          description,
-          price,
-          imageUrl
+      return dispatch(createReview({
+        review,
+        stars
       }))
         .then(closeModal())
-        .then(history.push(`/`))
+        // .then(history.push(`/`))
         .catch(
           async (res) => {
             const data = await res.json();
@@ -56,7 +48,7 @@ function CreateReviewModal() {
 
     return (
       <>
-        <h1>Create a Spot</h1>
+        <h1>Create a Review</h1>
         <form onSubmit={handleSubmit}>
           <ul>
             {errors.map((error, idx) => (
@@ -64,11 +56,11 @@ function CreateReviewModal() {
             ))}
           </ul>
           <label>
-            Address
+            Review
             <input
               type="text"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              value={review}
+              onChange={(e) => setReview(e.target.value)}
               required
             />
           </label>
@@ -76,84 +68,12 @@ function CreateReviewModal() {
             City
             <input
               type="text"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
+              value={stars}
+              onChange={(e) => setStars(e.target.value)}
               required
             />
           </label>
-          <label>
-            State
-            <input
-              type="text"
-              value={state}
-              onChange={(e) => setState(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Country
-            <input
-              type="text"
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Latitude
-            <input
-              type="number"
-              value={lat}
-              onChange={(e) => setLat(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Longitude
-            <input
-              type="number"
-              value={lng}
-              onChange={(e) => setLng(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Name
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Description
-            <input
-              type="text"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Price
-            <input
-              type="number"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Image Url
-            <input
-              type="text"
-              value={imageUrl}
-              onChange={(e) => setImageUrl(e.target.value)}
-              required
-            />
-          </label>
-          <button type="submit">Create Spot</button>
+          <button type="submit">Create Review</button>
         </form>
       </>
     );

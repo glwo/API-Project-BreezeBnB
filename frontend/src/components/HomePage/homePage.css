@@ -34,3 +34,12 @@
     flex-direction: column;
     max-width: 300px;
 } */
+.create-spot {
+    cursor: pointer;
+    align-items: center;
+    list-style: none;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    color: grey;
+    padding: 15px;
+}

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./CreateSpotModal.css";
-import { createSpot } from "../../store/spots";
+import { createSpot, getAllSpots } from "../../store/spots";
 import { Redirect, useHistory } from "react-router-dom";
 
 function CreateSpotModal() {
@@ -28,10 +28,44 @@ function CreateSpotModal() {
   }
 
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setErrors([]);
+  //   return await dispatch(createSpot({
+  //       address,
+  //       city,
+  //       state,
+  //       country,
+  //       lat,
+  //       lng,
+  //       name,
+  //       description,
+  //       price,
+  //       imageUrl
+  //   }))
+  //     .then(closeModal())
+  //     .then(dispatch(getAllSpots()))
+  //     .then(history.push('/'))
+  //     .catch(
+  //       async (res) => {
+  //         const data = await res.json();
+  //         if (data && data.errors) setErrors(data.errors);
+  //       }
+  //     );
+  //     // if(newSpot){
+  //     //   const newSpotJSON = await
+  //     //   history.push(`/Spots/${newSpot.id}`)
+  //     // }
+
+  //     // const newSpotJSON = newSpot.json()
+  //     // history.push(`/Spots/${newSpotJSON.id}`)
+  //       // return newSpot
+  // };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
-    return dispatch(createSpot({
+    const newSpot = await dispatch(createSpot({
         address,
         city,
         state,
@@ -43,22 +77,18 @@ function CreateSpotModal() {
         price,
         imageUrl
     }))
+      .then(dispatch(getAllSpots()))
       .then(closeModal())
-      .then(history.push('/'))
+      // .then(dispatch(history.push(`/Spots/${newSpot.id}`)))
       .catch(
         async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
         }
       );
-      // if(newSpot){
-      //   const newSpotJSON = await
-      //   history.push(`/Spots/${newSpot.id}`)
-      // }
 
-      // const newSpotJSON = newSpot.json()
-      // history.push(`/Spots/${newSpotJSON.id}`)
-        // return newSpot
+      history.push(`/Spots/${newSpot.id}`)
+      return newSpot
   };
 
   return (

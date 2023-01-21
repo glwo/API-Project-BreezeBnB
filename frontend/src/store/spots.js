@@ -224,7 +224,7 @@ export const SpotsReducer = (state = initialState, action) => {
             let url = indiv.SpotImages[0].url || null
 
             indiv["firstName"] = firstName
-            indiv["lastName"] =lastName
+            indiv["lastName"] = lastName
             indiv["url"] = url
 
             newState.indiv = indiv

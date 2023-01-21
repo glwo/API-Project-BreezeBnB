@@ -1,4 +1,4 @@
-import { getAllSpots, getIndivSpot } from "../../store/spots";
+import { createSpot, getAllSpots, getIndivSpot } from "../../store/spots";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import './IndividualSpot.css'
@@ -32,6 +32,7 @@ const IndividualSpot = () => {
         dispatch(getIndivSpot(+id))
         dispatch(getAllReviews(+id))
         // dispatch(deleteReview())
+        dispatch(createSpot())
     }, [dispatch, id])
 
 
@@ -67,7 +68,7 @@ const IndividualSpot = () => {
     if(!spotObj) return null
 
     return (
-        <div>
+        <div className="spotRootDiv">
             {spotObj &&
             <div className="spotDetails">
                 <div >

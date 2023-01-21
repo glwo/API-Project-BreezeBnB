@@ -39,11 +39,47 @@ module.exports = {
         city: "Miami",
         state: "Florida",
         country: "United States",
-        lat: 25,
+        lat: 35,
         lng: 80,
         name: "Beach Retreat",
         description: "Warmth, sunshine, and fresh air",
         price: 75
+      },
+      {
+        ownerId: 1,
+        address: "478 North Avenue",
+        city: "Salt Lake",
+        state: "Utah",
+        country: "United States",
+        lat: 45,
+        lng: 80,
+        name: "Magic Manor",
+        description: "Spice of Life",
+        price: 75
+      },
+      {
+        ownerId: 2,
+        address: "354 South Avenue",
+        city: "Albuquerque",
+        state: "New Mexico",
+        country: "United States",
+        lat: 55,
+        lng: 80,
+        name: "Mystical Mansion",
+        description: "Relaxing rural oasis",
+        price: 300
+      },
+      {
+        ownerId: 3,
+        address: "890 East Avenue",
+        city: "Raleigh",
+        state: "North Carolina",
+        country: "United States",
+        lat: 40,
+        lng: 85,
+        name: "Magic Tree House",
+        description: "Warmth, sunshine, and fresh air",
+        price: 450
       }
     ], {})
   },

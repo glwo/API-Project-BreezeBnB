@@ -31,23 +31,8 @@ const IndividualSpot = () => {
     useEffect(() => {
         dispatch(getIndivSpot(+id))
         dispatch(getAllReviews(+id))
+        // dispatch(deleteReview())
     }, [dispatch, id])
-
-
-    // useEffect(() => {
-    //     dispatch(getAllReviews(+id))
-    //     dispatch(getIndivSpot(+id))
-    //     // return (
-    //     //     () => dispatch(refreshReviews())
-    //     // )
-    // }, [dispatch, id])
-
-    // useEffect(() => {
-    //     dispatch(deleteReview())
-    // }, [dispatch, id])
-
-
-
 
 
     const deleteSpot = async (e) => {
@@ -85,14 +70,12 @@ const IndividualSpot = () => {
         <div>
             {spotObj &&
             <div className="spotDetails">
-                <div>
+                <div >
                     <h2>{spotObj.name}</h2>
                 </div>
-                <div className="spotImgBox">
-                    <div>
+                    <div className="spotImg">
                         <img src={spotObj.url} alt="No image available for this spot!"></img>
                     </div>
-                </div>
                 <div className="spotOwnerDesc">
                     <h3>Property hosted By {spotObj.firstName} {spotObj.lastName}</h3>
                     <h4>The Space</h4>
@@ -101,20 +84,21 @@ const IndividualSpot = () => {
                 </div>
                 <div>
                     <h2>Reviews</h2>
-                    {spotReviewsArr.length && (<div className="review-container">
+                    {spotReviewsArr.length > 0 && (<div className="review-container">
                         {spotReviewsArr.map(review => {
                             return (
                                 <div key={review.id} className='indiv-review'>
                                     <div className="review-name">
-                                    <i></i>
-                                    <h5>{review.User?.firstName}</h5>
+                                    <h5><i class="fa-solid fa-user"></i>{review.User?.firstName}</h5>
                                     </div>
                                     {review.review}
+                                    <div>
                                     <button className="delReviewButton"
-                                    onClick={() => dispatch(deleteReview(review.id)).then(dispatch(getAllReviews(id)))}
+                                    onClick={() => dispatch(deleteReview(review.id)).then(dispatch(getAllReviews(spotObj.id)))}
                                     hidden={(loggedInUser && loggedInUser?.id === review.User?.id ? false : true)}>
                                         Delete Your Review
                                     </button>
+                                    </div>
                                 </div>
                             )
                         })}

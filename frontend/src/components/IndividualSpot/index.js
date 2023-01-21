@@ -36,18 +36,18 @@ const IndividualSpot = () => {
     }, [dispatch, id])
 
 
-    const deleteSpot = async (e) => {
-        e.preventDefault()
+    // const deleteSpot = async (e) => {
+    //     e.preventDefault()
 
-        const deleteSuccess = dispatch(deleteIndivSpot(id))
+    //     const deleteSuccess = dispatch(deleteIndivSpot(id))
 
-        if(deleteSuccess){
-            history.push('/')
-        }
-        else {
-            console.log('error deleting spot')
-        }
-    }
+    //     if(deleteSuccess){
+    //         history.push('/')
+    //     }
+    //     else {
+    //         console.log('error deleting spot')
+    //     }
+    // }
 
     const updateSpot = async(e) => {
         e.preventDefault()

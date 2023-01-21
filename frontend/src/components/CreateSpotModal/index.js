@@ -87,7 +87,7 @@ function CreateSpotModal() {
         }
       );
 
-      history.push(`/Spots/${newSpot.id}`)
+       history.push(`/Spots/${newSpot.id}`)
       return newSpot
   };
 
@@ -101,9 +101,10 @@ function CreateSpotModal() {
             <li key={idx}>{error}</li>
           ))}
         </ul>
+        <div className="inputDiv">
         <div>
         <label>
-          Address
+          Address:
           <input
             type="text"
             value={address}
@@ -114,7 +115,7 @@ function CreateSpotModal() {
         </div>
         <div>
         <label>
-          City
+          City:
           <input
             type="text"
             value={city}
@@ -125,7 +126,7 @@ function CreateSpotModal() {
         </div>
         <div>
         <label>
-          State
+          State:
           <input
             type="text"
             value={state}
@@ -136,7 +137,7 @@ function CreateSpotModal() {
         </div>
         <div>
         <label>
-          Country
+          Country:
           <input
             type="text"
             value={country}
@@ -147,7 +148,7 @@ function CreateSpotModal() {
         </div>
         <div>
         <label>
-          Latitude
+          Latitude:
           <input
             type="number"
             value={lat}
@@ -158,7 +159,7 @@ function CreateSpotModal() {
         </div>
         <div>
         <label>
-          Longitude
+          Longitude:
           <input
             type="number"
             value={lng}
@@ -169,7 +170,7 @@ function CreateSpotModal() {
         </div>
         <div>
         <label>
-          Name
+          Name:
           <input
             type="text"
             value={name}
@@ -180,7 +181,7 @@ function CreateSpotModal() {
         </div>
         <div>
         <label>
-          Description
+          Description:
           <input
             type="text"
             value={description}
@@ -191,7 +192,7 @@ function CreateSpotModal() {
         </div>
         <div>
         <label>
-          Price
+          Price:
           <input
             type="number"
             value={price}
@@ -201,7 +202,7 @@ function CreateSpotModal() {
         </label>
         </div>
         <label>
-          Image Url
+          Image Url:
           <input
             type="url"
             value={imageUrl}
@@ -211,6 +212,7 @@ function CreateSpotModal() {
         </label>
         <div>
         <button className="createSpotButton" type="submit">Create Spot</button>
+        </div>
         </div>
       </form>
       </div>

@@ -21,3 +21,11 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
+.inputDiv {
+    padding: 10px;
+}
+
+input {
+    padding:5px;
+}

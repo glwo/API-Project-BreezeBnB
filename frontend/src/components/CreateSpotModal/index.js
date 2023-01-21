@@ -4,6 +4,7 @@ import { useModal } from "../../context/Modal";
 import "./CreateSpotModal.css";
 import { createSpot, getAllSpots } from "../../store/spots";
 import { Redirect, useHistory } from "react-router-dom";
+import { useEffect } from "react";
 
 function CreateSpotModal() {
   const dispatch = useDispatch();
@@ -26,6 +27,15 @@ function CreateSpotModal() {
   // if(!user) {
   //   return <Redirect to={'/'}/>
   // }
+
+  // useEffect(() => {
+  //   let newErrors = []
+  //   if(password.length < 6){
+  //     newErrors.push("Password must exceed six characters")
+  //   }
+
+  //   setErrors(newErrors)
+  // }, [])
 
 
   // const handleSubmit = async (e) => {
@@ -201,6 +211,7 @@ function CreateSpotModal() {
           />
         </label>
         </div>
+        <div>
         <label>
           Image Url:
           <input
@@ -210,6 +221,7 @@ function CreateSpotModal() {
             required
           />
         </label>
+        </div>
         <div>
         <button className="createSpotButton" type="submit">Create Spot</button>
         </div>

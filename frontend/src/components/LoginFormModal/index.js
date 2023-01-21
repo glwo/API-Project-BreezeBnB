@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
@@ -10,6 +10,13 @@ function LoginFormModal() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
+
+  // useEffect(() => {
+  //   let newErrors = []
+  //   if(password.length < 6){
+  //     newErrors.push("password must exceed six characters")
+  //   }
+  // })
 
   const handleSubmit = (e) => {
     e.preventDefault();

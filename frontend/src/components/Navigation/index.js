@@ -6,6 +6,7 @@ import './Navigation.css';
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import CreateSpotModal from "../CreateSpotModal";
 import OpenModalButton from '../OpenModalButton';
+
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
 
@@ -13,7 +14,7 @@ function Navigation({ isLoaded }){
     <div id = 'permanentNavBar'>
           <NavLink exact to="/">
         <div id="house-breeze">
-          <i class="fa-solid fa-house" ></i>
+        <i class="fa-solid fa-wind"></i>
           <h1>BreezeBnB</h1>
         </div>
           </NavLink>

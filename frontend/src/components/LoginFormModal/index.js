@@ -43,6 +43,7 @@ function LoginFormModal() {
 
   return (
     <>
+    <div className="logInModal">
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
         <ul>
@@ -50,6 +51,7 @@ function LoginFormModal() {
             <li key={idx}>{error}</li>
           ))}
         </ul>
+        <div>
         <label>
           Username or Email
           <input
@@ -59,6 +61,8 @@ function LoginFormModal() {
             required
           />
         </label>
+        </div>
+        <div>
         <label>
           Password
           <input
@@ -68,9 +72,15 @@ function LoginFormModal() {
             required
           />
         </label>
-        <button type="submit">Log In</button>
-        <button type="submit" onClick={demolitionUser}>Demo User Login</button>
+        </div>
+        <div>
+        <button className="loginModalButtons" type="submit">Log In</button>
+        </div>
+        <div>
+        <button className="loginModalButtons" type="submit" onClick={demolitionUser}>Demo User Login</button>
+        </div>
       </form>
+      </div>
     </>
   );
 }

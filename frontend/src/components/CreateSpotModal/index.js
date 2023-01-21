@@ -93,6 +93,7 @@ function CreateSpotModal() {
 
   return (
     <>
+    <div className="createSpotModal">
       <h1>Create a Spot</h1>
       <form onSubmit={handleSubmit}>
         <ul>
@@ -100,6 +101,7 @@ function CreateSpotModal() {
             <li key={idx}>{error}</li>
           ))}
         </ul>
+        <div>
         <label>
           Address
           <input
@@ -109,6 +111,8 @@ function CreateSpotModal() {
             required
           />
         </label>
+        </div>
+        <div>
         <label>
           City
           <input
@@ -118,6 +122,8 @@ function CreateSpotModal() {
             required
           />
         </label>
+        </div>
+        <div>
         <label>
           State
           <input
@@ -127,6 +133,8 @@ function CreateSpotModal() {
             required
           />
         </label>
+        </div>
+        <div>
         <label>
           Country
           <input
@@ -136,6 +144,8 @@ function CreateSpotModal() {
             required
           />
         </label>
+        </div>
+        <div>
         <label>
           Latitude
           <input
@@ -145,6 +155,8 @@ function CreateSpotModal() {
             required
           />
         </label>
+        </div>
+        <div>
         <label>
           Longitude
           <input
@@ -154,6 +166,8 @@ function CreateSpotModal() {
             required
           />
         </label>
+        </div>
+        <div>
         <label>
           Name
           <input
@@ -163,6 +177,8 @@ function CreateSpotModal() {
             required
           />
         </label>
+        </div>
+        <div>
         <label>
           Description
           <input
@@ -172,6 +188,8 @@ function CreateSpotModal() {
             required
           />
         </label>
+        </div>
+        <div>
         <label>
           Price
           <input
@@ -181,6 +199,7 @@ function CreateSpotModal() {
             required
           />
         </label>
+        </div>
         <label>
           Image Url
           <input
@@ -190,8 +209,11 @@ function CreateSpotModal() {
             required
           />
         </label>
-        <button type="submit">Create Spot</button>
+        <div>
+        <button className="createSpotButton" type="submit">Create Spot</button>
+        </div>
       </form>
+      </div>
     </>
   );
 }

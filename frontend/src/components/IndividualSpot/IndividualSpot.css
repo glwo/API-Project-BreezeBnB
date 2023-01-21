@@ -10,6 +10,7 @@ img {
     margin-left: auto;
     margin-right: auto;
     width: 50%;
+    object-fit: cover;
 }
 
 h2 {
@@ -21,9 +22,18 @@ h2 {
     flex-direction: column;
     /* justify-content: center; */
     align-items: center;
-    /* justify-content: right; */
+    justify-content: flex-start;
 }
 
 .spotImg{
     /* width: 50%; */
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    object-fit: cover;
+}
+
+.spotRootDiv {
+    width: 100vw;
 }

@@ -78,6 +78,7 @@ const UpdateSpotForm = () => {
 
     return (
         <>
+        <div className="updateSpotForm">
           <h1>Update Your Spot</h1>
           <form onSubmit={handleSubmit}>
             <ul>
@@ -85,6 +86,7 @@ const UpdateSpotForm = () => {
                 <li key={idx}>{error}</li>
               ))}
             </ul>
+            <div>
             <label>
               Address
               <input
@@ -94,6 +96,8 @@ const UpdateSpotForm = () => {
                 required
               />
             </label>
+            </div>
+            <div>
             <label>
               City
               <input
@@ -103,6 +107,8 @@ const UpdateSpotForm = () => {
                 required
               />
             </label>
+            </div>
+            <div>
             <label>
               State
               <input
@@ -112,6 +118,8 @@ const UpdateSpotForm = () => {
                 required
               />
             </label>
+            </div>
+            <div>
             <label>
               Country
               <input
@@ -121,6 +129,8 @@ const UpdateSpotForm = () => {
                 required
               />
             </label>
+            </div>
+            <div>
             <label>
               Latitude
               <input
@@ -130,6 +140,8 @@ const UpdateSpotForm = () => {
                 required
               />
             </label>
+            </div>
+            <div>
             <label>
               Longitude
               <input
@@ -139,6 +151,8 @@ const UpdateSpotForm = () => {
                 required
               />
             </label>
+            </div>
+            <div>
             <label>
               Name
               <input
@@ -148,6 +162,8 @@ const UpdateSpotForm = () => {
                 required
               />
             </label>
+            </div>
+            <div>
             <label>
               Description
               <input
@@ -157,6 +173,7 @@ const UpdateSpotForm = () => {
                 required
               />
             </label>
+            </div>
             <label>
               Price
               <input
@@ -166,8 +183,11 @@ const UpdateSpotForm = () => {
                 required
               />
             </label>
-            <button type="submit" hidden={(loggedInUser && loggedInUser.id === spotObj.ownerId ? false : true)}>Submit Spot Updates</button>
+            <div>
+            <button className="updateSpotButton" type="submit" hidden={(loggedInUser && loggedInUser.id === spotObj.ownerId ? false : true)}>Submit Spot Updates</button>
+            </div>
           </form>
+          </div>
         </>
       );
 }

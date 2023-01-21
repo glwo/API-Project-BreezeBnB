@@ -63,7 +63,7 @@ const HomePage = () => {
                         <nav>
                             <NavLink className="navBar" to={`/Spots/${spot.id}`}>
                                 <div>
-                                    <img className="spotImgDiv" src={`${spot.previewImage}`} alt={"Image Unavailable"}></img>
+                                    <img className="spotImgDiv" src={`${spot.previewImage}`} alt={"Image couldn't be retrieved"}></img>
                                 </div>
                                 <div>
                                     <h4 className="spotName">

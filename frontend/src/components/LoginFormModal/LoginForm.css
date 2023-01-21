@@ -23,6 +23,13 @@
     cursor: pointer;
 }
 
+.logInModal div {
+    padding: 10px;
+}
+
+.logInModal input {
+    width: 100%;
+}
 /* .logInModal button{
     flex: 1;
 }

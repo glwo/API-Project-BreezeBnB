@@ -119,17 +119,23 @@ const IndividualSpot = () => {
                                     {(+(spotObj.avgStarRating)).toFixed(2)} · {spotObj.numReviews} reviews
                                 </p>
                             </div>
+                            <div>
                             <button className="spotButtons" onClick={createReview} hidden={(loggedInUser && loggedInUser.id !== spotObj.ownerId ? false : true)}>
                                 Add A Review
                             </button>
+                            </div>
+                            <div>
                             <button className="spotButtons" onClick={updateSpot} hidden={(loggedInUser && loggedInUser.id === spotObj.ownerId ? false : true)}>
                                 Update Spot
                             </button>
+                            </div>
+                            <div>
                             <button className="spotButtons"
                             onClick={() => dispatch(deleteIndivSpot(id)).then(dispatch(getAllSpots())).then(history.push("/"))}
                             hidden={(loggedInUser && loggedInUser.id === spotObj.ownerId ? false : true)}>
                                 Delete Spot
                             </button>
+                            </div>
                         </div>
                     </div>
                 </div>

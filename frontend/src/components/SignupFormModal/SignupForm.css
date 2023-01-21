@@ -22,6 +22,14 @@
     cursor: pointer;
 }
 
+.signUpModal div {
+    padding: 10px;
+}
+
+.signUpModal input {
+    width: 100%;
+}
+
 /* .signUpButton input {
     align-items: center;
 } */

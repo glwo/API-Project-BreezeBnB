@@ -51,7 +51,7 @@ function SignupFormModal() {
         </ul>
         <div>
         <label>
-          Email
+          Email :
           <input
             type="text"
             value={email}
@@ -62,7 +62,7 @@ function SignupFormModal() {
         </div>
         <div>
         <label>
-          Username
+          Username :
           <input
             type="text"
             value={username}
@@ -73,7 +73,7 @@ function SignupFormModal() {
         </div>
         <div>
         <label>
-          First Name
+          First Name :
           <input
             type="text"
             value={firstName}
@@ -84,7 +84,7 @@ function SignupFormModal() {
         </div>
         <div>
         <label>
-          Last Name
+          Last Name :
           <input
             type="text"
             value={lastName}
@@ -95,7 +95,7 @@ function SignupFormModal() {
         </div>
         <div>
         <label>
-          Password
+          Password :
           <input
             type="password"
             value={password}
@@ -106,7 +106,7 @@ function SignupFormModal() {
         </div>
         <div>
         <label>
-          Confirm Password
+          Confirm Password :
           <input
             type="password"
             value={confirmPassword}

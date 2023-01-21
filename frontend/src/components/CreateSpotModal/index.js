@@ -21,11 +21,11 @@ function CreateSpotModal() {
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
-  const user = useSelector((state) => state.session.user)
+  // const user = useSelector((state) => state.session.user)
 
-  if(!user) {
-    return <Redirect to={'/'}/>
-  }
+  // if(!user) {
+  //   return <Redirect to={'/'}/>
+  // }
 
 
   // const handleSubmit = async (e) => {

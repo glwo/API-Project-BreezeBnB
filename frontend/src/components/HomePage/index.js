@@ -48,14 +48,14 @@ const HomePage = () => {
             <CreateSpotModal setModalToggle={setModalToggle}/>
             </Modal>
             )} */}
-        <div className="create-spot">
+        {/* <div className="create-spot">
          <OpenModalMenuItem
               itemText="Create a New Spot"
             //   onItemClick={closeMenu}
               modalComponent={<CreateSpotModal />}
             //   modalContent={}
          />
-         </div>
+         </div> */}
         <div className="spots-Box">
             {spots.map(spot => {
                 return (

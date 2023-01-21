@@ -1,5 +1,5 @@
 .spots-Box {
-    padding: 50px 217px;
+    padding: 45px 200px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -55,7 +55,7 @@
     flex-direction: row;
     margin-left: 75%;
     margin-top: 10%;
-    
+
 }
 
 #starIcon {

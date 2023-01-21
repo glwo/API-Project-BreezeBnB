@@ -44,6 +44,7 @@ function CreateReviewForm() {
 
     return (
       <>
+      <div className="reviewForm">
         <h1>Create a Review</h1>
         <form onSubmit={handleSubmit}>
           <ul>
@@ -51,8 +52,9 @@ function CreateReviewForm() {
               <li key={idx}>{error}</li>
             ))}
           </ul>
+          <div>
           <label>
-            Review
+            Review :
             <input
               type="text"
               value={review}
@@ -60,8 +62,10 @@ function CreateReviewForm() {
               required
             />
           </label>
+          </div>
+          <div>
           <label>
-            Rating
+            Rating :
             {/* <input
               type="number"
               value={stars}
@@ -80,8 +84,12 @@ function CreateReviewForm() {
                 <option>5</option>
             </select>
           </label>
-          <button type="submit">Create Review</button>
+          </div>
+          <div>
+          <button className="createReviewButton" type="submit">Create Review</button>
+          </div>
         </form>
+        </div>
       </>
     );
   }

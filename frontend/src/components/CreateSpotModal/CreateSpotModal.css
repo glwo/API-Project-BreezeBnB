@@ -21,3 +21,22 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
+.inputDiv {
+    padding: 10px;
+}
+
+/* input {
+    padding:5px;
+} */
+
+.createSpotModal div {
+    padding: 4px;
+}
+.createSpotModal input {
+    width: 100%;
+}
+
+.createSpotModal button {
+    width: 100%;
+}

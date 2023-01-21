@@ -4,6 +4,7 @@ import { useModal } from "../../context/Modal";
 import "./CreateSpotModal.css";
 import { createSpot, getAllSpots } from "../../store/spots";
 import { Redirect, useHistory } from "react-router-dom";
+import { useEffect } from "react";
 
 function CreateSpotModal() {
   const dispatch = useDispatch();
@@ -26,6 +27,15 @@ function CreateSpotModal() {
   // if(!user) {
   //   return <Redirect to={'/'}/>
   // }
+
+  // useEffect(() => {
+  //   let newErrors = []
+  //   if(password.length < 6){
+  //     newErrors.push("Password must exceed six characters")
+  //   }
+
+  //   setErrors(newErrors)
+  // }, [])
 
 
   // const handleSubmit = async (e) => {
@@ -87,7 +97,7 @@ function CreateSpotModal() {
         }
       );
 
-      history.push(`/Spots/${newSpot.id}`)
+       history.push(`/Spots/${newSpot.id}`)
       return newSpot
   };
 
@@ -101,9 +111,10 @@ function CreateSpotModal() {
             <li key={idx}>{error}</li>
           ))}
         </ul>
+        <div className="inputDiv">
         <div>
         <label>
-          Address
+          Address:
           <input
             type="text"
             value={address}
@@ -114,7 +125,7 @@ function CreateSpotModal() {
         </div>
         <div>
         <label>
-          City
+          City:
           <input
             type="text"
             value={city}
@@ -125,7 +136,7 @@ function CreateSpotModal() {
         </div>
         <div>
         <label>
-          State
+          State:
           <input
             type="text"
             value={state}
@@ -136,7 +147,7 @@ function CreateSpotModal() {
         </div>
         <div>
         <label>
-          Country
+          Country:
           <input
             type="text"
             value={country}
@@ -147,7 +158,7 @@ function CreateSpotModal() {
         </div>
         <div>
         <label>
-          Latitude
+          Latitude:
           <input
             type="number"
             value={lat}
@@ -158,7 +169,7 @@ function CreateSpotModal() {
         </div>
         <div>
         <label>
-          Longitude
+          Longitude:
           <input
             type="number"
             value={lng}
@@ -169,7 +180,7 @@ function CreateSpotModal() {
         </div>
         <div>
         <label>
-          Name
+          Name:
           <input
             type="text"
             value={name}
@@ -180,7 +191,7 @@ function CreateSpotModal() {
         </div>
         <div>
         <label>
-          Description
+          Description:
           <input
             type="text"
             value={description}
@@ -191,7 +202,7 @@ function CreateSpotModal() {
         </div>
         <div>
         <label>
-          Price
+          Price:
           <input
             type="number"
             value={price}
@@ -200,8 +211,9 @@ function CreateSpotModal() {
           />
         </label>
         </div>
+        <div>
         <label>
-          Image Url
+          Image Url:
           <input
             type="url"
             value={imageUrl}
@@ -209,8 +221,10 @@ function CreateSpotModal() {
             required
           />
         </label>
+        </div>
         <div>
         <button className="createSpotButton" type="submit">Create Spot</button>
+        </div>
         </div>
       </form>
       </div>

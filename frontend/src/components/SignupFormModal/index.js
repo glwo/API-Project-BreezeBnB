@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
@@ -14,6 +14,18 @@ function SignupFormModal() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
+
+
+  // useEffect(() => {
+  //   let newErrors = []
+  //   if(password.length < 6){
+  //     newErrors.push("Password must exceed six characters")
+  //   }
+  //   if(validateEmail(email) === false){
+  //     newErrors.push("Please provide a valid email")
+  //   }
+  //   setErrors(newErrors)
+  // }, [password, email])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,7 +51,7 @@ function SignupFormModal() {
         </ul>
         <div>
         <label>
-          Email
+          Email :
           <input
             type="text"
             value={email}
@@ -50,7 +62,7 @@ function SignupFormModal() {
         </div>
         <div>
         <label>
-          Username
+          Username :
           <input
             type="text"
             value={username}
@@ -61,7 +73,7 @@ function SignupFormModal() {
         </div>
         <div>
         <label>
-          First Name
+          First Name :
           <input
             type="text"
             value={firstName}
@@ -72,7 +84,7 @@ function SignupFormModal() {
         </div>
         <div>
         <label>
-          Last Name
+          Last Name :
           <input
             type="text"
             value={lastName}
@@ -83,7 +95,7 @@ function SignupFormModal() {
         </div>
         <div>
         <label>
-          Password
+          Password :
           <input
             type="password"
             value={password}
@@ -94,7 +106,7 @@ function SignupFormModal() {
         </div>
         <div>
         <label>
-          Confirm Password
+          Confirm Password :
           <input
             type="password"
             value={confirmPassword}

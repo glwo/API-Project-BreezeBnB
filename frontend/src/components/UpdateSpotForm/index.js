@@ -174,6 +174,7 @@ const UpdateSpotForm = () => {
               />
             </label>
             </div>
+            <div>
             <label>
               Price
               <input
@@ -183,6 +184,7 @@ const UpdateSpotForm = () => {
                 required
               />
             </label>
+            </div>
             <div>
             <button className="updateSpotButton" type="submit" hidden={(loggedInUser && loggedInUser.id === spotObj.ownerId ? false : true)}>Submit Spot Updates</button>
             </div>

@@ -10,7 +10,8 @@
     border-radius: 25px;
     justify-content: center;
     padding: 50px;
-    border: 12px solid;
+    /* border: 5px solid; */
+    box-shadow: 0px 0px 2px grey;
 }
 
 .updateSpotButton {
@@ -21,4 +22,12 @@
     height: 30px;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.updateSpotForm div {
+    padding: 8px;
+}
+
+.updateSpotForm input {
+    width: 100%;
 }

@@ -27,3 +27,11 @@
 .reviewForm div {
     padding: 10px;
 }
+
+.reviewForm select {
+    width: 100%;
+}
+
+.reviewForm input {
+    width: 100%;
+}

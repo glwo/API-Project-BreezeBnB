@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import { csrfFetch } from "./csrf";
 import { getIndivSpot } from "./spots";
 
@@ -46,6 +47,7 @@ export const getAllReviews = (spotId) => async (dispatch) => {
         const reviewData = await res.json()
 
         dispatch(getReviews(reviewData))
+        dispatch(getIndivSpot(spotId))
         return reviewData
     }
 }
@@ -81,7 +83,9 @@ export const deleteReview = (id) => async (dispatch) => {
  })
  if(res.ok){
     const remainingReviews = await res.json()
+    // console.log(remainingReviews)
     dispatch(removeReview(id))
+    // dispatch(getAllReviews(spotId))
     // dispatch(getAllReviews())
     return remainingReviews
  }

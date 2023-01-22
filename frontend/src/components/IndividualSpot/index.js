@@ -15,6 +15,9 @@ const IndividualSpot = () => {
     const loggedInUser = useSelector(state => state.session.user)
     const spotReviews = useSelector(state => state.reviews.spotReviews)
     const spotReviewsArr = Object.values(spotReviews)
+    let spotId;
+
+
 
     // console.log(spotReviews)
 
@@ -31,7 +34,7 @@ const IndividualSpot = () => {
     useEffect(() => {
         dispatch(getIndivSpot(+id))
         dispatch(getAllReviews(+id))
-        // dispatch(deleteReview())
+        dispatch(deleteReview())
         dispatch(createSpot())
     }, [dispatch, id])
 

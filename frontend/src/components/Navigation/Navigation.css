@@ -59,6 +59,11 @@ color: green;
     list-style-type: none;
 }
 
+/* .profile-dropdown li:hover {
+    background-color: #f0f0f0;
+    border-radius: 8%;
+} */
+
 #permanentNavBar {
     display: flex;
 justify-content: space-between;

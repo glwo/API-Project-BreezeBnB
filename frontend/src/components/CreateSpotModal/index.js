@@ -21,6 +21,7 @@ function CreateSpotModal() {
   const [imageUrl, setImageUrl] = useState("")
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
+  const loggedInUser = useSelector(state => state.session.user)
 
   // const user = useSelector((state) => state.session.user)
 
@@ -28,14 +29,14 @@ function CreateSpotModal() {
   //   return <Redirect to={'/'}/>
   // }
 
-  // useEffect(() => {
-  //   let newErrors = []
-  //   if(password.length < 6){
-  //     newErrors.push("Password must exceed six characters")
-  //   }
+  useEffect(() => {
+    let newErrors = []
+    if(loggedInUser === null){
+      newErrors.push("Must be logged in to create a spot.")
+    }
 
-  //   setErrors(newErrors)
-  // }, [])
+    setErrors(newErrors)
+  }, [])
 
 
   // const handleSubmit = async (e) => {

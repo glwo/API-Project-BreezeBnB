@@ -40,3 +40,7 @@
 .createSpotModal button {
     width: 100%;
 }
+
+.createSpotModal ul {
+    color: red;
+}

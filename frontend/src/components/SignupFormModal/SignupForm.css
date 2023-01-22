@@ -30,6 +30,10 @@
     width: 100%;
 }
 
+.signUpModal ul {
+    color: red;
+}
+
 /* .signUpButton input {
     align-items: center;
 } */

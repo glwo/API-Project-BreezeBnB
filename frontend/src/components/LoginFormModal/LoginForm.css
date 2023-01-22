@@ -30,6 +30,10 @@
 .logInModal input {
     width: 100%;
 }
+
+.logInModal ul {
+    color: red;
+}
 /* .logInModal button{
     flex: 1;
 }

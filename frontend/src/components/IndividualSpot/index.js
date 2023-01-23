@@ -119,7 +119,7 @@ const IndividualSpot = () => {
                             <div className="ratingandreviews">
                                 <p>
                                 <i class="fa-sharp fa-solid fa-star"></i>
-                                    {(+(spotObj.avgStarRating)).toFixed(2)} · {spotObj.numReviews} reviews
+                                    {(+(spotObj.avgStarRating)).toFixed(2)} · {spotObj.numReviews} review(s)
                                 </p>
                             </div>
                             <div>

@@ -29,12 +29,18 @@ function CreateSpotModal() {
   //   return <Redirect to={'/'}/>
   // }
 
+  function checkURL(imageUrl) {
+    return(imageUrl.match(/\.(jpeg|jpg|gif|png)$/) != null);
+}
+
   useEffect(() => {
     let newErrors = []
     if(loggedInUser === null){
       newErrors.push("Must be logged in to create a spot.")
     }
-
+    if(checkURL(imageUrl) === false){
+      newErrors.push("Please provide an image in jpg or png format")
+    }
     setErrors(newErrors)
   }, [])
 

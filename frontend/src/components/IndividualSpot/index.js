@@ -34,8 +34,8 @@ const IndividualSpot = () => {
     useEffect(() => {
         dispatch(getIndivSpot(+id))
         dispatch(getAllReviews(+id))
-        dispatch(deleteReview())
-        dispatch(createSpot())
+        // dispatch(deleteReview())
+        // dispatch(createSpot())
     }, [dispatch, id])
 
 

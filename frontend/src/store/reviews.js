@@ -7,6 +7,7 @@ const CREATE_REVIEW = 'reviews/createReview'
 const GET_REVIEWS = 'reviews/getReviews'
 const DELETE_REVIEW = 'reviews/deleteReview'
 const GET_REVIEWS_BY_USER = 'reviews/getReviewsByUser'
+const EDIT_REVIEW = 'review/EDIT_REVIEW'
 
 
 // ACTION
@@ -21,6 +22,14 @@ const buildReview = (newReview) => {
     return {
         type: CREATE_REVIEW,
         newReview
+    }
+}
+
+export const editReview = (reviewId, review) => {
+    return {
+        type: EDIT_REVIEW,
+        reviewId,
+        review
     }
 }
 
@@ -47,7 +56,7 @@ export const getAllReviews = (spotId) => async (dispatch) => {
         const reviewData = await res.json()
 
         dispatch(getReviews(reviewData))
-        // dispatch(getIndivSpot(spotId))
+        dispatch(getIndivSpot(spotId))
         return reviewData
     }
 }
@@ -75,6 +84,20 @@ export const createReview = (payload) => async (dispatch) => {
         // dispatch(getIndivSpot(id))
     }
     return res
+}
+
+export const thunkEditReview = (reviewId, review) => async (dispatch) => {
+    const res = await csrfFetch(`/api/reviews/${reviewId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(review)
+    })
+
+    if (res.ok) {
+        const editedReview = await res.json();
+        dispatch(editReview(reviewId, review));
+        return editedReview;
+    }
 }
 
 export const deleteReview = (id) => async (dispatch) => {
@@ -120,6 +143,13 @@ export const ReviewsReducer = (state = initialState, action) => {
             // newState['spotReviews'] = { ...spotReviews}
             newState.spotReviews = spotReviews
             return newState
+
+        case EDIT_REVIEW: {
+            const newState = { ...state }
+            newState.spotReviews = { ...state.spotReviews, [action.reviewId]: action.review }
+            newState.userReviews = { ...state.userReviews, [action.reviewId]: action.review }
+            return newState
+        }
 
         case DELETE_REVIEW:
             newState = { ...state}

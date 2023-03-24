@@ -1,151 +1,202 @@
 import { createSpot, getAllSpots, getIndivSpot } from "../../store/spots";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import './IndividualSpot.css'
+import "./IndividualSpot.css";
 import { useParams, useHistory } from "react-router-dom";
 import { deleteIndivSpot } from "../../store/spots";
 import { getAllReviews, deleteReview } from "../../store/reviews";
 import CreateReviewModal from "../CreateReviewForm";
 
-
 const IndividualSpot = () => {
-    const spotObj = useSelector(state => state.spots.indiv)
-    const { id } = useParams()
-    const history = useHistory()
-    const loggedInUser = useSelector(state => state.session.user)
-    const spotReviews = useSelector(state => state.reviews.spotReviews)
-    const spotReviewsArr = Object.values(spotReviews)
-    let spotId;
+  const spotObj = useSelector((state) => state.spots.indiv);
+  const { id } = useParams();
+  const history = useHistory();
+  const loggedInUser = useSelector((state) => state.session.user);
+  const spotReviews = useSelector((state) => state.reviews.spotReviews);
+  const spotReviewsArr = Object.values(spotReviews);
+//   let spotId;
 
-
-
-    // console.log(spotReviews)
-
-    // console.log(spotObj)
-    // console.log(loggedInUser)
-
-    // let spot = [];
-    // if(spotObj){
-    //     spot = Object.values(spotObj)
-    // }
-
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(getIndivSpot(+id))
-        dispatch(getAllReviews(+id))
-        // dispatch(deleteReview())
-        // dispatch(createSpot())
-    }, [dispatch, id])
-
-
-    // const deleteSpot = async (e) => {
-    //     e.preventDefault()
-
-    //     const deleteSuccess = dispatch(deleteIndivSpot(id))
-
-    //     if(deleteSuccess){
-    //         history.push('/')
-    //     }
-    //     else {
-    //         console.log('error deleting spot')
-    //     }
-    // }
-
-    const updateSpot = async(e) => {
-        e.preventDefault()
-        history.push(`/spots/${spotObj.id}/update`)
+  const checkReviews = function (currentUser, userReviews) {
+    for (let userReview of userReviews) {
+      if (userReview.userId === currentUser.id) {
+        return false;
+      }
     }
+    return true;
+  };
 
-    const createReview = async (e) => {
-        e.preventDefault()
-        history.push(`/spots/${spotObj.id}/createReview`)
-    }
+  // console.log(spotReviews)
 
-    // const triggerReviewDelete = async (e) => {
-    //     e.preventDefault()
+  // console.log(spotObj)
+  // console.log(loggedInUser)
 
-    //     const deleteSuccess = dispatch(deleteReview())
-    // }
+  // let spot = [];
+  // if(spotObj){
+  //     spot = Object.values(spotObj)
+  // }
 
-    if(!spotObj) return null
+  const dispatch = useDispatch();
 
-    return (
-        <div className="spotRootDiv">
-            {spotObj &&
-            <div className="spotDetails">
-                <div id='spot-details-inner'>
-                    <div >
-                        <h2>{spotObj.name}</h2>
-                            <p id="spot-address">{spotObj.address}</p>
-                    </div>
-                            <img id="spotImg" src={spotObj.url} alt="No image available for this spot!"></img>
-                    <div className="spotOwnerDesc">
-                        <h3>Property hosted By {spotObj.firstName} {spotObj.lastName}</h3>
-                        <h4>The Space</h4>
-                            <p>{spotObj.description}</p>
-                    </div>
-                    <div id='page-bottom-container'>
-                        <div className="review-container">
-                            <h3>Reviews</h3>
-                        {spotReviewsArr.length > 0 && (
-                            spotReviewsArr.map(review => {
-                                return (
-                                    <div key={review.id} className='indiv-review'>
-                                        <div className="review-name">
-                                        <h5><i class="fa-solid fa-user"></i>{review.User?.firstName}</h5>
-                                        </div>
-                                        {review.review}
-                                        <div>
-                                        <button className="delReviewButton"
-                                        onClick={() => dispatch(deleteReview(review.id)).then(dispatch(getAllReviews(spotObj.id)))}
-                                        hidden={(loggedInUser && loggedInUser?.id === review.User?.id ? false : true)}>
-                                            Delete Your Review
-                                        </button>
-                                        </div>
-                                    </div>
-                                )
-                            })
-                                )}
-                            </div>
-                        {!spotReviewsArr.length && (<p> There are currently no reviews for this location </p>)}
+  useEffect(() => {
+    dispatch(getIndivSpot(+id));
+    dispatch(getAllReviews(+id));
+    // dispatch(deleteReview())
+    // dispatch(createSpot())
+  }, [dispatch, id]);
 
-                        <div id='spot-information'>
-                            <div className="price">
-                                <h2>
-                                    $ {spotObj.price} night
-                                </h2>
-                            </div>
-                            <div className="ratingandreviews">
-                                <p>
-                                <i class="fa-sharp fa-solid fa-star"></i>
-                                    {(+(spotObj.avgStarRating)).toFixed(2)} · {spotObj.numReviews} review(s)
-                                </p>
-                            </div>
-                            <div>
-                            <button className="spotButtons" onClick={createReview} hidden={(loggedInUser && loggedInUser.id !== spotObj.ownerId ? false : true)}>
-                                Add A Review
-                            </button>
-                            </div>
-                            <div>
-                            <button className="spotButtons" onClick={updateSpot} hidden={(loggedInUser && loggedInUser.id === spotObj.ownerId ? false : true)}>
-                                Update Spot
-                            </button>
-                            </div>
-                            <div>
-                            <button className="spotButtons"
-                            onClick={() => dispatch(deleteIndivSpot(id)).then(dispatch(getAllSpots())).then(history.push("/"))}
-                            hidden={(loggedInUser && loggedInUser.id === spotObj.ownerId ? false : true)}>
-                                Delete Spot
-                            </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  // const deleteSpot = async (e) => {
+  //     e.preventDefault()
+
+  //     const deleteSuccess = dispatch(deleteIndivSpot(id))
+
+  //     if(deleteSuccess){
+  //         history.push('/')
+  //     }
+  //     else {
+  //         console.log('error deleting spot')
+  //     }
+  // }
+
+  const updateSpot = async (e) => {
+    e.preventDefault();
+    history.push(`/spots/${spotObj.id}/update`);
+  };
+
+  const createReview = async (e) => {
+    e.preventDefault();
+    history.push(`/spots/${spotObj.id}/createReview`);
+  };
+
+  // const triggerReviewDelete = async (e) => {
+  //     e.preventDefault()
+
+  //     const deleteSuccess = dispatch(deleteReview())
+  // }
+
+  if (!spotObj) return null;
+
+  return (
+    <div className="spotRootDiv">
+      {spotObj && (
+        <div className="spotDetails">
+          <div id="spot-details-inner">
+            <div>
+              <h2>{spotObj.name}</h2>
+              <p id="spot-address">{spotObj.address}</p>
             </div>
-            }
-        </div>
-    )
-}
+            <img
+              id="spotImg"
+              src={spotObj.url}
+              alt="No image available for this spot!"
+            ></img>
+            <div className="spotOwnerDesc">
+              <h3>
+                Property hosted By {spotObj.firstName} {spotObj.lastName}
+              </h3>
+              <h4>The Space</h4>
+              <p>{spotObj.description}</p>
+            </div>
+            <div id="page-bottom-container">
+              <div className="review-container">
+                <h3>Reviews</h3>
+                {spotReviewsArr.length > 0 &&
+                  spotReviewsArr.map((review) => {
+                    return (
+                      <div key={review.id} className="indiv-review">
+                        <div className="review-name">
+                          <h5>
+                            <i class="fa-solid fa-user"></i>
+                            {review.User?.firstName}
+                          </h5>
+                        </div>
+                        {review.review}
+                        <div>
+                          <button
+                            className="delReviewButton"
+                            onClick={() =>
+                              dispatch(deleteReview(review.id)).then(
+                                dispatch(getAllReviews(spotObj.id))
+                              )
+                            }
+                            hidden={
+                              loggedInUser &&
+                              loggedInUser?.id === review.User?.id
+                                ? false
+                                : true
+                            }
+                          >
+                            Delete Your Review
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+              {!spotReviewsArr.length && (
+                <p> There are currently no reviews for this location </p>
+              )}
 
-export default IndividualSpot
+              <div id="spot-information">
+                <div className="price">
+                  <h2>$ {spotObj.price} night</h2>
+                </div>
+                <div className="ratingandreviews">
+                  <p>
+                    <i class="fa-sharp fa-solid fa-star"></i>
+                    {(+spotObj.avgStarRating).toFixed(2)} · {spotObj.numReviews}{" "}
+                    review(s)
+                  </p>
+                </div>
+                <div>
+                  <button
+                    className="spotButtons"
+                    onClick={createReview}
+                    hidden={
+                      loggedInUser && loggedInUser.id !== spotObj.ownerId && checkReviews(loggedInUser, spotReviewsArr)
+                        ? false
+                        : true
+                    }
+                  >
+                    Add A Review
+                  </button>
+                </div>
+                <div>
+                  <button
+                    className="spotButtons"
+                    onClick={updateSpot}
+                    hidden={
+                      loggedInUser && loggedInUser.id === spotObj.ownerId
+                        ? false
+                        : true
+                    }
+                  >
+                    Update Spot
+                  </button>
+                </div>
+                <div>
+                  <button
+                    className="spotButtons"
+                    onClick={() =>
+                      dispatch(deleteIndivSpot(id))
+                        .then(dispatch(getAllSpots()))
+                        .then(history.push("/"))
+                    }
+                    hidden={
+                      loggedInUser && loggedInUser.id === spotObj.ownerId
+                        ? false
+                        : true
+                    }
+                  >
+                    Delete Spot
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default IndividualSpot;

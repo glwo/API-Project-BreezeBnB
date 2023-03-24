@@ -1,0 +1,46 @@
+.updateReviewModal {
+    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 25px;
+    padding: 50px;
+    height: 40vh;
+    overflow-y:scroll;
+}
+
+.updateReviewModal::-webkit-scrollbar {
+    display: none;
+}
+
+.updateReviewModal  div{
+    padding: 10px;
+}
+
+.updateReviewModal textarea {
+    margin: 1vw 0px;
+}
+
+.updateReviewModal  select {
+    width: 97%;
+}
+
+.updateReviewModal  ul {
+    color: red;
+}
+
+.updateReviewModal  h1 {
+    color: #e33d26;
+}
+
+.reviewSubmit {
+   text-align: center;
+}
+
+.rate {
+    padding: 0px;
+}

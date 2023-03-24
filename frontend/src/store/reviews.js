@@ -47,7 +47,7 @@ export const getAllReviews = (spotId) => async (dispatch) => {
         const reviewData = await res.json()
 
         dispatch(getReviews(reviewData))
-        dispatch(getIndivSpot(spotId))
+        // dispatch(getIndivSpot(spotId))
         return reviewData
     }
 }
@@ -72,7 +72,7 @@ export const createReview = (payload) => async (dispatch) => {
         const newReview = await res.json()
         dispatch(buildReview(newReview))
         dispatch(getAllReviews(id))
-        dispatch(getIndivSpot(id))
+        // dispatch(getIndivSpot(id))
     }
     return res
 }

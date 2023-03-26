@@ -26,7 +26,7 @@ const HomePage = () => {
 
     useEffect(() => {
         dispatch(getAllSpots())
-        dispatch(createSpot())
+        // dispatch(createSpot())
     }, [dispatch])
 
     // useEffect(() => {

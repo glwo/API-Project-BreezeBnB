@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import OpenModalButton from "../OpenModalButton";
 import { useModal } from "../../context/Modal";
-import { thunkEditReview } from "../../store/review";
-import { thunkLoadAllRecipes } from "../../store/recipe";
+import { useParams } from "react-router-dom";
+import { getIndivSpot } from "../../store/spots";
+import { thunkEditReview, getAllReviews } from "../../store/reviews";
 import "./UpdateReviewModal.css";
 
 function UpdateReviewModal({ reviewDetails }) {
+  const { id } = useParams();
   const dispatch = useDispatch();
   const { closeModal } = useModal();
   const [review, setReview] = useState(reviewDetails.review);
@@ -38,10 +40,10 @@ function UpdateReviewModal({ reviewDetails }) {
       return;
     }
 
-    if (!url) {
-      setErrors(["Please provide an image for your note."]);
-      return;
-    }
+    // if (!url) {
+    //   setErrors(["Please provide an image for your note."]);
+    //   return;
+    // }
 
     if (review.split(" ").length > 1) {
       let words = review.split(" ");
@@ -67,7 +69,8 @@ function UpdateReviewModal({ reviewDetails }) {
       setErrors(updatedReview.errors);
     } else {
       setErrors([]);
-      dispatch(thunkLoadAllRecipes());
+      dispatch(getAllReviews());
+      dispatch(getIndivSpot(+reviewDetails.spotId))
       closeModal();
     }
   };
@@ -78,7 +81,7 @@ function UpdateReviewModal({ reviewDetails }) {
         <h1>Update Your Note</h1>
       </div>
       <form onSubmit={handleSubmit}>
-        <div className="reviewForm">
+        <div className="reviewFormmodal">
           {errors.length !== 0 && (
             <ul style={{ marginBottom: "0px" }}>
               {errors.map((error, idx) => (

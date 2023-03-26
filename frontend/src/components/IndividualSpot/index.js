@@ -6,6 +6,8 @@ import { useParams, useHistory } from "react-router-dom";
 import { deleteIndivSpot } from "../../store/spots";
 import { getAllReviews, deleteReview } from "../../store/reviews";
 import CreateReviewModal from "../CreateReviewForm";
+import UpdateReviewModal from "../UpdateReviewModal";
+import OpenModalButton from "../OpenModalButton";
 
 const IndividualSpot = () => {
   const spotObj = useSelector((state) => state.spots.indiv);
@@ -14,7 +16,7 @@ const IndividualSpot = () => {
   const loggedInUser = useSelector((state) => state.session.user);
   const spotReviews = useSelector((state) => state.reviews.spotReviews);
   const spotReviewsArr = Object.values(spotReviews);
-//   let spotId;
+  //   let spotId;
 
   const checkReviews = function (currentUser, userReviews) {
     for (let userReview of userReviews) {
@@ -110,7 +112,8 @@ const IndividualSpot = () => {
                           </h5>
                         </div>
                         {review.review}
-                        <div>
+                        <div className="editDelRevButton">
+                          <div>
                           <button
                             className="delReviewButton"
                             onClick={() =>
@@ -125,8 +128,32 @@ const IndividualSpot = () => {
                                 : true
                             }
                           >
-                            Delete Your Review
+
+                          <i class="fa-solid fa-trash"></i>{" "}
+                            Delete
                           </button>
+                          </div>
+                          {loggedInUser &&
+                            review.User?.id == loggedInUser.id ? (
+                              <div>
+                                <OpenModalButton
+                                  buttonText={
+                                    <>
+                                      <i class="fa-regular fa-pen-to-square"></i>{" "}
+                                      Update
+                                    </>
+                                  }
+                                  modalComponent={
+                                    <UpdateReviewModal
+                                      key={review.id}
+                                      reviewDetails={review}
+                                    />
+                                  }
+                                />
+                              </div>
+                            ) : (
+                              ""
+                            )}
                         </div>
                       </div>
                     );
@@ -152,7 +179,9 @@ const IndividualSpot = () => {
                     className="spotButtons"
                     onClick={createReview}
                     hidden={
-                      loggedInUser && loggedInUser.id !== spotObj.ownerId && checkReviews(loggedInUser, spotReviewsArr)
+                      loggedInUser &&
+                      loggedInUser.id !== spotObj.ownerId &&
+                      checkReviews(loggedInUser, spotReviewsArr)
                         ? false
                         : true
                     }

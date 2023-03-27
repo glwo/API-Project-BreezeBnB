@@ -7,6 +7,7 @@ import HomePage from "./components/HomePage";
 import IndividualSpot from "./components/IndividualSpot";
 import UpdateSpotForm from "./components/UpdateSpotForm";
 import CreateReviewForm from "./components/CreateReviewForm";
+import ProfilePage from "./components/ProfilePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,7 +30,9 @@ function App() {
           <Route path={'/Spots/:id'}>
             <IndividualSpot />
           </Route>
-
+          <Route path={'/profile'}>
+            <ProfilePage />
+          </Route>
           <Route exact path={'/'}>
             <HomePage />
           </Route>

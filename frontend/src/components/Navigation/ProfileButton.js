@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from 'react-redux';
+import { useHistory } from "react-router";
 import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
@@ -9,6 +10,7 @@ import './ProfileButton.css'
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
+  const history = useHistory();
   const ulRef = useRef();
 
   const openMenu = () => {
@@ -38,6 +40,12 @@ function ProfileButton({ user }) {
     closeMenu();
   };
 
+  const viewProfile= (e) => {
+    e.preventDefault();
+    history.push("/profile");
+    closeMenu();
+  }
+
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
@@ -54,6 +62,7 @@ function ProfileButton({ user }) {
             <li>Name: {user.firstName} {user.lastName}</li>
             <li>Email: {user.email}</li>
             <li>
+              <button className="logOutButton" onClick={viewProfile}>View Profile</button>
               <button className="logOutButton" onClick={logout}>Log Out</button>
             </li>
           </>

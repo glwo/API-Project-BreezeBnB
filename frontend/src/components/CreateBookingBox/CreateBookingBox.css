@@ -1,0 +1,79 @@
+.createBookingButton{
+    /* display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center; */
+    background-color: #dd1361;
+    width: 100%;
+    height: 100%;
+    color: white;
+    border: none;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.createBooking-button-container {
+    width: 100%;
+    /* height: 20vh; */
+    margin-top: 1vh;
+}
+
+.createBooking-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.startAndEndSelect {
+    display: flex;
+    flex-direction: row;
+    /* padding: 0px; */
+    /* height: 110%; */
+}
+
+.NoCharge {
+    margin-top: 1vh;
+}
+
+.startDate {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* margin-right: 4vw; */
+    border-right: 1px solid grey;
+    padding: 10px;
+}
+
+.endDate {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+}
+
+.startAndEndSelect {
+    border: 1px solid grey;
+    border-radius: 1vw;
+    width: 100%;
+}
+
+.startAndEndSelect input {
+    width: 100%;
+    border: none;
+}
+
+.priceXNights {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.totalCostDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    border-top: 1px solid grey;
+}

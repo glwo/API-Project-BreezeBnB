@@ -20,15 +20,16 @@ export default function CreateBookingsBox() {
     return `${year}-${month}-${date}`;
   };
 
-  // set dates helper
-  const setDates = (val) => {
+  // convert dates for backend
+
+  const setDates = (num) => {
     const now = new Date();
     now.setDate(now.getDate() + 10);
     const start = now;
     const end = new Date(start);
     end.setDate(end.getDate() + 7);
 
-    if (val === "start") {
+    if (num === "start") {
       return formatDate(start);
     } else {
       return formatDate(end);
@@ -39,7 +40,7 @@ export default function CreateBookingsBox() {
   const [endDate, setEndDate] = useState(setDates("end"));
   const [errors, setErrors] = useState([]);
 
-  // Change end Date helper
+  // get end date for backend
 
   const getEndDate = (start) => {
     const startDate = new Date(start);
@@ -49,31 +50,27 @@ export default function CreateBookingsBox() {
     return formatDate(endDate);
   };
 
-  // useEffect
-
   useEffect(() => {
     setEndDate(getEndDate(startDate));
   }, [startDate]);
-
-  // handleSubmit
 
   const onSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
 
-    const newBooking = {
+    const newBookingData = {
       startDate,
       endDate,
     };
 
-    const makeNewBooking = await dispatch(
-      thunkAddBooking(+spotId, newBooking)
+    const NewBooking = await dispatch(
+      thunkAddBooking(+spotId, newBookingData)
     ).catch(async (res) => {
       const data = await res.json();
       if (data && data.errors) setErrors(data.errors);
     });
 
-    if (makeNewBooking) {
+    if (NewBooking) {
       dispatch(thunkGetUserBookings(loggedInUser.id));
       history.push(`/my-bookings`);
     }
@@ -81,7 +78,7 @@ export default function CreateBookingsBox() {
 
   if (!loggedInUser) return null;
 
-  // total days helper
+  // calculate days stayed for total price
 
   const totalReservationDays = (startDate, endDate) => {
     const now = new Date();
@@ -111,18 +108,18 @@ export default function CreateBookingsBox() {
   let cost = totalPrice(startDate, endDate, spotObj.price);
 
   return (
-    <div className="createBooking-container" hidden={
-        loggedInUser &&
-        loggedInUser.id !== spotObj.ownerId
-          ? false
-          : true
-      }>
-      <div className="">
+    <div
+      className="createBooking-container"
+      hidden={
+        loggedInUser && loggedInUser.id !== spotObj.ownerId ? false : true
+      }
+    >
+      {/* <div className="">
         <div className="">
           <h1 className="">${Number(spotObj.price).toFixed(2)}</h1>
           <span className="">/ night</span>
         </div>
-      </div>
+      </div> */}
       <div className="createBooking-error-container">
         <ul className="createBooking-errors">
           {errors.map((error, idx) => (
@@ -133,26 +130,34 @@ export default function CreateBookingsBox() {
       <form onSubmit={onSubmit} className="createBooking-form">
         <div className="createBooking-main-container">
           <div className="createBooking-group">
-            <div className="startDate">
-              <input
-                className="createBooking-lat"
-                id="startDate"
-                type="date"
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-              />
-              <label htmlFor="lat">Check-In</label>
+            <div className="startAndEndSelect">
+              <div className="startDate">
+                <label htmlFor="lat">Check-In : </label>
+                <input
+                  className="createBooking-lat"
+                  id="startDate"
+                  type="date"
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
+                />
+              </div>
+              <div className="endDate">
+                <label htmlFor="lat">Check-Out : </label>
+                <input
+                  className="createBooking-lat"
+                  id="endDate"
+                  type="date"
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
+                />
+              </div>
             </div>
-            <div className="endDate">
-              <input
-                className="createBooking-lat"
-                id="endDate"
-                type="date"
-                value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
-              />
-              <label htmlFor="lat">Check-Out</label>
+            <div className="createBooking-button-container">
+              <button type="submit" className="createBookingButton">
+                Reserve
+              </button>
             </div>
+            <div className="NoCharge">You won't be charged yet</div>
           </div>
         </div>
       </form>
@@ -160,7 +165,7 @@ export default function CreateBookingsBox() {
       <div className="">
         <div className="">
           <div className="">
-            <div className="">
+            <div className="priceXNights">
               <p className="">
                 ${Number(spotObj.price).toFixed(2)} x{" "}
                 {totalReservationDays(startDate, endDate)} nights
@@ -168,15 +173,9 @@ export default function CreateBookingsBox() {
               <p className="">${cost}</p>
             </div>
           </div>
-          <div className=""></div>
-          <div className="">
+          <div className="totalCostDiv">
             <p className="">Total before taxes</p>
             <p className="">${cost}</p>
-          </div>
-          <div className="createBooking-button-container">
-            <button type="submit" className="createBooking-submit">
-              Reserve
-            </button>
           </div>
         </div>
       </div>

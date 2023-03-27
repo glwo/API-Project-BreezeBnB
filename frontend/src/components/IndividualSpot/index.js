@@ -163,6 +163,7 @@ const IndividualSpot = () => {
               )}
 
               <div id="spot-information">
+                <div className="priceandReviews">
                 <div className="price">
                   <h2>$ {spotObj.price} night</h2>
                 </div>
@@ -172,6 +173,7 @@ const IndividualSpot = () => {
                     {(+spotObj.avgStarRating).toFixed(2)} · {spotObj.numReviews}{" "}
                     review(s)
                   </p>
+                </div>
                 </div>
                 {/* <div
                 hidden={
@@ -197,15 +199,14 @@ const IndividualSpot = () => {
                     Add A Review
                   </button>
                 </div>
-                <div>
-                  <button
-                    className="spotButtons"
-                    onClick={updateSpot}
-                    hidden={
+                <div className="updateSpotButton" hidden={
                       loggedInUser && loggedInUser.id === spotObj.ownerId
                         ? false
                         : true
-                    }
+                    }>
+                  <button
+                    className="spotButtons"
+                    onClick={updateSpot}
                   >
                     Update Spot
                   </button>

@@ -8,6 +8,7 @@ import { getAllReviews, deleteReview } from "../../store/reviews";
 import CreateReviewModal from "../CreateReviewForm";
 import UpdateReviewModal from "../UpdateReviewModal";
 import OpenModalButton from "../OpenModalButton";
+import CreateBookingsBox from "../CreateBookingBox";
 
 const IndividualSpot = () => {
   const spotObj = useSelector((state) => state.spots.indiv);
@@ -114,46 +115,44 @@ const IndividualSpot = () => {
                         {review.review}
                         <div className="editDelRevButton">
                           <div>
-                          <button
-                            className="delReviewButton"
-                            onClick={() =>
-                              dispatch(deleteReview(review.id)).then(
-                                dispatch(getAllReviews(spotObj.id))
-                              )
-                            }
-                            hidden={
-                              loggedInUser &&
-                              loggedInUser?.id === review.User?.id
-                                ? false
-                                : true
-                            }
-                          >
-
-                          <i class="fa-solid fa-trash"></i>{" "}
-                            Delete
-                          </button>
+                            <button
+                              className="delReviewButton"
+                              onClick={() =>
+                                dispatch(deleteReview(review.id)).then(
+                                  dispatch(getAllReviews(spotObj.id))
+                                )
+                              }
+                              hidden={
+                                loggedInUser &&
+                                loggedInUser?.id === review.User?.id
+                                  ? false
+                                  : true
+                              }
+                            >
+                              <i class="fa-solid fa-trash"></i> Delete
+                            </button>
                           </div>
                           {loggedInUser &&
-                            review.User?.id == loggedInUser.id ? (
-                              <div>
-                                <OpenModalButton
-                                  buttonText={
-                                    <>
-                                      <i class="fa-regular fa-pen-to-square"></i>{" "}
-                                      Update
-                                    </>
-                                  }
-                                  modalComponent={
-                                    <UpdateReviewModal
-                                      key={review.id}
-                                      reviewDetails={review}
-                                    />
-                                  }
-                                />
-                              </div>
-                            ) : (
-                              ""
-                            )}
+                          review.User?.id == loggedInUser.id ? (
+                            <div>
+                              <OpenModalButton
+                                buttonText={
+                                  <>
+                                    <i class="fa-regular fa-pen-to-square"></i>{" "}
+                                    Update
+                                  </>
+                                }
+                                modalComponent={
+                                  <UpdateReviewModal
+                                    key={review.id}
+                                    reviewDetails={review}
+                                  />
+                                }
+                              />
+                            </div>
+                          ) : (
+                            ""
+                          )}
                         </div>
                       </div>
                     );
@@ -174,6 +173,15 @@ const IndividualSpot = () => {
                     review(s)
                   </p>
                 </div>
+                {/* <div
+                hidden={
+                  loggedInUser &&
+                  loggedInUser.id !== spotObj.ownerId
+                    ? false
+                    : true
+                }> */}
+                  <CreateBookingsBox />
+                {/* </div> */}
                 <div>
                   <button
                     className="spotButtons"

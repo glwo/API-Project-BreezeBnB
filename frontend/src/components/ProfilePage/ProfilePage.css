@@ -1,0 +1,113 @@
+.userBookings-container {
+    padding: 45px 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 80%;
+}
+
+.userBookings-trips {
+    color: #ff385c;
+}
+
+.booking-card {
+    display: flex;
+    flex-direction: row;
+    border-radius: 8px;
+    width: 800px;
+    height: 250px;
+    border: 1px solid #b0b0b0;
+}
+
+.booking-card-left {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding: 0px 20px;
+    height: 100%;
+}
+
+.booking-spot-name {
+    font-size: 22px;
+    padding: 10px 0px;
+}
+
+.booking-spot-address {
+    font-size: 19px;
+    padding-bottom: 10px;
+}
+
+.booking-spot-city-country {
+    font-size: 19px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #b0b0b0;
+    width: 80%;
+}
+
+.booking-start {
+    font-size: 16px;
+    padding: 10px 0px;
+}
+
+.booking-end {
+    font-size: 16px;
+    padding-bottom: 10px;
+}
+
+.booking-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.delete-booking {
+    /* list-style: none;
+    border: 1px solid red;
+    width: 40%;
+    height: 30px;
+    text-align: center;
+    align-items: center;
+    padding-top: 10px;
+    border-radius: 5px;
+    background-color: rgb(227, 28, 95);
+    color: white;
+    cursor: pointer; */
+    background-color: #ff385c;
+    width: 40%;
+    color: white;
+    border: none;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding-top: 10px;
+    text-align: center;
+    align-items: center;
+    list-style: none;
+}
+
+.delete-booking:hover {
+    background-color: #c62914;
+}
+
+
+
+
+
+.booking-card-right {
+    width: 50%;
+}
+
+.booking-card-img {
+    object-fit: cover;
+    width: 400px;
+    height: 250px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.UserNameTrips {
+    padding-left: 200px;
+}

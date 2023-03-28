@@ -18,6 +18,38 @@ function Navigation({ isLoaded }){
           <h1>BreezeBnB</h1>
         </div>
           </NavLink>
+          <div className="linksHeader">
+          <div>
+            <a
+              className="link-footer"
+              href="https://github.com/glwo"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <i className="fa-brands fa-github fa-xl" />
+            </a>
+          </div>
+          <div>
+            <a
+              className="link-footer"
+              href="https://www.linkedin.com/in/glen-wojnar-74449b269/"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <i className="fa-brands fa-linkedin fa-xl" />
+            </a>
+          </div>
+          <div>
+            <a
+              className="link-footer"
+              href="https://wellfound.com/u/glen-wojnar"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <i className="fa-brands fa-angellist fa-xl" />
+            </a>
+          </div>
+        </div>
       <div id="nav-buttons">
         <OpenModalButton className='navButtonHome'
               //   onItemClick={closeMenu}

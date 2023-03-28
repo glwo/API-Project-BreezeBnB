@@ -139,3 +139,12 @@ border: none;
 #house-breeze i {
 font-size: 23px;
 }
+
+.linksHeader {
+    display: flex;
+    align-items: center;
+}
+
+.linksHeader div {
+    margin: 1vw;
+}

@@ -207,13 +207,13 @@ export default function CreateBookingsBox() {
       </div>
       <form onSubmit={handleSubmit} className="createBooking-form">
         <div className="createBooking-main-container">
-          <div className="createBooking-group">
+          <div className="createBookingDiv">
             <div className="startAndEndSelect">
               <div className="startDate">
                 <label htmlFor="lat">Check-In : </label>
                 <input
-                  className="createBooking-lat"
-                  id="startDate"
+                  // className="createBooking-lat"
+                  // id="startDate"
                   type="date"
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
@@ -224,8 +224,8 @@ export default function CreateBookingsBox() {
               <div className="endDate">
                 <label htmlFor="lat">Check-Out : </label>
                 <input
-                  className="createBooking-lat"
-                  id="endDate"
+                  // className="createBooking-lat"
+                  // id="endDate"
                   type="date"
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
@@ -234,7 +234,7 @@ export default function CreateBookingsBox() {
                 />
               </div>
             </div>
-            <div className="createBooking-button-container">
+            <div className="createBookingButtonDiv">
               <button type="submit" className="createBookingButton">
                 Reserve
               </button>

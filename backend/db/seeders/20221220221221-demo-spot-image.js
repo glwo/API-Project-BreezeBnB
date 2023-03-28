@@ -38,6 +38,26 @@ module.exports = {
         spotId: 6,
         url: "https://www.travelandleisure.com/thmb/36Nveq_VHXM18i13DCjTYAnLjPQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/atlanta-georgia-treehouse-airbnb-exterior-TREEHOUSEATL0222-6162d3ab7b9d4294a13e55eb6b6ed48e.jpg",
         preview: true
+      },
+      {
+        spotId: 7,
+        url: "https://everydaywanderer.com/wp-content/uploads/2018/02/Beehive-House-EWWM-700x500.jpg",
+        preview: true
+      },
+      {
+        spotId: 8,
+        url: "https://i.ytimg.com/vi/CsOOmcKU4SE/maxresdefault.jpg",
+        preview: true
+      },
+      {
+        spotId: 9,
+        url: "https://www.travelandleisure.com/thmb/VLQgU6KIghfDaqSxkttW5Jwm1lQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/beckham-cave-house-arkansas-living-CAVEHOUSE0818-0981a6020cd74f489b3b628b4eb24a0a.jpg",
+        preview: true
+      },
+      {
+        spotId: 10,
+        url: "https://www.travelandleisure.com/thmb/zqXsM85ouXAkCLpcrWJfO7czgs0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/exterior-airbnb-steven-holl-hudson-valley-rhinebeck-ny-ARCHWONDERBNB0222-b76215ca2fc64da8821835a2ae56d332.jpg",
+        preview: true
       }
     ], {})
   },

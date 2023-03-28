@@ -80,6 +80,54 @@ module.exports = {
         name: "Magic Tree House",
         description: "Warmth, sunshine, and fresh air",
         price: 450
+      },
+      {
+        ownerId: 3,
+        address: "654 Mountain Avenue",
+        city: "Austin",
+        state: "Texas",
+        country: "United States",
+        lat: 40,
+        lng: 85,
+        name: "East Side Beehive",
+        description: "Clean, Zen modern backyard cottage, easy access to SXSW, convention center, great dining, and public transportation. Gorgeous, peaceful space, close to the action but perfect for rest and recharging. Easy access to SXSW, ACL, F1 and all festivals.",
+        price: 450
+      },
+      {
+        ownerId: 1,
+        address: "1111 Country Road",
+        city: "Baileyville",
+        state: "Kansas",
+        country: "United States",
+        lat: 40,
+        lng: 85,
+        name: "Zome on the Range",
+        description: "See the countryside from from a whole new angle! You won't hear a discouraging word about this ten sided 'zome' located  in the Kansas range! ",
+        price: 650
+      },
+      {
+        ownerId: 2,
+        address: "137 Mountain Ave",
+        city: "Boulder",
+        state: "Utah",
+        country: "United States",
+        lat: 40,
+        lng: 85,
+        name: "Bedrock Homestead Full Cave",
+        description: "Embrace the mountainside with converted cave home!",
+        price: 1100
+      },
+      {
+        ownerId: 3,
+        address: "137 Studio Road",
+        city: "Rhineback",
+        state: "New York",
+        country: "United States",
+        lat: 40,
+        lng: 85,
+        name: "Architectural wonder in the woods",
+        description: "Unique experience, secluded. Enjoy a weekend or a few days eco-friendly retreat in an architectural, geometric masterpiece on 30 preserved acres just minutes from all that Rhinebeck and the Hudson Valley have to offer.",
+        price: 750
       }
     ], {})
   },

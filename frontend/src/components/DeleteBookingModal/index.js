@@ -29,6 +29,7 @@ export default function DeleteBookingModal({bookingId}) {
             <div className="form-header">
                 <h1>Delete Booking?</h1>
                 <p>(Booking will be deleted permanently and this cannot be undone. You will not be charged.)</p>
+                <p className='pastBookings'>*Past Bookings cannot be deleted to maintain host records.</p>
             </div>
             <form onSubmit={handleSubmit}>
               <button className="delete-button" type="submit">Confirm Delete</button>

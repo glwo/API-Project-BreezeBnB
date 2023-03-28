@@ -14,13 +14,17 @@
     padding: 5px;
 }
 
-.createBooking-button-container {
+.createBookingButton:hover {
+    background-color: #c62914;
+}
+
+.createBookingButtonDiv {
     width: 100%;
     /* height: 20vh; */
     margin-top: 1vh;
 }
 
-.createBooking-group {
+.createBookingDiv {
     display: flex;
     flex-direction: column;
     justify-content: center;

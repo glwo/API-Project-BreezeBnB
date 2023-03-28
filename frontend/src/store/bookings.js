@@ -1,167 +1,143 @@
 import { csrfFetch } from "./csrf";
 
+const LOAD_USERBOOKINGS = 'bookings/LOAD_USERBOOKINGS';
+const LOAD_SPOTBOOKING = 'bookings/LOAD_SPOTBOOKING';
+const CREATE_BOOKING = 'bookings/CREATE_BOOKING';
+const UPDATE_BOOKING = 'bookings/UPDATE_BOOKING';
+const DELETE_BOOKING = 'bookings/DELETE_BOOKING';
 
-const GET_USER_BOOKINGS = "bookings/GET_USER_BOOKINGS";
-const GET_SPOT_BOOKINGS = "bookings/GET_SPOT_BOOKINGS";
-const ADD_BOOKING = "bookings/ADD_BOOKING";
-const EDIT_BOOKING = "bookings/EDIT_BOOKING";
-const DELETE_BOOKING = "bookings/DELETE_BOOKING";
 
-// actions
-export const actionGetUserBookings = (userId, bookings) => {
-    return {
-        type: GET_USER_BOOKINGS,
-        userId,
-        bookings
-    }
+//Action
+export const loadUserBookings = (bookings) => {
+  return {
+    type: LOAD_USERBOOKINGS,
+    payload: bookings
+  }
+};
+
+export const loadSpotBookings = (bookings) => {
+  return {
+    type: LOAD_SPOTBOOKING,
+    payload: bookings
+  }
 }
 
-export const actionGetSpotBookings = (spotId, bookings) => {
-    return {
-        type: GET_SPOT_BOOKINGS,
-        spotId,
-        bookings
-    }
-}
+export const createBooking = (booking) => {
+  return {
+    type: CREATE_BOOKING,
+    payload: booking
+  }
+};
 
-export const actionAddBooking = (spotId, booking) => {
-    return {
-        type: ADD_BOOKING,
-        spotId,
-        booking
-    }
-}
+export const updateBooking = (booking) => {
+  return {
+    type: UPDATE_BOOKING,
+    payload: booking
+  }
+};
 
-export const actionEditBooking = (bookingId, booking) => {
-    return {
-        type: EDIT_BOOKING,
-        bookingId,
-        booking
-    }
-}
+export const deleteBooking = (id) => {
+  return {
+    type: DELETE_BOOKING,
+    payload: id
+  }
+};
 
-export const actionDeleteBooking = (bookingId) => {
-    return {
-        type: DELETE_BOOKING,
-        bookingId
-    }
-}
+//Thunk action
+export const thunkLoadUserBookings = () => async (dispatch) => {
+  const response = await csrfFetch(`/api/bookings/current`);
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(loadUserBookings(data))
+  }
+};
 
+export const thunkLoadSpotBookings = ({ spotId }) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${spotId}/bookings`);
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(loadSpotBookings(data))
+  }
+};
 
-// thunks
-export const thunkGetUserBookings = (userId) => async (dispatch) => {
-    const res = await csrfFetch("/api/bookings/current");
+export const thunkCreateBooking = (bookingData) => async (dispatch) => {
+  console.log(bookingData)
+  const response = await csrfFetch(`/api/spots/${bookingData.spotId}/bookings`, {
+    method: "POST",
+    body: JSON.stringify(bookingData)
+  });
+  if (response.ok) {
+    const booking = await response.json();
+    dispatch(createBooking(booking))
+    return booking;
+  }
+};
 
-    if (res.ok) {
-        const bookings = await res.json();
-        dispatch(actionGetUserBookings(userId, bookings));
-        return bookings;
-    }
-}
+export const thunkUpdateBooking = (bookingData) => async (dispatch) => {
+  const response = await csrfFetch(`/api/bookings/${bookingData.id}`, {
+    method: "PUT",
+    body: JSON.stringify(bookingData)
+  });
+  if (response.ok) {
+    const booking = await response.json();
+    dispatch(updateBooking(booking))
+    return booking;
+  }
+};
 
-export const thunkGetSpotBookings = (spotId) => async (dispatch) => {
-    const res = await csrfFetch(`/api/spots/${spotId}/bookings`);
+export const thunkDeleteBooking = (id) => async (dispatch) => {
+  const response = await csrfFetch(`/api/bookings/${id}`, {
+    method: "DELETE"
+  });
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(deleteBooking(id))
+    return data;
+  }
+};
 
-    if (res.ok) {
-        const bookings = await res.json();
-        dispatch(actionGetSpotBookings(spotId, bookings));
-        return bookings;
-    }
-}
-
-export const thunkAddBooking = (spotId, booking) => async (dispatch) => {
-    const res = await csrfFetch(`/api/spots/${spotId}/bookings`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(booking)
-    })
-
-    if (res.ok) {
-        const newBooking = await res.json();
-        dispatch(actionAddBooking(spotId, newBooking))
-        return newBooking;
-    }
-}
-
-export const thunkEditBooking = (bookingId, booking) => async (dispatch) => {
-    const res = await csrfFetch(`/api/bookings/${bookingId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(booking)
-    })
-
-    if (res.ok) {
-        const editedBooking = await res.json();
-        dispatch(actionEditBooking(bookingId, editedBooking))
-        return editedBooking;
-    }
-}
-
-export const thunkDeleteBooking = (bookingId) => async (dispatch) => {
-    const res = await csrfFetch(`/api/bookings/${bookingId}`, {
-        method: "DELETE"
-    })
-
-    if (res.ok) {
-        const deletedBooking = await res.json();
-        dispatch(actionDeleteBooking(bookingId));
-        return deletedBooking;
-    }
-}
-
-
-
-const normalize = (bookings) => {
-    const normalizedData = {};
-    bookings.forEach(booking => normalizedData[booking.id] = booking);
-
-    return normalizedData;
-}
-
+// initialState
 const initialState = {
-    spot: {},
-    user: {}
+  user: {},
+  spot: {}
+};
+
+//Reducer
+const BookingsReducer = (state = initialState, action) => {
+  let newState = { ...state };
+  switch (action.type) {
+    case LOAD_SPOTBOOKING:
+      newState.spot = normalize(action.payload.Bookings)
+      return newState;
+    case LOAD_USERBOOKINGS:
+      newState.user = normalize(action.payload.Bookings)
+      return newState;
+    case CREATE_BOOKING:
+      newState.spot = {...state.spot, [action.payload.id]: action.payload}
+      newState.user = {...state.user, [action.payload.id]: action.payload}
+      return newState;
+    case UPDATE_BOOKING:
+      newState.user = { ...state.user, [action.payload.id]: {...state.user[action.payload.id], ...action.payload}}
+      newState.spot = { ...state.spot, [action.payload.id]: {...state.spot[action.payload.id], ...action.payload}}
+      return newState;
+    case DELETE_BOOKING:
+      newState.user = {...state.user}
+      newState.spot = {...state.spot}
+      delete newState.user[action.payload]
+      delete newState.spot[action.payload]
+      return newState;
+    default:
+      return state;
+  }
+};
+
+// helper function
+const normalize = (array) => {
+  const obj = {}
+  array.forEach((el) => {
+    obj[el.id] = el
+  });
+  return obj;
 }
 
-
-export default function BookingsReducer(state = initialState, action) {
-    switch (action.type) {
-        case GET_USER_BOOKINGS: {
-            const userBookingsState = { ...state };
-            if (action.bookings.Bookings) {
-                userBookingsState.user = normalize(action.bookings.Bookings);
-            } else {
-                return { ...state, user: null };
-            }
-            return userBookingsState;
-        }
-        case GET_SPOT_BOOKINGS: {
-            const spotBookingsState = { ...state };
-            if (action.bookings.Bookings) {
-                spotBookingsState.spot = normalize(action.bookings.Bookings);
-            } else {
-                return { ...state, spot: null };
-            }
-            return spotBookingsState;
-        }
-        case ADD_BOOKING: {
-            const addBookingState = { ...state };
-            addBookingState.spot = { ...state.spot, [action.booking.id]: action.booking};
-            return addBookingState;
-        }
-        case EDIT_BOOKING: {
-            const editBookingState = { ...state };
-            editBookingState.spot = { ...state.spot, [action.bookingId]: { ...state.user[action.bookingId], startDate: action.booking.startDate, endDate: action.booking.endDate } };
-            editBookingState.spot = { ...state.user, [action.bookingId]: { ...state.user[action.bookingId], startDate: action.booking.startDate, endDate: action.booking.endDate } };
-            return editBookingState;
-        }
-        case DELETE_BOOKING: {
-            const deleteBookingState = { ...state };
-            delete deleteBookingState.spot[action.bookingId];
-            delete deleteBookingState.user[action.bookingId];
-            return deleteBookingState;
-        }
-        default:
-            return state;
-    }
-}
+export default BookingsReducer;

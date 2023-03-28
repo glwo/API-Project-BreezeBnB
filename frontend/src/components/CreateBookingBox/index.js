@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
-import { thunkAddBooking, thunkGetUserBookings } from "../../store/bookings";
+import { thunkCreateBooking, thunkLoadUserBookings } from "../../store/bookings";
 import "./CreateBookingBox.css";
 
 
@@ -13,32 +13,32 @@ export default function CreateBookingsBox() {
   const spotObj = useSelector((state) => state.spots.indiv);
 
   // format Date helper func
-  const formatDate = (day) => {
-    const date = `0${day.getDate()}`.slice(-2);
-    const month = `0${day.getMonth() + 1}`.slice(-2);
-    const year = day.getFullYear();
+  // const formatDate = (day) => {
+  //   const date = `0${day.getDate()}`.slice(-2);
+  //   const month = `0${day.getMonth() + 1}`.slice(-2);
+  //   const year = day.getFullYear();
 
-    return `${year}-${month}-${date}`;
-  };
+  //   return `${year}-${month}-${date}`;
+  // };
 
   // convert dates for backend
 
-  const setDates = (num) => {
-    const now = new Date();
-    now.setDate(now.getDate() + 10);
-    const start = now;
-    const end = new Date(start);
-    end.setDate(end.getDate() + 7);
+  // const setDates = (num) => {
+  //   const now = new Date();
+  //   now.setDate(now.getDate() + 10);
+  //   const start = now;
+  //   const end = new Date(start);
+  //   end.setDate(end.getDate() + 7);
 
-    if (num === "start") {
-      return formatDate(start);
-    } else {
-      return formatDate(end);
-    }
-  };
+  //   if (num === "start") {
+  //     return formatDate(start);
+  //   } else {
+  //     return formatDate(end);
+  //   }
+  // };
 
-  const [startDate, setStartDate] = useState(setDates("start"));
-  const [endDate, setEndDate] = useState(setDates("end"));
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   // const [dates] = useState(setDates(7));
   // const { startDate, endDate } = dates;
   const [errors, setErrors] = useState([]);
@@ -46,64 +46,61 @@ export default function CreateBookingsBox() {
 
   // get end date for backend
 
-  const getEndDate = (start) => {
-    const startDate = new Date(start);
-    startDate.setDate(startDate.getDate() + 7);
-    const endDate = startDate;
+  // const getEndDate = (start) => {
+  //   const startDate = new Date(start);
+  //   startDate.setDate(startDate.getDate() + 7);
+  //   const endDate = startDate;
 
-    return formatDate(endDate);
-  };
+  //   return formatDate(endDate);
+  // };
 
-  useEffect(() => {
-    setEndDate(getEndDate(startDate));
-  }, [startDate]);
+  // useEffect(() => {
+  //   setEndDate(getEndDate(startDate));
+  // }, [startDate]);
 
-  const onSubmit = async (e) => {
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setErrors([]);
+
+  //   let bookingData = {
+  //     spotId: id,
+  //     endDate,
+  //     startDate
+  //   }
+
+  //   dispatch(thunkCreateBooking(bookingData))
+  //     .then(() => setEndDate(''))
+  //     .then(() => setStartDate(''))
+  //     .catch(async (res) => {
+  //       const data = await res.json();
+  //       if (data && data.errors) setErrors(data.errors);
+  //     })
+
+  //   history.push(`/profile`);
+  // }
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
 
-    // console.log(startDate)
-    // console.log(endDate)
-
     const newBookingData = {
+      spotId: id,
       startDate,
-      endDate
+      endDate,
     };
 
     const NewBooking = await dispatch(
-      thunkAddBooking(+id, newBookingData)
+      thunkCreateBooking(newBookingData)
     ).catch(async (res) => {
       const data = await res.json();
       if (data && data.errors) setErrors(data.errors);
     });
 
     if (NewBooking) {
-      dispatch(thunkGetUserBookings(loggedInUser.id));
-      // history.push(`/profile`);
+      dispatch(thunkLoadUserBookings(loggedInUser.id));
+      history.push(`/profile`);
     }
   };
-
-  // const onSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setErrors([]);
-
-  //   const newBookingData = {
-  //     startDate,
-  //     endDate,
-  //   };
-
-  //   const NewBooking = await dispatch(
-  //     thunkAddBooking(+id, newBookingData)
-  //   ).catch(async (res) => {
-  //     const data = await res.json();
-  //     if (data && data.errors) setErrors(data.errors);
-  //   });
-
-  //   if (NewBooking) {
-  //     dispatch(thunkGetUserBookings(loggedInUser.id));
-  //     // history.push(`/profile`);
-  //   }
-  // };
 
   if (!loggedInUser) return null;
 
@@ -177,7 +174,7 @@ export default function CreateBookingsBox() {
           ))}
         </ul>
       </div>
-      <form onSubmit={onSubmit} className="createBooking-form">
+      <form onSubmit={handleSubmit} className="createBooking-form">
         <div className="createBooking-main-container">
           <div className="createBooking-group">
             <div className="startAndEndSelect">
@@ -189,6 +186,7 @@ export default function CreateBookingsBox() {
                   type="date"
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
+                  required
                   // onChange={handleStartDateChange}
                 />
               </div>
@@ -200,6 +198,7 @@ export default function CreateBookingsBox() {
                   type="date"
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
+                  required
                   // onChange={handleEndDateChange}
                 />
               </div>

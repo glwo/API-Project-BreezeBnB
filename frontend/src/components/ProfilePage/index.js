@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import './ProfilePage.css'
 import { useModal, Modal } from "../../context/Modal";
-import { thunkGetUserBookings } from "../../store/bookings";
+import { thunkLoadUserBookings} from "../../store/bookings";
 import { getAllReviews } from "../../store/reviews";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 
@@ -43,7 +43,7 @@ const ProfilePage = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(thunkGetUserBookings(sessionUser.id))
+        dispatch(thunkLoadUserBookings(sessionUser.id))
         dispatch(getAllSpots())
         setIsLoaded(true)
         // dispatch(getAllReviews())
@@ -90,9 +90,9 @@ const ProfilePage = () => {
             {bookings && bookingsArray.map(booking => (
                 <div className="booking-card" key={booking.id}>
                     <div className="booking-card-left">
-                        <div className="booking-spot-name">{booking.Spot.name}</div>
-                        <div className="booking-spot-address">{booking.Spot.address}</div>
-                        <div className="booking-spot-city-country">{booking.Spot.city}, {booking.Spot.country}</div>
+                        <div className="booking-spot-name">{booking.Spot?.name}</div>
+                        <div className="booking-spot-address">{booking.Spot?.address}</div>
+                        <div className="booking-spot-city-country">{booking.Spot?.city}, {booking.Spot?.country}</div>
                         <div className="booking-start">From: {reformatDateString(booking.startDate.slice(0, 10))}</div>
                         <div className="booking-end">To: {reformatDateString(booking.endDate.slice(0,10))}</div>
                         <div className="booking-buttons">
@@ -109,10 +109,10 @@ const ProfilePage = () => {
                         </div>
                     </div>
                     <div className="booking-card-right">
-                        {spotsObj[booking.Spot.id].previewImage === "No preview image available" ? (
+                        {spotsObj[booking.Spot?.id]?.previewImage === "No preview image available" ? (
                             <img className="booking-card-img" src="https://i.pinimg.com/736x/e1/1d/4c/e11d4cdb0e95e4338908d8579784a906--el-dragon-dragon-art.jpg" />
                         ) : (
-                            <img className="booking-card-img" src={spotsObj[booking.Spot.id].previewImage} />
+                            <img className="booking-card-img" src={spotsObj[booking.Spot?.id]?.previewImage} />
                         )}
                     </div>
                 </div>

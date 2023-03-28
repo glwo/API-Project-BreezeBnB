@@ -17,13 +17,13 @@ const { Op } = require("sequelize");
 
 const router = express.Router();
 
-const convertDate = (date) => {
-  console.log(date);
-  const [year, month, day] = date.split("-");
-  const monthIndex = month - 1;
-  const newDate = new Date(year, monthIndex, date);
-  return date;
-};
+// const convertDate = (date) => {
+//   console.log(date);
+//   const [year, month, day] = date.split("-");
+//   const monthIndex = month - 1;
+//   const newDate = new Date(year, monthIndex, date);
+//   return date;
+// };
 
 const spotValidator = [
   check("address")
@@ -360,8 +360,8 @@ router.post("/:spotId/bookings", requireAuth, async (req, res) => {
         const newBooking = await Booking.create({
             spotId: spot.id,
             userId: req.user.id,
-            startDate: startDate,
-            endDate: endDate
+            startDate: new Date(startDate),
+            endDate: new Date(endDate)
         })
         // newBooking.spotId = spot.id
         // newBooking.userId = req.user.id

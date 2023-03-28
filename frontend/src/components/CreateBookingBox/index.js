@@ -4,8 +4,9 @@ import { useHistory, useParams } from "react-router";
 import { thunkAddBooking, thunkGetUserBookings } from "../../store/bookings";
 import "./CreateBookingBox.css";
 
+
 export default function CreateBookingsBox() {
-  const { spotId } = useParams();
+  const { id } = useParams();
   const loggedInUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -38,7 +39,10 @@ export default function CreateBookingsBox() {
 
   const [startDate, setStartDate] = useState(setDates("start"));
   const [endDate, setEndDate] = useState(setDates("end"));
+  // const [dates] = useState(setDates(7));
+  // const { startDate, endDate } = dates;
   const [errors, setErrors] = useState([]);
+
 
   // get end date for backend
 
@@ -58,13 +62,16 @@ export default function CreateBookingsBox() {
     e.preventDefault();
     setErrors([]);
 
+    // console.log(startDate)
+    // console.log(endDate)
+
     const newBookingData = {
       startDate,
-      endDate,
+      endDate
     };
 
     const NewBooking = await dispatch(
-      thunkAddBooking(+spotId, newBookingData)
+      thunkAddBooking(+id, newBookingData)
     ).catch(async (res) => {
       const data = await res.json();
       if (data && data.errors) setErrors(data.errors);
@@ -72,9 +79,31 @@ export default function CreateBookingsBox() {
 
     if (NewBooking) {
       dispatch(thunkGetUserBookings(loggedInUser.id));
-      history.push(`/my-bookings`);
+      // history.push(`/profile`);
     }
   };
+
+  // const onSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setErrors([]);
+
+  //   const newBookingData = {
+  //     startDate,
+  //     endDate,
+  //   };
+
+  //   const NewBooking = await dispatch(
+  //     thunkAddBooking(+id, newBookingData)
+  //   ).catch(async (res) => {
+  //     const data = await res.json();
+  //     if (data && data.errors) setErrors(data.errors);
+  //   });
+
+  //   if (NewBooking) {
+  //     dispatch(thunkGetUserBookings(loggedInUser.id));
+  //     // history.push(`/profile`);
+  //   }
+  // };
 
   if (!loggedInUser) return null;
 
@@ -106,6 +135,27 @@ export default function CreateBookingsBox() {
   };
 
   let cost = totalPrice(startDate, endDate, spotObj.price);
+
+  // const handleStartDateChange = (e) => {
+  //   const value = e.target.value;
+  //   if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+  //     setStartDate(value);
+  //     setEndDate(getEndDate(value));
+  //   } else {
+  //     // display error message
+  //     setErrors([...errors, "Invalid start date"]);
+  //   }
+  // };
+
+  // const handleEndDateChange = (e) => {
+  //   const value = e.target.value;
+  //   if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+  //     setEndDate(value);
+  //   } else {
+  //     // display error message
+  //     setErrors([...errors, "Invalid end date"]);
+  //   }
+  // };
 
   return (
     <div
@@ -139,6 +189,7 @@ export default function CreateBookingsBox() {
                   type="date"
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
+                  // onChange={handleStartDateChange}
                 />
               </div>
               <div className="endDate">
@@ -149,6 +200,7 @@ export default function CreateBookingsBox() {
                   type="date"
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
+                  // onChange={handleEndDateChange}
                 />
               </div>
             </div>

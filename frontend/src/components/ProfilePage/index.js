@@ -55,6 +55,19 @@ const ProfilePage = () => {
 
     if (!sessionUser) return null
 
+    if (!bookings) {
+        return (
+        <div className="UserBookings-container">
+            <h1 className="UserBookings-header">Trips</h1>
+            <div className="UserBookings-no-trips-container">
+                <h2 className="UserBookings-secondary-header">
+                    No trips
+                </h2>
+            </div>
+        </div>
+        )
+    }
+
     function reformatDateString(dateString) {
         // Split the date string into an array of [year, month, day]
         const dateComponents = dateString.split('-');
@@ -64,6 +77,8 @@ const ProfilePage = () => {
 
         return reformattedDate;
     }
+
+    // console.log(reformatDateString(bookings[0].startDate.slice(0, 10)))
 
 
 

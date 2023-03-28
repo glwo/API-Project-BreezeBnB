@@ -1,10 +1,11 @@
 .userBookings-container {
-    margin: 30px;
-    width: 90%;
+    padding: 45px 200px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
     gap: 20px;
+    width: 80%;
 }
 
 .userBookings-trips {
@@ -63,7 +64,7 @@
 }
 
 .delete-booking {
-    list-style: none;
+    /* list-style: none;
     border: 1px solid red;
     width: 40%;
     height: 30px;
@@ -73,7 +74,22 @@
     border-radius: 5px;
     background-color: rgb(227, 28, 95);
     color: white;
+    cursor: pointer; */
+    background-color: #ff385c;
+    width: 40%;
+    color: white;
+    border: none;
+    height: 30px;
+    border-radius: 5px;
     cursor: pointer;
+    padding-top: 10px;
+    text-align: center;
+    align-items: center;
+    list-style: none;
+}
+
+.delete-booking:hover {
+    background-color: #c62914;
 }
 
 
@@ -90,4 +106,8 @@
     height: 250px;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
+}
+
+.UserNameTrips {
+    padding-left: 200px;
 }

@@ -7,6 +7,7 @@ import { useModal, Modal } from "../../context/Modal";
 import { thunkLoadUserBookings} from "../../store/bookings";
 import { getAllReviews } from "../../store/reviews";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import DeleteBookingModal from "../DeleteBookingModal";
 
 
 const ProfilePage = () => {
@@ -84,9 +85,11 @@ const ProfilePage = () => {
 
     return (
         <div>
-            <h1>Welcome, {sessionUser.firstName}</h1>
-            <div className="userBookings-container">
+            <div className="UserNameTrips">
+            <h1>Welcome, {sessionUser.firstName}.</h1>
             <h2 className="userBookings-trips">Your Trips</h2>
+            </div>
+            <div className="userBookings-container">
             {bookings && bookingsArray.map(booking => (
                 <div className="booking-card" key={booking.id}>
                     <div className="booking-card-left">
@@ -102,15 +105,15 @@ const ProfilePage = () => {
                             <OpenModalMenuItem
                             itemText="Delete"
                             onItemClick={closeMenu}
-                            // modalComponent={< DeleteBookingForm bookingId={booking.id}
-                            // />}
+                            modalComponent={< DeleteBookingModal bookingId={booking.id}
+                            />}
                             />
                             </div>
                         </div>
                     </div>
                     <div className="booking-card-right">
                         {spotsObj[booking.Spot?.id]?.previewImage === "No preview image available" ? (
-                            <img className="booking-card-img" src="https://i.pinimg.com/736x/e1/1d/4c/e11d4cdb0e95e4338908d8579784a906--el-dragon-dragon-art.jpg" />
+                            <img className="booking-card-img" src="https://image.shutterstock.com/image-photo/luxurious-new-construction-home-bellevue-260nw-555325381.jpg" />
                         ) : (
                             <img className="booking-card-img" src={spotsObj[booking.Spot?.id]?.previewImage} />
                         )}
@@ -118,6 +121,9 @@ const ProfilePage = () => {
                 </div>
             ))}
         </div>
+        <div className="UserNameTrips">
+            <h2 className="userBookings-trips">Your properties, thank you for hosting with BreezeBnB!</h2>
+            </div>
         <div className="spots-Box">
             {userSpots.map(spot => {
                 return (

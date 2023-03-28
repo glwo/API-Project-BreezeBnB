@@ -5,6 +5,7 @@ import "./IndividualSpot.css";
 import { useParams, useHistory } from "react-router-dom";
 import { deleteIndivSpot } from "../../store/spots";
 import { getAllReviews, deleteReview } from "../../store/reviews";
+import { thunkLoadSpotBookings, thunkLoadUserBookings } from "../../store/bookings";
 import CreateReviewModal from "../CreateReviewForm";
 import UpdateReviewModal from "../UpdateReviewModal";
 import OpenModalButton from "../OpenModalButton";
@@ -13,10 +14,14 @@ import CreateBookingsBox from "../CreateBookingBox";
 const IndividualSpot = () => {
   const spotObj = useSelector((state) => state.spots.indiv);
   const { id } = useParams();
+  let spotId = id;
   const history = useHistory();
   const loggedInUser = useSelector((state) => state.session.user);
   const spotReviews = useSelector((state) => state.reviews.spotReviews);
+  const spotBookings = useSelector((state) => state.bookings.spot);
   const spotReviewsArr = Object.values(spotReviews);
+  const spotBookingsArr = Object.values(spotBookings)
+  // console.log(spotBookingsArr)
   //   let spotId;
 
   const checkReviews = function (currentUser, userReviews) {
@@ -43,9 +48,10 @@ const IndividualSpot = () => {
   useEffect(() => {
     dispatch(getIndivSpot(+id));
     dispatch(getAllReviews(+id));
+    dispatch(thunkLoadSpotBookings(+spotId))
     // dispatch(deleteReview())
     // dispatch(createSpot())
-  }, [dispatch, id]);
+  }, [dispatch, id, spotId]);
 
   // const deleteSpot = async (e) => {
   //     e.preventDefault()

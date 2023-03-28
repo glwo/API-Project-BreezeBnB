@@ -11,6 +11,12 @@ export default function CreateBookingsBox() {
   const dispatch = useDispatch();
   const history = useHistory();
   const spotObj = useSelector((state) => state.spots.indiv);
+  const bookingData = useSelector((state) => state.bookings.spot);
+  const bookings = Object.values(bookingData)
+  // console.log(bookings)
+
+
+
 
   // format Date helper func
   // const formatDate = (day) => {
@@ -39,6 +45,10 @@ export default function CreateBookingsBox() {
 
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+
+  const startDatetime = new Date(startDate).getTime();
+  const endDatetime = new Date(endDate).getTime();
+  const now = new Date().getTime();
   // const [dates] = useState(setDates(7));
   // const { startDate, endDate } = dates;
   const [errors, setErrors] = useState([]);
@@ -82,6 +92,27 @@ export default function CreateBookingsBox() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
+
+    if (now >= startDatetime) {
+      setErrors(["Booking cannot be in the past"]);
+      return;
+    }
+
+    for(let booking of bookings){
+      const oldstartDatetime = new Date(booking.startDate).getTime();
+      const oldendDatetime = new Date(booking.endDate).getTime();
+
+      if(startDatetime >= oldstartDatetime && endDatetime <= oldendDatetime){
+       setErrors(["Dates selected are already booked"]);
+       return;
+      }
+    }
+
+    if(startDatetime >= endDatetime){
+      setErrors(["Checkout cannot be before Check-in"]);
+      return;
+  }
+
 
     const newBookingData = {
       spotId: id,
@@ -214,7 +245,7 @@ export default function CreateBookingsBox() {
       </form>
 
       <div className="">
-        <div className="">
+        <div className="" hidden={(parseInt(startDate) && parseInt(endDate) ? false : true)}>
           <div className="">
             <div className="priceXNights">
               <p className="">

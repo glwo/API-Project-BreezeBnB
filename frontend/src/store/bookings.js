@@ -52,7 +52,7 @@ export const thunkLoadUserBookings = () => async (dispatch) => {
   }
 };
 
-export const thunkLoadSpotBookings = ({ spotId }) => async (dispatch) => {
+export const thunkLoadSpotBookings = ( spotId ) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${spotId}/bookings`);
   if (response.ok) {
     const data = await response.json();

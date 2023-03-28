@@ -310,8 +310,6 @@ router.post("/:spotId/bookings", requireAuth, async (req, res) => {
 
     if(spot.ownerId !== req.user.id){
         const { startDate, endDate } = req.body
-        console.log(startDate)
-        console.log(endDate)
 
         const startDatetime = new Date(startDate).getTime();
         const endDatetime = new Date(endDate).getTime();
@@ -356,14 +354,14 @@ router.post("/:spotId/bookings", requireAuth, async (req, res) => {
             }
         }
 
-        // console.log(spot.id)
-        // console.log(req.user.id)
+
+
 
         const newBooking = await Booking.create({
             spotId: spot.id,
             userId: req.user.id,
-            startDate,
-            endDate
+            startDate: startDate,
+            endDate: endDate
         })
         // newBooking.spotId = spot.id
         // newBooking.userId = req.user.id
@@ -371,6 +369,7 @@ router.post("/:spotId/bookings", requireAuth, async (req, res) => {
         res.status(200)
         res.json(newBooking)
     }
+
 
 })
 // router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {

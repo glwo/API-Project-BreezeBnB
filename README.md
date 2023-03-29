@@ -2,7 +2,7 @@
 A fullstack clone of popular vacation rental site Airbnb which provides users with clean and smooth platform to advertise, book, and review local rentals.
 Key technologies used include: JavaScript, Npm, React.js, Sequelize, and PostgreSQL.
 
-[https://breezebnb.onrender.com/](https://breezebnb-giln.onrender.com/)
+[https://breezebnb-giln.onrender.com/](https://breezebnb-giln.onrender.com/)
 
 ## Functionality and MVPS
 In breezebnb, users can:

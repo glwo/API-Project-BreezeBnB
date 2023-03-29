@@ -11,7 +11,7 @@ In breezebnb, users can:
 - make and delete bookings
 - write and manage reviews: full CRUD
 
-## Technologies, Libraries, and APIs
+## Technologies and Libraries
 - React.js
 - React/Redux
 - Node.js

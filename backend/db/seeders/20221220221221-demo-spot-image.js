@@ -58,6 +58,31 @@ module.exports = {
         spotId: 10,
         url: "https://www.travelandleisure.com/thmb/zqXsM85ouXAkCLpcrWJfO7czgs0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/exterior-airbnb-steven-holl-hudson-valley-rhinebeck-ny-ARCHWONDERBNB0222-b76215ca2fc64da8821835a2ae56d332.jpg",
         preview: true
+      },
+      {
+        spotId: 11,
+        url: "http://cdn2.atlantamagazine.com/wp-content/uploads/sites/12/2018/06/06_LakeKeowee_Inspiro8Studios_oneuseonly.jpg",
+        preview: true
+      },
+      {
+        spotId: 12,
+        url: "https://www.mountainliving.com/content/uploads/2020/06/LPAIA_Lake-House_NY-7341-.jpg",
+        preview: true
+      },
+      {
+        spotId: 13,
+        url: "https://media.mauinow.com/file/mauinow/2019/12/Screen-Shot-2019-12-20-at-11.12.11-AM-1024x681.png",
+        preview: true
+      },
+      {
+        spotId: 14,
+        url: "https://www.escapetoblueridge.com/images/north-georgia-blue-ridge-cabins.jpg",
+        preview: true
+      },
+      {
+        spotId: 15,
+        url: "https://static.wixstatic.com/media/d40a58_95650b5cf1e247d19a9ca4a1b9e4598a~mv2.jpg/v1/fill/w_640,h_476,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/d40a58_95650b5cf1e247d19a9ca4a1b9e4598a~mv2.jpg",
+        preview: true
       }
     ], {})
   },

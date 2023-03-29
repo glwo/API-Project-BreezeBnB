@@ -6,6 +6,8 @@ import { useParams } from "react-router-dom";
 import { getIndivSpot } from "../../store/spots";
 import { thunkEditReview, getAllReviews } from "../../store/reviews";
 import "./UpdateReviewModal.css";
+import StarsRating from "stars-rating";
+
 
 function UpdateReviewModal({ reviewDetails }) {
   const { id } = useParams();
@@ -99,12 +101,12 @@ function UpdateReviewModal({ reviewDetails }) {
             }}
             className="reviewText"
             type={"text"}
-            placeholder={"Note"}
+            placeholder={"Leave your Review..."}
             required
             value={review}
             onChange={updateReview}
           />
-          <div>
+          {/* <div>
             <label>Rating :</label>
           </div>
           <input
@@ -161,7 +163,18 @@ function UpdateReviewModal({ reviewDetails }) {
           />
           <label for="star5" title="text">
             5 stars
-          </label>
+          </label> */}
+          Your rating :
+            <StarsRating
+              className="ReviewFormStarsRating"
+              count={5}
+              onChange={setStars}
+              size={35}
+              half={false}
+              value={stars}
+              color2={"#dd1361"}
+              color1={"#80808f"}
+            />
           {/* <div>
             <label>Note image :</label>
           </div>

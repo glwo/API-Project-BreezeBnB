@@ -58,3 +58,7 @@
 .rate {
     padding: 0px;
 }
+
+.reviewFormmodal textarea {
+    padding: 0.5vw;
+}

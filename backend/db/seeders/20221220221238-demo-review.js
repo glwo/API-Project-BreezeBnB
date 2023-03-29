@@ -62,6 +62,42 @@ module.exports = {
       userId: 2,
       review: "This place is magic!",
       stars: 5
+    },
+    {
+      spotId: 7,
+      userId: 2,
+      review: "Too many bees for me!",
+      stars: 1
+    },
+    {
+      spotId: 8,
+      userId: 2,
+      review: "Zome sweet Zome!",
+      stars: 5
+    },
+    {
+      spotId: 9,
+      userId: 3,
+      review: "This is quite the cavernous cave home!",
+      stars: 4
+    },
+    {
+      spotId: 10,
+      userId: 1,
+      review: "This is quite the cavernous cave home!",
+      stars: 4
+    },
+    {
+      spotId: 11,
+      userId: 2,
+      review: "We absolutely loved our stay! Such a gorgeous spot on the river and everything about this house is so well done. It's clean and modern with a very strong vacation vibe.",
+      stars: 5
+    },
+    {
+      spotId: 12,
+      userId: 2,
+      review: "Great space! View is better than the pictures. But would arrive in daylight and if you have 4wheel drive, plan to use it.",
+      stars: 4
     }
    ], {})
   },

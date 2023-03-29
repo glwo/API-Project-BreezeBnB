@@ -128,6 +128,78 @@ module.exports = {
         name: "Architectural wonder in the woods",
         description: "Unique experience, secluded. Enjoy a weekend or a few days eco-friendly retreat in an architectural, geometric masterpiece on 30 preserved acres just minutes from all that Rhinebeck and the Hudson Valley have to offer.",
         price: 750
+      },
+      {
+        ownerId: 1,
+        address: "1850 Nexus Road",
+        city: "Knoxville",
+        state: "Tennessee",
+        country: "United States",
+        lat: 40,
+        lng: 85,
+        name: "Lavish Lake Getaway",
+        description: "There’s no better way to experience the beauty of Loudoun Lake than by sleeping right in the heart of it with breathtaking lake views. ",
+        price: 388
+      },
+      {
+        ownerId: 1,
+        address: "1177 Makar Road",
+        city: "Bryson City",
+        state: "North Carolina",
+        country: "United States",
+        lat: 40,
+        lng: 85,
+        name: "Watershed Pointe D",
+        description: "Our Resort property features several outdoor areas for your enjoyment. The “Yard” is the center of our Resort. There, you can find a gorgeous view, seating, a group fire pit, a bocce ball court, corn hole, ladder ball, horseshoes, and our signature “logzebo” with a bed swing.",
+        price: 237
+      },
+      {
+        ownerId: 2,
+        address: "1224 Apple Lane",
+        city: "Folly Beach",
+        state: "South Carolina",
+        country: "United States",
+        lat: 40,
+        lng: 85,
+        name: "3BR Oceanfront",
+        description: "El Mar, which translates to “the sea”, is the name of this gorgeous beachfront home just waiting to assist in making the best memories. All bedrooms face the ocean, so each guest enjoys a spectacular ocean view and the ocean’s lullaby in the evening.",
+        price: 1120
+      },
+      {
+        ownerId: 2,
+        address: "137 Cobbly Nob Street",
+        city: "Gatlinberg",
+        state: "Tennessee",
+        country: "United States",
+        lat: 40,
+        lng: 85,
+        name: "Myra's Cabin",
+        description: "Bring family and friends to our newly constructed cabin located in the Cobbly Nob Community and take in the fresh Great Smoky Mountain National Park air as you gaze upon the mountain landscape from the decks of Diamond in the Bluff with our wall of windows framing the beautiful mountain scenery and the amazing views.",
+        price: 327
+      },
+      {
+        ownerId: 3,
+        address: "1200 Rocky Mountain Road",
+        city: "Mesa County",
+        state: "Colorado",
+        country: "United States",
+        lat: 40,
+        lng: 85,
+        name: "Thimble Rock Point",
+        description: "Nestled in the mountainside of an obscure Colorado canyon there is a place so fitting it literally rises from the rock the way a ship breaks a wave.",
+        price: 356
+      },
+      {
+        ownerId: 1,
+        address: "100 Palace Place",
+        city: "Langley",
+        state: "Kentucky",
+        country: "United States",
+        lat: 40,
+        lng: 85,
+        name: "The Bluegrass Palace",
+        description: "There is a special place, nestled amidst the rolling hills of Kentucky bluegrass, where 29,000 square feet of unmitigated luxury welcomes you.",
+        price: 356
       }
     ], {})
   },

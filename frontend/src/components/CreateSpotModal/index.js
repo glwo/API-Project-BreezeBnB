@@ -35,12 +35,6 @@ function CreateSpotModal() {
 
   useEffect(() => {
     let newErrors = []
-    if(loggedInUser === null){
-      newErrors.push("Must be logged in to create a spot.")
-    }
-    if(checkURL(imageUrl) === false){
-      newErrors.push("Please provide an image in jpg or png format")
-    }
     setErrors(newErrors)
   }, [])
 
@@ -82,6 +76,15 @@ function CreateSpotModal() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
+    if(loggedInUser === null){
+      setErrors(["Must be logged in to create a spot."])
+      return
+    }
+
+    if(checkURL(imageUrl) === false){
+      setErrors(["Please provide an image in jpg or png format"])
+    }
+
     const newSpot = await dispatch(createSpot({
         address,
         city,

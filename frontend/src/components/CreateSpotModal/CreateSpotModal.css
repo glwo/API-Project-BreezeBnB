@@ -22,6 +22,10 @@
     cursor: pointer;
 }
 
+.createSpotButton:hover {
+    background-color: #c62914;
+}
+
 .inputDiv {
     padding: 10px;
 }
@@ -34,7 +38,8 @@
     padding: 4px;
 }
 .createSpotModal input {
-    width: 100%;
+    width: 94%;
+    padding-left: 10px;
 }
 
 .createSpotModal button {

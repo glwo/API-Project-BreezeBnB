@@ -35,3 +35,11 @@
 .reviewForm input {
     width: 100%;
 }
+
+.ReviewFormStarsRating {
+    padding: 0px;
+}
+
+.reviewForm textarea {
+    padding: 0.5vw;
+}

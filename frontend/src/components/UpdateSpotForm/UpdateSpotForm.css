@@ -29,5 +29,6 @@
 }
 
 .updateSpotForm input {
-    width: 100%;
+    width: 94%;
+    padding-left: 10px;
 }

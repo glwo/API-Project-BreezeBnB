@@ -13,28 +13,42 @@
     overflow-y:scroll;
 }
 
+.reviewSubmit button {
+    background-color: #ff385c;
+    color: white;
+    border: none;
+    border-radius: 1vh;
+    padding: 1vh;
+    cursor: pointer;
+}
+
+.reviewSubmit button:hover {
+    background-color: #c62914;
+}
+
 .updateReviewModal::-webkit-scrollbar {
     display: none;
 }
 
-.updateReviewModal  div{
+.updateReviewModal div{
     padding: 10px;
 }
 
 .updateReviewModal textarea {
     margin: 1vw 0px;
+    padding-left: 10px;
 }
 
-.updateReviewModal  select {
+.updateReviewModal select {
     width: 97%;
 }
 
-.updateReviewModal  ul {
+.updateReviewModal ul {
     color: red;
 }
 
-.updateReviewModal  h1 {
-    color: #e33d26;
+.updateReviewModal h1 {
+    color: #ff385c;
 }
 
 .reviewSubmit {
@@ -43,4 +57,8 @@
 
 .rate {
     padding: 0px;
+}
+
+.reviewFormmodal textarea {
+    padding: 0.5vw;
 }

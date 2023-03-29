@@ -90,7 +90,7 @@ module.exports = {
         lat: 40,
         lng: 85,
         name: "East Side Beehive",
-        description: "Clean, Zen modern backyard cottage, easy access to SXSW, convention center, great dining, and public transportation. Gorgeous, peaceful space, close to the action but perfect for rest and recharging. Easy access to SXSW, ACL, F1 and all festivals.",
+        description: "Clean, Zen modern backyard cottage, easy access to SXSW, convention center, great dining, and public transportation.",
         price: 450
       },
       {
@@ -126,7 +126,7 @@ module.exports = {
         lat: 40,
         lng: 85,
         name: "Architectural wonder in the woods",
-        description: "Unique experience, secluded. Enjoy a weekend or a few days eco-friendly retreat in an architectural, geometric masterpiece on 30 preserved acres just minutes from all that Rhinebeck and the Hudson Valley have to offer.",
+        description: "Unique experience, secluded. Enjoy a weekend or a few days eco-friendly retreat in an architectural, geometric masterpiece!",
         price: 750
       },
       {
@@ -150,7 +150,7 @@ module.exports = {
         lat: 40,
         lng: 85,
         name: "Watershed Pointe D",
-        description: "Our Resort property features several outdoor areas for your enjoyment. The “Yard” is the center of our Resort. There, you can find a gorgeous view, seating, a group fire pit, a bocce ball court, corn hole, ladder ball, horseshoes, and our signature “logzebo” with a bed swing.",
+        description: "Our Resort property features several outdoor areas for your enjoyment. The “Yard” is the center of our Resort.",
         price: 237
       },
       {
@@ -162,7 +162,7 @@ module.exports = {
         lat: 40,
         lng: 85,
         name: "3BR Oceanfront",
-        description: "El Mar, which translates to “the sea”, is the name of this gorgeous beachfront home just waiting to assist in making the best memories. All bedrooms face the ocean, so each guest enjoys a spectacular ocean view and the ocean’s lullaby in the evening.",
+        description: "El Mar, which translates to “the sea”, is the name of this gorgeous beachfront home just waiting to assist in making the best memories.",
         price: 1120
       },
       {
@@ -174,7 +174,7 @@ module.exports = {
         lat: 40,
         lng: 85,
         name: "Myra's Cabin",
-        description: "Bring family and friends to our newly constructed cabin located in the Cobbly Nob Community and take in the fresh Great Smoky Mountain National Park air as you gaze upon the mountain landscape from the decks of Diamond in the Bluff with our wall of windows framing the beautiful mountain scenery and the amazing views.",
+        description: "Bring family and friends to our newly constructed cabin and enjoy the nice views!",
         price: 327
       },
       {

@@ -188,6 +188,18 @@ module.exports = {
         name: "Thimble Rock Point",
         description: "Nestled in the mountainside of an obscure Colorado canyon there is a place so fitting it literally rises from the rock the way a ship breaks a wave.",
         price: 356
+      },
+      {
+        ownerId: 1,
+        address: "100 Palace Place",
+        city: "Langley",
+        state: "Kentucky",
+        country: "United States",
+        lat: 40,
+        lng: 85,
+        name: "The Bluegrass Palace",
+        description: "There is a special place, nestled amidst the rolling hills of Kentucky bluegrass, where 29,000 square feet of unmitigated luxury welcomes you.",
+        price: 356
       }
     ], {})
   },

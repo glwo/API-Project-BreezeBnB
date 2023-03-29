@@ -83,6 +83,11 @@ module.exports = {
         spotId: 15,
         url: "https://static.wixstatic.com/media/d40a58_95650b5cf1e247d19a9ca4a1b9e4598a~mv2.jpg/v1/fill/w_640,h_476,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/d40a58_95650b5cf1e247d19a9ca4a1b9e4598a~mv2.jpg",
         preview: true
+      },
+      {
+        spotId: 16,
+        url: "https://2486634c787a971a3554-d983ce57e4c84901daded0f67d5a004f.ssl.cf1.rackcdn.com/the-farm/media/thefarm-ourestate-majesticdreamestate-01-main-619d47d8a2051.jpeg",
+        preview: true
       }
     ], {})
   },

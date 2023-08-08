@@ -8,6 +8,7 @@ import { thunkLoadUserBookings} from "../../store/bookings";
 import { getAllReviews } from "../../store/reviews";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import DeleteBookingModal from "../DeleteBookingModal";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 
 const ProfilePage = () => {
@@ -21,6 +22,7 @@ const ProfilePage = () => {
     const userSpots = Object.values(spotsObj).filter(spot => spot?.ownerId == sessionUser?.id)
     // const userReviews = Object.values(reviews).filter(review => review?.user_id == sessionUser?.id)
     const { closeModal } = useModal();
+    const history = useHistory();
 
     const openMenu = () => {
         if (showMenu) return;
@@ -68,6 +70,10 @@ const ProfilePage = () => {
         </div>
         )
     }
+
+    const onClick = (spotId) => {
+        history.push(`/spots/${spotId}`);
+      };
 
     function reformatDateString(dateString) {
         // Split the date string into an array of [year, month, day]
@@ -125,39 +131,53 @@ const ProfilePage = () => {
             <h2 className="userBookings-trips">Your properties, thank you for hosting with BreezeBnB!</h2>
             </div>
         <div className="spots-Box">
-            {userSpots.map(spot => {
-                return (
-                    <div className="spot-Card">
-                        <nav>
-                            <NavLink className="navBar" to={`/Spots/${spot.id}`}>
-                                <div>
-                                    <img className="spotImgDiv" src={`${spot.previewImage}`} alt={"Image couldn't be retrieved"}></img>
-                                </div>
-                                <div>
-                                    <div id='spot-name-rating-div'>
-                                        <h4 id="spotName">
-                                            {spot.name}
-                                        </h4>
-                                        <i id="starIcon" class="fa-sharp fa-solid fa-star"></i>
-                                        {(+spot.avgRating).toFixed(2)}
-                                    </div>
-                                    <div className="spotRating">
-                                    <h4 >
-
-                                    </h4>
-                                    </div>
-                                </div>
-                                <p className="spotLocation">
-                                    {spot.city}, {spot.state}
-                                </p>
-                                <h4>
-                                    ${spot.price} night
-                                </h4>
-                            </NavLink>
-                        </nav>
-                    </div>
-                )
-            })}
+        {userSpots &&
+        userSpots.map((spot) => (
+          <div
+            key={spot.id}
+            className="spot-card"
+            onClick={() => onClick(spot.id)}
+          >
+            <div className="spot-img">
+              <img
+                className="spot-previewimg"
+                src={spot.previewImage}
+                onError={(e) => {
+                  e.currentTarget.src =
+                    "https://i.pinimg.com/originals/81/45/ef/8145efce2fec5157c6700e46ba14abb0.jpg";
+                }}
+                onClick={() => onClick(spot.id)}
+              />
+            </div>
+            <div className="spot-card-bottom">
+              <div className="spot-card-header">
+                <p className="spot-location">
+                {spot.name}
+                </p>
+                <p className="spot-rating">
+                  {(+spot.avgRating).toFixed(2) !== "0.00" ? (
+                    <>
+                      <i className="fa-solid fa-star" id="star"></i>{" "}
+                      {(+spot.avgRating).toFixed(2)}
+                    </>
+                  ) : (
+                    <>
+                    <i className="fa-solid fa-star" id="star"></i>
+                    New
+                    </>
+                  )}
+                </p>
+              </div>
+              <div className="spot-card-middle">
+                <p className="spot-name">{spot.city}, {spot.state}</p>
+              </div>
+              <div className="spot-card-footer">
+                <p className="spot-price">${spot.price}</p>
+                <p className="per-night">night</p>
+              </div>
+            </div>
+          </div>
+        ))}
         </div>
         </div>
     )

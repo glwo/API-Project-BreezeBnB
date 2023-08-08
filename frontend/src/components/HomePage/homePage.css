@@ -66,3 +66,127 @@ justify-content: space-between;
 .spotLocation {
     color: grey;
 }
+
+.allSpots-div {
+    display: flex;
+    box-sizing: border-box;
+    max-width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0px 40px;
+    padding-top: 15px;
+    font-family: Roboto, Helvetica, sans-serif;
+}
+
+.spot-card {
+    height: fit-content;
+    box-sizing: border-box;
+    width: 25%;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.spot-img {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .spot-card {
+        width: 33%;
+    }
+
+    .spot-image {
+        height: 350px;
+    }
+}
+
+@media (min-width: 551px) and (max-width: 767px) {
+    .spot-card {
+        width: 50%;
+    }
+
+    .spot-image {
+        height: 350px;
+    }
+}
+
+@media (max-width: 550px) {
+    .spot-card {
+        width: 100%;
+    }
+
+    .spot-image {
+        height: 350px;
+    }
+}
+
+.spot-previewimg {
+    object-fit: cover;
+    width: 100%;
+    height: fill;
+}
+
+.spot-card-bottom {
+    width: 100%;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.spot-card-header {
+    display: flex;
+    justify-content: space-between;
+    height: 30%;
+}
+
+.spot-location {
+    font-weight: bolder;
+}
+
+.spot-card-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}
+
+.spot-card-middle {
+    box-sizing: border-box;
+    padding-top: 33px;
+    height: 40px;
+    color: gray;
+    font-size: 12px;
+    width: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+}
+
+
+
+.spot-price {
+    font-weight: bold;
+    padding-right: 5px;
+}
+
+.spot-location {
+    font-weight: bold;
+}
+
+.spot-rating {
+    display: flex;
+    justify-content: right;
+    width: 60px;
+    align-items: center;
+    padding-top: 8px;
+}
+
+#star {
+    color: black;
+    font-size: 11px;
+    padding-right: 2px;
+}
